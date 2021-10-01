@@ -14,6 +14,14 @@
         <button mat-raised-button (click)="startMission()">Lancer la mission</button>
         <button mat-raised-button (click)="endMission()">Terminer la mission</button>
         <button mat-raised-button (click)="returnToBase()">Retour à la base</button>
+
+        <div *ngIf="communicationService.droneType == 'CRAZYFLIE'">
+            <button mat-raised-button (click)="identifyDrone(selectedCraziflyDrone)">Identifier</button>
+            <br />
+            <select [(ngModel)]="selectedCraziflyDrone">
+                <option *ngFor="let drone of droneRegistry.ARGOS" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
+            </select>
+        </div>
     </div>
 </div>
 
