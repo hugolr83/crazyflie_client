@@ -19,7 +19,7 @@
             <button mat-raised-button (click)="identifyDrone(selectedCraziflyDrone)">Identifier</button>
             <br />
             <select [(ngModel)]="selectedCraziflyDrone">
-                <option *ngFor="let drone of droneRegistry.ARGOS" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
+                <option *ngFor="let drone of droneRegistry.CRAZYFLIE" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
             </select>
         </div>
     </div>

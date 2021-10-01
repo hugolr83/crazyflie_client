@@ -19,13 +19,19 @@ export class CommunicationService {
 
     constructor(private http: HttpClient) {}
 
+    getDrones(): Observable<Drone[]> {
+      return this.http.get<Drone[]>(`${this.base_url}/drones?drone_type=${this.droneType}`, {});
+    }
+
     startMission(): Observable<Drone[]> {
         console.log(this.droneType);
         return this.http.post<Drone[]>(`${this.base_url}/start_mission?drone_type=${this.droneType}`, {});
     }
+
     endMission(): Observable<Drone[]> {
         return this.http.post<Drone[]>(`${this.base_url}/end_mission?drone_type=${this.droneType}`, {});
     }
+
     returnToBase(): Observable<Drone[]> {
         return this.http.post<Drone[]>(`${this.base_url}/return_to_base?drone_type=${this.droneType}`, {});
     }

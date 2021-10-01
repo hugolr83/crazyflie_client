@@ -17,7 +17,11 @@ export class SidebarComponent implements OnInit {
         this.droneType = 'CRAZYFLIE';
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.communicationService.getDrones().subscribe((drones: Drone[]) => {
+            this.droneRegistry[this.communicationService.droneType] = drones;
+        });
+    }
 
     startMission(): void {
         this.communicationService.startMission().subscribe((drones: Drone[]) => {
