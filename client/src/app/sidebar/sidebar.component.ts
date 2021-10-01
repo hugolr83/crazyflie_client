@@ -1,27 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunicationService } from 'src/services/communication/communication.service';
+import { CommunicationService, DroneType } from 'src/services/communication/communication.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+    droneType: DroneType;
 
-  constructor(private communicationService: CommunicationService) { }
+    constructor(public communicationService: CommunicationService) {
+        this.droneType = 'CRAZYFLIE';
+    }
 
-  ngOnInit(): void { }
+    ngOnInit(): void {}
 
-  startMission(): void {
-    this.communicationService.startMission("ARGOS" || "CRAZYFLIE");
-  }
+    startMission(): void {
+        this.communicationService.startMission();
+    }
 
-  endMission(): void {
-    this.communicationService.endMission("ARGOS" || "CRAZYFLIE");
-  }
+    endMission(): void {
+        this.communicationService.endMission();
+    }
 
-  returnToBase(): void {
-    this.communicationService.returnToBase("ARGOS" || "CRAZYFLIE");
-  }
+    returnToBase(): void {
+        this.communicationService.returnToBase();
+    }
 
+    setDroneType(type: DroneType): void {
+        this.communicationService.droneType = type;
+    }
 }

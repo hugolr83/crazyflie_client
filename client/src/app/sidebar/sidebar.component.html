@@ -1,8 +1,12 @@
 <!-- Side navigation -->
 
 <div class="topnav">
-    <a href="#drone">Robots aériens</a>
-    <a href="#simulation">Simulation</a>
+    <a href="#drone" [ngClass]="communicationService.droneType == 'CRAZYFLIE' ? 'selected' : 'not_selected'" (click)="setDroneType('CRAZYFLIE')"
+        >Robots aériens</a
+    >
+    <a href="#simulation" [ngClass]="communicationService.droneType == 'ARGOS' ? 'selected' : 'not_selected'" (click)="setDroneType('ARGOS')"
+        >Simulation</a
+    >
 </div>
 
 <div class="sidebar">
