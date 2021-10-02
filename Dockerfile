@@ -1,14 +1,14 @@
-# syntax=docker/dockerfile:1
-FROM node:12.18.1
+FROM node:14-bullseye-slim as builder
 
 WORKDIR /client
 
-COPY ["./client/package.json", "./client/package-lock.json", "./"]
+COPY ./client  ./
 
 RUN npm install
+RUN npm run build
 
-COPY ./client .
+FROM nginx:latest
 
-EXPOSE 4200
+COPY --from=builder /client/dist/client /usr/share/nginx/html
 
-CMD ["npm", "start"]
+EXPOSE 80
