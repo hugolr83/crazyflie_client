@@ -1,10 +1,10 @@
 <!-- Side navigation -->
 
 <div class="topnav">
-    <a href="#drone" [ngClass]="communicationService.droneType == 'CRAZYFLIE' ? 'selected' : 'not_selected'" (click)="setDroneType('CRAZYFLIE')"
+    <a href="#drone" [ngClass]="droneType == DroneType.Crazyflie ? 'selected' : 'not_selected'" (click)="setDroneType(DroneType.Crazyflie)"
         >Robots aériens</a
     >
-    <a href="#simulation" [ngClass]="communicationService.droneType == 'ARGOS' ? 'selected' : 'not_selected'" (click)="setDroneType('ARGOS')"
+    <a href="#simulation" [ngClass]="droneType == DroneType.Argos ? 'selected' : 'not_selected'" (click)="setDroneType(DroneType.Argos)"
         >Simulation</a
     >
 </div>
@@ -15,7 +15,7 @@
         <button mat-raised-button (click)="endMission()">Terminer la mission</button>
         <button mat-raised-button (click)="returnToBase()">Retour à la base</button>
 
-        <div *ngIf="communicationService.droneType == 'CRAZYFLIE'">
+        <div *ngIf="droneType == DroneType.Crazyflie">
             <button mat-raised-button (click)="identifyDrone(selectedCraziflyDrone)">Identifier</button>
             <br />
             <select [(ngModel)]="selectedCraziflyDrone">
@@ -30,7 +30,7 @@
     <html>
         <head>
             <body>
-                <img src="src/app/client/GoExplore_full_logo.png" alt="GoExplore" />
+                <img src="assets/GoExplore_full_logo.png" alt="GoExplore"/>
             </body>
         </head>
     </html>

@@ -1,3 +1,4 @@
+import { ApiModule } from '@backend/api-client';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -45,12 +46,13 @@ import { SidebarComponent } from './app/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,],
+    SidebarComponent
+  ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
-    HttpClientModule,
     AppRoutingModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
@@ -89,6 +91,7 @@ import { SidebarComponent } from './app/sidebar/sidebar.component';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    ApiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
