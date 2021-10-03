@@ -5,12 +5,16 @@ Code client web
 ## Getting started
 
 ### Setup the GitLab Private NPM repository
+
 Add a `.npmrc` file within the client directory with the following content:
+
 ```text
 @backend:registry=https://gitlab.com/api/v4/projects/29618275/packages/npm/
 //gitlab.com/api/v4/projects/29618275/packages/npm/:_authToken=<Your Personal Access Token>
 ```
+
 `<Your Personal Access Token>` needs to be replaced with a PAT that has the API scope. To create one:
+
 1. Click your face on Gitlab
 2. Go to Preferences
 3. Click on Access Tokens on the left bar
@@ -20,6 +24,7 @@ Add a `.npmrc` file within the client directory with the following content:
 Don't commit the file (it is already ignored) since the CI will inject one automatically
 
 ### Development
+
 ```shell
 cd client
 npm install
@@ -29,11 +34,13 @@ npm start
 ### Docker
 
 Build docker
+
 ```shell
 docker build --tag <tag_name> .
 ```
 
 Run docker (but just use Docker Compose honestly)
+
 ```shell
 docker run -d -p 8080:8080 <tag_name>
 ```

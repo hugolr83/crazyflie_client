@@ -20,30 +20,30 @@ export class SidebarComponent implements OnInit {
     ngOnInit(): void {
         this.commonApiService.getDrones().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
-                this.droneRegistry[drone.type].push(drone)
-            })
+                this.droneRegistry[drone.type].push(drone);
+            });
         });
     }
 
     startMission(): void {
-        const droneType = this.droneType
+        const droneType = this.droneType;
         this.commonApiService.startMission(droneType).subscribe((drones: Drone[]) => {
             this.droneRegistry[droneType] = drones;
         });
     }
 
     endMission(): void {
-        const droneType = this.droneType
+        const droneType = this.droneType;
         this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {
             this.droneRegistry[droneType] = drones;
         });
     }
 
     returnToBase(): void {
-      const droneType = this.droneType
-      this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {
+        const droneType = this.droneType;
+        this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {
             this.droneRegistry[droneType] = drones;
-      });
+        });
     }
 
     identifyDrone(uuid: string): void {

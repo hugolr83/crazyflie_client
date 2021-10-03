@@ -1,10 +1,16 @@
 <!-- Side navigation -->
 
 <div class="topnav">
-    <a href="#drone" [ngClass]="droneType == DroneType.Crazyflie ? 'selected' : 'not_selected'" (click)="setDroneType(DroneType.Crazyflie)"
+    <a
+        href="#drone"
+        [ngClass]="droneType == DroneType.Crazyflie ? 'selected' : 'not_selected'"
+        (click)="setDroneType(DroneType.Crazyflie)"
         >Robots aériens</a
     >
-    <a href="#simulation" [ngClass]="droneType == DroneType.Argos ? 'selected' : 'not_selected'" (click)="setDroneType(DroneType.Argos)"
+    <a
+        href="#simulation"
+        [ngClass]="droneType == DroneType.Argos ? 'selected' : 'not_selected'"
+        (click)="setDroneType(DroneType.Argos)"
         >Simulation</a
     >
 </div>
@@ -30,7 +36,7 @@
     <html>
         <head>
             <body>
-                <img src="assets/GoExplore_full_logo.png" alt="GoExplore"/>
+                <img src="assets/GoExplore_full_logo.png" alt="GoExplore" />
             </body>
         </head>
     </html>
