@@ -1,43 +1,43 @@
 <!-- Side navigation -->
 
 <div class="topnav">
-    <a
-        href="#drone"
-        [ngClass]="droneType == DroneType.Crazyflie ? 'selected' : 'not_selected'"
-        (click)="setDroneType(DroneType.Crazyflie)"
-        >Robots aériens</a
-    >
-    <a
-        href="#simulation"
-        [ngClass]="droneType == DroneType.Argos ? 'selected' : 'not_selected'"
-        (click)="setDroneType(DroneType.Argos)"
-        >Simulation</a
-    >
+  <a
+    href="#drone"
+    [ngClass]="droneType === DroneType.Crazyflie ? 'selected' : 'not_selected'"
+    (click)="setDroneType(DroneType.Crazyflie)"
+    >Robots aériens</a
+  >
+  <a
+    href="#simulation"
+    [ngClass]="droneType === DroneType.Argos ? 'selected' : 'not_selected'"
+    (click)="setDroneType(DroneType.Argos)"
+    >Simulation</a
+  >
 </div>
 
 <div class="sidebar">
-    <div class="main-buttons">
-        <button mat-raised-button (click)="startMission()">Lancer la mission</button>
-        <button mat-raised-button (click)="endMission()">Terminer la mission</button>
-        <button mat-raised-button (click)="returnToBase()">Retour à la base</button>
+  <div class="main-buttons">
+    <button mat-raised-button (click)="startMission()">Lancer la mission</button>
+    <button mat-raised-button (click)="endMission()">Terminer la mission</button>
+    <button mat-raised-button (click)="returnToBase()">Retour à la base</button>
 
-        <div *ngIf="droneType == DroneType.Crazyflie">
-            <button mat-raised-button (click)="identifyDrone(selectedCraziflyDrone)">Identifier</button>
-            <br />
-            <select [(ngModel)]="selectedCraziflyDrone">
-                <option *ngFor="let drone of droneRegistry.CRAZYFLIE" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
-            </select>
-        </div>
+    <div *ngIf="droneType === DroneType.Crazyflie">
+      <button mat-raised-button (click)="identifyDrone(selectedCraziflyDrone)">Identifier</button>
+      <br />
+      <select [(ngModel)]="selectedCraziflyDrone">
+        <option *ngFor="let drone of droneRegistry.CRAZYFLIE" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
+      </select>
     </div>
+  </div>
 </div>
 
 <div class="main">
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <body>
-                <img src="assets/GoExplore_full_logo.png" alt="GoExplore" />
-            </body>
-        </head>
-    </html>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <body>
+        <img src="assets/GoExplore_full_logo.png" alt="GoExplore" />
+      </body>
+    </head>
+  </html>
 </div>
