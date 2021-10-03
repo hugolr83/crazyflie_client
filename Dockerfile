@@ -1,7 +1,7 @@
 FROM node:14-bullseye-slim as builder
 
 WORKDIR /client
-COPY ./client  ./
+COPY ./ ./
 
 RUN npm install && npm run build
 

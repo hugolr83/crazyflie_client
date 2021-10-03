@@ -1,2 +1,2 @@
-./client/dist
-./client/node_modules
+./dist
+./node_modules
