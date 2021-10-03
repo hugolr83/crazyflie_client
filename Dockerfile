@@ -1,14 +1,13 @@
 FROM node:14-bullseye-slim as builder
 
 WORKDIR /client
-
 COPY ./client  ./
 
-RUN npm install
-RUN npm run build
+RUN npm install && npm run build
 
 FROM nginx:latest
 
 COPY --from=builder /client/dist/client /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+EXPOSE 8080
