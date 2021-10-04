@@ -66,4 +66,4 @@ test:
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
   artifacts:
     reports:
-      cobertura: coverage/cobertura-coverage.xml
+      cobertura: coverage/client/cobertura-coverage.xml
