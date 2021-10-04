@@ -25,7 +25,7 @@ cache: &cache
 
 stages:
   - install
-  - test
+  - tests
 
 install:
   stage: install
@@ -43,18 +43,22 @@ install:
       - .npm
     policy: pull-push
 
-static:
-  stage: test
+lint-and-build:
+  stage: tests
   only: *only
   script:
     - npm run format:check
     - npm run lint
+    - npm run build
   cache: *cache
   dependencies:
     - install
+  artifacts:
+    paths:
+      - dist/
 
-test:
-  stage: test
+karma:
+  stage: tests
   only: *only
   image: $CI_REGISTRY_IMAGE/headless-chromium:0.0.2
   script:
