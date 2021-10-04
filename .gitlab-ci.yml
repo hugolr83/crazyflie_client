@@ -26,6 +26,7 @@ cache: &cache
 stages:
   - install
   - tests
+  - release
 
 install:
   stage: install
@@ -71,3 +72,17 @@ karma:
   artifacts:
     reports:
       cobertura: coverage/client/cobertura-coverage.xml
+
+
+release:
+  stage: release
+  only: *only
+  variables:
+    GIT_AUTHOR_NAME: Alfred Pennyworth
+    GIT_AUTHOR_EMAIL: alfred.pennyworth@polymtl.ca
+    GIT_COMMITTER_NAME: Alfred Pennyworth
+    GIT_COMMITTER_EMAIL: alfred.pennyworth@polymtl.ca
+    GITLAB_TOKEN: $SEMANTIC_RELEASE_TOKEN
+  script:
+    - npx semantic-release --dry-run
+  cache: *cache
