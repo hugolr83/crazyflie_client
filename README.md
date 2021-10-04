@@ -6,7 +6,7 @@ Code client web
 
 ### Setup the GitLab Private NPM repository
 
-Add a `.npmrc` file within the client directory with the following content:
+Add a `.npmrc` file within the root directory with the following content:
 
 ```text
 @backend:registry=https://gitlab.com/api/v4/projects/29618275/packages/npm/
