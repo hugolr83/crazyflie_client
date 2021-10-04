@@ -73,7 +73,6 @@ karma:
     reports:
       cobertura: coverage/client/cobertura-coverage.xml
 
-
 release:
   stage: release
   only: *only
