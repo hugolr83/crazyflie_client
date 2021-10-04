@@ -8,16 +8,12 @@ cache: &cache
     - node_modules/
   policy: pull
 
-.only: &only
+.only: &main_and_mr
   refs:
     - main
     - merge_requests
 
-.except: &exclude_release
-  changes:
-    - CHANGELOG.md
-
-.only_release: &only_release
+.release: &release
   refs:
     - main
   variables:
@@ -27,10 +23,13 @@ stages:
   - install
   - tests
   - release
+  - export_version
+  - build_and_push_client_image
 
 install:
   stage: install
-  only: *only
+  only: *main_and_mr
+  except: *release
   script:
     - echo "@backend:registry=https://gitlab.com/api/v4/projects/29618275/packages/npm/" >> .npmrc
     - echo "//gitlab.com/api/v4/projects/29618275/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
@@ -44,9 +43,10 @@ install:
       - .npm
     policy: pull-push
 
-lint-and-build:
+lint_and_build:
   stage: tests
-  only: *only
+  only: *main_and_mr
+  except: *release
   script:
     - npm run format:check
     - npm run lint
@@ -60,7 +60,8 @@ lint-and-build:
 
 karma:
   stage: tests
-  only: *only
+  only: *main_and_mr
+  except: *release
   image: $CI_REGISTRY_IMAGE/headless-chromium:0.0.2
   script:
     - Xvfb :99 -ac -screen 0 1920x1080x24 &
@@ -78,6 +79,7 @@ release:
   only:
     refs:
       - main
+  except: *release
   image: $CI_REGISTRY_IMAGE/release:0.0.1
   variables:
     GIT_AUTHOR_NAME: Alfred Pennyworth
@@ -88,3 +90,26 @@ release:
   script:
     - npx semantic-release
   cache: *cache
+
+export_version:
+  stage: export_version
+  only: *release
+  script:
+    - echo "CLIENT_VERSION=$(npm view client version)" >> export_version.env
+  artifacts:
+    reports:
+      dotenv: export_version.env
+
+build_and_push_client_image:
+  stage: build_and_push_client_image
+  image: docker:latest
+  only: *release
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/client:$CLIENT_VERSION
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password-stdin
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
