@@ -75,7 +75,9 @@ karma:
 
 release:
   stage: release
-  only: *only
+  only:
+    refs:
+      - main
   variables:
     GIT_AUTHOR_NAME: Alfred Pennyworth
     GIT_AUTHOR_EMAIL: alfred.pennyworth@polymtl.ca
@@ -83,5 +85,5 @@ release:
     GIT_COMMITTER_EMAIL: alfred.pennyworth@polymtl.ca
     GITLAB_TOKEN: $SEMANTIC_RELEASE_TOKEN
   script:
-    - npx semantic-release --dry-run
+    - npx semantic-release
   cache: *cache
