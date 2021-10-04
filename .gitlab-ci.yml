@@ -94,7 +94,7 @@ export_version:
   stage: export_version
   only: *release
   script:
-    - echo "CLIENT_VERSION=$(npm view client version)" >> export_version.env
+    - echo "CLIENT_VERSION=$(node -pe "require('./package.json').version")" >> export_version.env
   artifacts:
     reports:
       dotenv: export_version.env
@@ -110,7 +110,7 @@ build_and_push_client_image:
   before_script:
     - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password-stdin
     - echo "@backend:registry=https://gitlab.com/api/v4/projects/29618275/packages/npm/" >> .npmrc
-    - echo "//gitlab.com/api/v4/projects/29618275/packages/npm/:_authToken=${BACKEND_PROJECT_TOKEN}" >> .npmrc
+    - echo "//gitlab.com/api/v4/projects/29618275/packages/npm/:_authToken=${RO_NPM_TOKEN}" >> .npmrc
   script:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
