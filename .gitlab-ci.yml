@@ -15,7 +15,7 @@ cache: &cache
 
 .release: &release
   variables:
-    - $CI_COMMIT_AUTHOR == "Alfred Pennyworth <alfred.pennyworth@polymtl.ca>"
+    - '$CI_COMMIT_AUTHOR == "Alfred Pennyworth <alfred.pennyworth@polymtl.ca>" && $CI_COMMIT_BRANCH == "main"'
 
 stages:
   - install
