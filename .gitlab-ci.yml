@@ -1,6 +1,6 @@
 image: node:lts-bullseye-slim
 
-cache:
+cache: &cache
   key:
     files:
       - package-lock.json
@@ -51,16 +51,18 @@ static:
   script:
     - prettier --check .
     - npm run lint
+  cache: *cache
   dependencies:
     - install
 
 test:
   stage: test
   only: *only
-  image: $CI_REGISTRY_IMAGE/headless-chromium:0.0.1
+  image: $CI_REGISTRY_IMAGE/headless-chromium:0.0.2
   script:
     - Xvfb :99 -ac -screen 0 1920x1080x24 &
     - npm run test -- --browsers=ChromeHeadless --watch=false
+  cache: *cache
   dependencies:
     - install
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
