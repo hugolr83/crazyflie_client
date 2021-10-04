@@ -1,7 +1,8 @@
 FROM node:14-bullseye-slim as builder
 
 WORKDIR /client
-COPY ./ ./
+COPY angular.json package.json package-lock.json tsconfig.app.json tsconfig.json .npmrc ./
+COPY src ./src
 
 RUN npm install && npm run build
 
