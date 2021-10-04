@@ -1,0 +1,5 @@
+FROM node:lts-bullseye-slim
+
+# Install Chromium
+ENV CHROME_BIN="/usr/bin/chromium"
+RUN apt-get update && apt-get install -y xvfb chromium
