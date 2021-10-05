@@ -4,7 +4,7 @@ WORKDIR /client
 COPY angular.json package.json package-lock.json tsconfig.app.json tsconfig.json .npmrc ./
 COPY src ./src
 
-RUN npm ci && npm run build
+RUN npm ci && npm run build --prod
 
 FROM nginx:latest
 
