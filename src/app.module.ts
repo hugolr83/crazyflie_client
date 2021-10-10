@@ -40,8 +40,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiModule } from '@backend/api-client';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app/app.component';
-import { SidebarComponent } from './app/sidebar/sidebar.component';
+import { AppComponent } from './app/components/app.component';
+import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 
 @NgModule({
     declarations: [AppComponent, SidebarComponent],
@@ -93,4 +93,4 @@ import { SidebarComponent } from './app/sidebar/sidebar.component';
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
