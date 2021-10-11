@@ -1,0 +1,31 @@
+<form class="drone">
+  <fieldset class="box">
+    <legend>Drone.number</legend>
+    <div class="control-group">
+      <label class="control-label" for="input01">État : </label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="input01" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="input01">Position :</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="input01" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="input01">Orientation :</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="input01" />
+      </div>
+    </div>
+
+    <div class="button" *ngIf="droneType === DroneType.Crazyflie">
+      <button mat-raised-button (click)="identifyDrone(selectedCrazyFlyDrone)">Identifier</button>
+      <br />
+      <select [(ngModel)]="selectedCrazyFlyDrone">
+        <option *ngFor="let drone of droneRegistry.CRAZYFLIE" [ngValue]="drone.uuid">{{ drone.uuid }}</option>
+      </select>
+    </div>
+  </fieldset>
+</form>
