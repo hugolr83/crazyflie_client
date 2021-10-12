@@ -41,13 +41,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiModule } from '@backend/api-client';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/components/app/app.component';
-import { CommunicationComponent } from './app/components/communication/communication.component';
+import { DroneContainerComponent } from './app/components/drone-container/drone-container.component';
 import { DroneComponent } from './app/components/drone/drone.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 
-
 @NgModule({
-    declarations: [AppComponent, SidebarComponent, DroneComponent, CommunicationComponent],
+    declarations: [AppComponent, SidebarComponent, DroneComponent, DroneContainerComponent],
     imports: [
         HttpClientModule,
         ReactiveFormsModule,
@@ -96,4 +95,4 @@ import { SidebarComponent } from './app/components/sidebar/sidebar.component';
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

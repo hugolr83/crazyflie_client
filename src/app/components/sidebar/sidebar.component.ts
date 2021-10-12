@@ -1,49 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonApiService, CrazyflieApiService, DroneType, Drone } from '@backend/api-client';
-
-export type DroneRegistry = { [key in DroneType]: Drone[] };
+import { Component } from '@angular/core';
+import { CommonApiService, CrazyflieApiService, Drone, DroneType } from '@backend/api-client';
+import { AppService } from 'src/app/services/app/app.service';
 
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
     DroneType = DroneType;
 
-    droneRegistry: DroneRegistry = { CRAZYFLIE: [], ARGOS: [] };
     selectedCraziflyDrone!: string;
     droneType: DroneType = DroneType.Crazyflie;
 
-    constructor(public commonApiService: CommonApiService, public crazyflieApiService: CrazyflieApiService) {}
-
-    ngOnInit(): void {
-        this.commonApiService.getDrones().subscribe((drones: Drone[]) => {
-            drones.forEach((drone: Drone) => {
-                this.droneRegistry[drone.type].push(drone);
-            });
-        });
-    }
+    constructor(
+        public commonApiService: CommonApiService,
+        public crazyflieApiService: CrazyflieApiService,
+        public appService: AppService,
+    ) {}
 
     startMission(): void {
         const droneType = this.droneType;
-        this.commonApiService.startMission(droneType).subscribe((drones: Drone[]) => {
-            this.droneRegistry[droneType] = drones;
-        });
+        this.commonApiService.startMission(droneType).subscribe((drones: Drone[]) => {});
     }
 
     endMission(): void {
         const droneType = this.droneType;
-        this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {
-            this.droneRegistry[droneType] = drones;
-        });
+        this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {});
     }
 
     returnToBase(): void {
         const droneType = this.droneType;
-        this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {
-            this.droneRegistry[droneType] = drones;
-        });
+        this.commonApiService.endMission(droneType).subscribe((drones: Drone[]) => {});
     }
 
     identifyDrone(uuid: string): void {
@@ -52,9 +40,5 @@ export class SidebarComponent implements OnInit {
         this.crazyflieApiService.identifyCrazyflie(uuid).subscribe((drone: Drone) => {
             console.log('Identified drone success ', drone);
         });
-    }
-
-    setDroneType(type: DroneType): void {
-        this.droneType = type;
     }
 }
