@@ -4,6 +4,7 @@ import { AppService } from 'src/app/services/app/app.service';
 import { SocketService } from 'src/app/services/communication/socket.service';
 
 export type DroneRegistry = { [key in DroneType]: Drone[] };
+// state: 'Waiting' | 'Start-Up' | 'Exploring' | 'ReturnToBase' | 'ImmediateLanding' | 'Crashed';
 
 @Component({
     selector: 'app-drone',

@@ -1,0 +1,14 @@
+<div class="topnav">
+  <a
+    href="#drone"
+    [ngClass]="appService.droneType === DroneType.Crazyflie ? 'selected' : 'not_selected'"
+    (click)="setDroneType(DroneType.Crazyflie)"
+    >Robots aériens</a
+  >
+  <a
+    href="#simulation"
+    [ngClass]="appService.droneType === DroneType.Argos ? 'selected' : 'not_selected'"
+    (click)="setDroneType(DroneType.Argos)"
+    >Simulation</a
+  >
+</div>

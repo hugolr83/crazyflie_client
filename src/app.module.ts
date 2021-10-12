@@ -44,9 +44,18 @@ import { AppComponent } from './app/components/app/app.component';
 import { DroneContainerComponent } from './app/components/drone-container/drone-container.component';
 import { DroneComponent } from './app/components/drone/drone.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
+import { DashboardComponent } from './app/components/dashboard/dashboard.component';
+import { TopNavComponent } from './app/components/top-nav/top-nav.component';
 
 @NgModule({
-    declarations: [AppComponent, SidebarComponent, DroneComponent, DroneContainerComponent],
+    declarations: [
+        AppComponent,
+        SidebarComponent,
+        DroneComponent,
+        DroneContainerComponent,
+        DashboardComponent,
+        TopNavComponent,
+    ],
     imports: [
         HttpClientModule,
         ReactiveFormsModule,
