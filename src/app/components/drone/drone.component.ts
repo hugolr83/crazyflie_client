@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonApiService, CrazyflieApiService, Drone, DroneType } from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType } from '@backend/api-client';
 import { AppService } from 'src/app/services/app/app.service';
 import { SocketService } from 'src/app/services/communication/socket.service';
 
@@ -15,6 +15,7 @@ export class DroneComponent {
     @Input() drone!: Drone;
     DroneType = DroneType;
     selectedDroneUUID!: string;
+    DroneState = DroneState;
 
     constructor(
         public commonApiService: CommonApiService,

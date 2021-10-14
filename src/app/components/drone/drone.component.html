@@ -1,25 +1,39 @@
-<form class="drone">
-  <fieldset class="box">
-    <legend>Drone.number</legend>
-    <div class="control-group">
-      <label class="control-label" for="input01">État : </label>
-      {{ drone.state }}
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="input01">Position :</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="input01" />
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="input01">Orientation :</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="input01" />
-      </div>
-    </div>
-
-    <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button mat-raised-button (click)="identifyDrone(drone.uuid)">Identifier</button>
-    </div>
-  </fieldset>
-</form>
+<div class="drone">
+  <!-- Waiting = "WAITING", Starting = "STARTING", Navigating = "NAVIGATING",
+  Crashed = "CRASHED", Landing = "LANDING" -->
+  <mat-list>
+    <mat-list-item *ngIf="drone.state === DroneState.Waiting">
+      <mat-icon>autorenew</mat-icon>
+      <h4>Etat : {{ drone.state }}</h4>
+    </mat-list-item>
+    <mat-list-item *ngIf="drone.state === DroneState.Starting">
+      <mat-icon>not_started</mat-icon>
+      <h4>Etat : {{ drone.state }}</h4>
+    </mat-list-item>
+    <mat-list-item *ngIf="drone.state === DroneState.Navigating">
+      <mat-icon>navigation</mat-icon>
+      <h4>Etat : {{ drone.state }}</h4>
+    </mat-list-item>
+    <mat-list-item *ngIf="drone.state === DroneState.Crashed">
+      <mat-icon>airplanemode_inactive</mat-icon>
+      <h4>Etat : {{ drone.state }}</h4>
+    </mat-list-item>
+    <mat-list-item *ngIf="drone.state === DroneState.Landing">
+      <mat-icon>flight_land</mat-icon>
+      <h4>Etat : {{ drone.state }}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon class="icon">assistant_navigation</mat-icon>
+      <h4>Position</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon>explore</mat-icon>
+      <h4>Orientation</h4>
+    </mat-list-item>
+  </mat-list>
+  <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
+    <button mat-raised-button (click)="identifyDrone(drone.uuid)">Identifier</button>
+  </div>
+</div>

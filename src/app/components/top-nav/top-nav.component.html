@@ -1,4 +1,4 @@
-<div class="topnav">
+<!-- <div class="topnav">
   <a
     href="#drone"
     [ngClass]="appService.droneType === DroneType.Crazyflie ? 'selected' : 'not_selected'"
@@ -11,4 +11,15 @@
     (click)="setDroneType(DroneType.Argos)"
     >Simulation</a
   >
-</div>
+</div> -->
+
+<mat-toolbar class="topnav">
+  <mat-toolbar-row>
+    <h1>GoExplore</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button (click)="setDroneType(DroneType.Crazyflie)"> Robots aériens</a>
+      <a mat-button (click)="setDroneType(DroneType.Argos)"> Simulation </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
