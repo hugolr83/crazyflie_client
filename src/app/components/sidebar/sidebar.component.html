@@ -1,7 +1,20 @@
-<div class="sidebar">
-  <div class="main-buttons">
-    <button mat-raised-button (click)="startMission()">Lancer la mission</button>
-    <button mat-raised-button (click)="endMission()">Terminer la mission</button>
-    <button mat-raised-button (click)="returnToBase()">Retour à la base</button>
-  </div>
-</div>
+<nz-sider nzWidth="200px" nzTheme="light">
+  <ul nz-menu nzMode="inline" class="sider-menu">
+    <li nz-submenu nzOpen nzTitle="Mission" nzIcon="login">
+      <ul>
+        <li nz-menu-item nzSelected (click)="startMission()">Lancer la mission</li>
+        <li nz-menu-item (click)="endMission()">Terminer la mission</li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Directives" nzIcon="laptop">
+      <ul>
+        <li nz-menu-item (click)="returnToBase()">Retour à la base</li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">
+      <ul>
+        <li nz-menu-item>Mise à jour</li>
+      </ul>
+    </li>
+  </ul>
+</nz-sider>

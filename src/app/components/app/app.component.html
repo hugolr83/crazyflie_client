@@ -1,15 +1,7 @@
-<!-- <div>
-  <app-top-nav></app-top-nav>
-  <div class="parent-container">
-    <app-sidebar></app-sidebar>
-    <app-dashboard></app-dashboard>
-  </div>
-</div> -->
-
-<div>
-  <app-top-nav></app-top-nav>
-  <mat-drawer-container class="parent-container">
-    <mat-drawer mode="side" opened><app-sidebar></app-sidebar></mat-drawer>
-    <mat-drawer-content><app-dashboard></app-dashboard></mat-drawer-content>
-  </mat-drawer-container>
-</div>
+<nz-layout>
+  <nz-header><app-top-nav></app-top-nav></nz-header>
+  <nz-layout>
+    <nz-sider><app-sidebar></app-sidebar></nz-sider>
+    <nz-content><app-dashboard></app-dashboard></nz-content>
+  </nz-layout>
+</nz-layout>

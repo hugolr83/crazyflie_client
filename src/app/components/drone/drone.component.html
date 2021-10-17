@@ -1,38 +1,36 @@
 <div class="drone">
-  <!-- Waiting = "WAITING", Starting = "STARTING", Navigating = "NAVIGATING",
-  Crashed = "CRASHED", Landing = "LANDING" -->
-  <mat-list>
-    <mat-list-item *ngIf="drone.state === DroneState.Waiting">
+  <nz-list nzBordered nzSize="small">
+    <nz-list-item *ngIf="drone.state === DroneState.Waiting">
       <mat-icon>autorenew</mat-icon>
       <h4>Etat : {{ drone.state }}</h4>
-    </mat-list-item>
-    <mat-list-item *ngIf="drone.state === DroneState.Starting">
+    </nz-list-item>
+    <nz-list-item *ngIf="drone.state === DroneState.Starting">
       <mat-icon>not_started</mat-icon>
       <h4>Etat : {{ drone.state }}</h4>
-    </mat-list-item>
-    <mat-list-item *ngIf="drone.state === DroneState.Navigating">
+    </nz-list-item>
+    <nz-list-item *ngIf="drone.state === DroneState.Navigating">
       <mat-icon>navigation</mat-icon>
       <h4>Etat : {{ drone.state }}</h4>
-    </mat-list-item>
-    <mat-list-item *ngIf="drone.state === DroneState.Crashed">
+    </nz-list-item>
+    <nz-list-item *ngIf="drone.state === DroneState.Crashed">
       <mat-icon>airplanemode_inactive</mat-icon>
       <h4>Etat : {{ drone.state }}</h4>
-    </mat-list-item>
-    <mat-list-item *ngIf="drone.state === DroneState.Landing">
+    </nz-list-item>
+    <nz-list-item *ngIf="drone.state === DroneState.Landing">
       <mat-icon>flight_land</mat-icon>
       <h4>Etat : {{ drone.state }}</h4>
-    </mat-list-item>
+    </nz-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item>
+    <nz-list-item>
       <mat-icon class="icon">assistant_navigation</mat-icon>
       <h4>Position</h4>
-    </mat-list-item>
+    </nz-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item>
+    <nz-list-item>
       <mat-icon>explore</mat-icon>
       <h4>Orientation</h4>
-    </mat-list-item>
-  </mat-list>
+    </nz-list-item>
+  </nz-list>
   <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
     <button mat-raised-button (click)="identifyDrone(drone.uuid)">Identifier</button>
   </div>

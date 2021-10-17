@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -39,13 +41,21 @@ import { MatTreeModule } from '@angular/material/tree';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiModule } from '@backend/api-client';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/components/app/app.component';
+import { DashboardComponent } from './app/components/dashboard/dashboard.component';
 import { DroneContainerComponent } from './app/components/drone-container/drone-container.component';
 import { DroneComponent } from './app/components/drone/drone.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
-import { DashboardComponent } from './app/components/dashboard/dashboard.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
+registerLocaleData(en);
 
 @NgModule({
     declarations: [
@@ -100,8 +110,14 @@ import { TopNavComponent } from './app/components/top-nav/top-nav.component';
         MatTooltipModule,
         MatTreeModule,
         ApiModule,
+        NzMenuModule,
+        NzLayoutModule,
+        NzButtonModule,
+        NzIconModule,
+        NzDividerModule,
+        NzListModule,
     ],
-    providers: [],
+    providers: [{ provide: NZ_I18N, useValue: en_US }],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

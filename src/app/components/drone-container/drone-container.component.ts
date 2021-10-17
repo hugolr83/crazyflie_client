@@ -12,7 +12,7 @@ export class DroneContainerComponent implements OnInit {
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.appService.droneRegistry = {
