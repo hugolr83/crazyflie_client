@@ -1,10 +1,6 @@
-.sider-menu {
-    height: 100vh;
-    // background-color: #305aad;
+nz-sider {
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    left: 0;
 }
-
-// @media screen and (max-height: 450px) {
-//     .sidebar {
-//         padding-top: 15px;
-//     }
-// }

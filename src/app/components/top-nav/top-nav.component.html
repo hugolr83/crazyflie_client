@@ -1,32 +1,6 @@
-<!-- <div class="topnav">
-  <a
-    href="#drone"
-    [ngClass]="appService.droneType === DroneType.Crazyflie ? 'selected' : 'not_selected'"
-    (click)="setDroneType(DroneType.Crazyflie)"
-    >Robots aériens</a
-  >
-  <a
-    href="#simulation"
-    [ngClass]="appService.droneType === DroneType.Argos ? 'selected' : 'not_selected'"
-    (click)="setDroneType(DroneType.Argos)"
-    >Simulation</a
-  >
-</div> -->
-
-<!-- <mat-toolbar class="topnav">
-  <mat-toolbar-row>
-    <h1>GoExplore</h1>
-    <span class="menu-spacer"></span>
-    <div>
-      <a mat-button (click)="setDroneType(DroneType.Crazyflie)"> Robots aériens</a>
-      <a mat-button (click)="setDroneType(DroneType.Argos)"> Simulation </a>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar> -->
-
-<nz-header class="topnav">
+<nz-header>
   <div class="logo">
-    <img src="inf3995-client\src\assets\images\ge_full_logo.png" alt="logo" />
+    <img src="assets\images\ge_full_logo.png" alt="logo" />
   </div>
   <ul class="header-menu" nz-menu nzMode="horizontal">
     <li nz-menu-item (click)="setDroneType(DroneType.Crazyflie)">Robots aériens</li>

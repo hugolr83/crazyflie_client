@@ -1,4 +1,8 @@
-<div class="loader" *ngIf="appService.droneRegistry[appService.droneType].length === 0; else droneContainer"></div>
+<div
+  nz-icon
+  [nzType]="'loading'"
+  *ngIf="appService.droneRegistry[appService.droneType].length === 0; else droneContainer"
+></div>
 <ng-template #droneContainer>
   <div *ngFor="let drone of appService.droneRegistry[appService.droneType]">
     <app-drone [drone]="drone"></app-drone>

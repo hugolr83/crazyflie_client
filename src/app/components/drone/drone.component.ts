@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType } from '@backend/api-client';
+import { NzButtonSize } from 'ng-zorro-antd/button';
 import { AppService } from 'src/app/services/app/app.service';
 import { SocketService } from 'src/app/services/communication/socket.service';
 
@@ -16,6 +17,7 @@ export class DroneComponent {
     DroneType = DroneType;
     selectedDroneUUID!: string;
     DroneState = DroneState;
+    size!: NzButtonSize;
 
     constructor(
         public commonApiService: CommonApiService,

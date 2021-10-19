@@ -1,15 +1,16 @@
 .drone {
-    position: relative;
-    right: 100px;
-    bottom: 100px;
+    position: absolute;
     width: 20%;
-    height: 200px;
+    height: auto;
     border: 3px solid;
-    border-color: #305aad;
-
+    border-color: #1890ff;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
+    text-align: left;
+
+    right: 200px;
+    bottom: 100px;
 }
 
 .button {

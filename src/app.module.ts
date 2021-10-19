@@ -55,6 +55,7 @@ import { DroneContainerComponent } from './app/components/drone-container/drone-
 import { DroneComponent } from './app/components/drone/drone.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
+import { MissionComponent } from './app/components/mission/mission.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -65,6 +66,7 @@ registerLocaleData(en);
         DroneContainerComponent,
         DashboardComponent,
         TopNavComponent,
+        MissionComponent,
     ],
     imports: [
         HttpClientModule,
@@ -120,4 +122,4 @@ registerLocaleData(en);
     providers: [{ provide: NZ_I18N, useValue: en_US }],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

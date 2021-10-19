@@ -1,7 +1,9 @@
-<nz-layout>
-  <nz-header><app-top-nav></app-top-nav></nz-header>
-  <nz-layout>
-    <nz-sider><app-sidebar></app-sidebar></nz-sider>
-    <nz-content><app-dashboard></app-dashboard></nz-content>
+<nz-layout class="layout">
+  <app-top-nav></app-top-nav>
+  <app-sidebar></app-sidebar>
+  <nz-layout class="inner-layout">
+    <nz-content>
+      <app-dashboard></app-dashboard>
+    </nz-content>
   </nz-layout>
 </nz-layout>
