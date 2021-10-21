@@ -1,23 +1,67 @@
-.drone {
-    position: absolute;
-    width: 20%;
-    height: auto;
-    border: 3px solid;
-    border-color: #1890ff;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-    text-align: left;
+// .drone {
+//     position: absolute;
+//     width: 20%;
+//     height: auto;
+//     border: 3px solid;
+//     border-color: #1890ff;
+//     -moz-border-radius: 8px;
+//     -webkit-border-radius: 8px;
+//     border-radius: 8px;
+//     text-align: left;
 
-    right: 200px;
-    bottom: 100px;
+//     right: 200px;
+//     bottom: 100px;
+// }
+
+// .button {
+//     display: table-cell;
+//     width: 150px;
+//     margin-top: 50px;
+//     margin-bottom: 10px;
+//     margin-left: 15px;
+//     padding-top: 15px;
+// }
+
+.box {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($color: #ffffff, $alpha: 0.5);
+    overflow: hidden;
+    border-radius: 20px;
 }
 
-.button {
-    display: table-cell;
+.box::before {
+    content: '';
+    position: absolute;
     width: 150px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-    margin-left: 15px;
-    padding-top: 15px;
+    height: 140%;
+    background: linear-gradient(#a33b3b, #305aad);
+    animation: animate 4s linear infinite;
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #ffffff;
+    border-radius: 16px;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.box h2 {
+    position: relative;
+    color: #000000;
+    font-size: 10em;
+    z-index: 10;
 }
