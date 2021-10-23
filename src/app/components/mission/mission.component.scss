@@ -1,22 +1,50 @@
-.mission {
+.box {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($color: #ffffff, $alpha: 0.5);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.box::before {
+    content: '';
     position: absolute;
-    width: 30%;
-    right: 100px;
-    top: 100px;
-    border: 3px solid;
-    border-color: #1890ff;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
+    width: 150px;
+    height: 150%;
+    background: linear-gradient(#a33b3b, #305aad);
+    animation: animate 4s linear infinite;
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #ffffff;
+    border-radius: 16px;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.box a {
+    color: #000000;
+    position: relative;
+    display: table;
     padding: 10px;
+    z-index: 10;
 }
 
-.mission-list p {
-    text-align: left;
-}
-
-.button {
+.box button {
     display: table-cell;
     position: relative;
-    padding: 15px;
+    z-index: 10;
 }

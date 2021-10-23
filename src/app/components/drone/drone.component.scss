@@ -1,31 +1,29 @@
-// .drone {
-//     position: absolute;
-//     width: 20%;
-//     height: auto;
-//     border: 3px solid;
-//     border-color: #1890ff;
-//     -moz-border-radius: 8px;
-//     -webkit-border-radius: 8px;
-//     border-radius: 8px;
-//     text-align: left;
+.layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 30px;
+    grid-auto-rows: 80px;
+    grid-template-areas: 'a b';
+}
 
-//     right: 200px;
-//     bottom: 100px;
-// }
+.box1 {
+    grid-area: a;
+    align-self: center;
+    justify-self: center;
+}
 
-// .button {
-//     display: table-cell;
-//     width: 150px;
-//     margin-top: 50px;
-//     margin-bottom: 10px;
-//     margin-left: 15px;
-//     padding-top: 15px;
-// }
+.box2 {
+    grid-area: b;
+    align-self: center;
+    justify-self: center;
+}
 
-.box {
+.box1,
+.box2 {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +32,8 @@
     border-radius: 20px;
 }
 
-.box::before {
+.box1::before,
+.box2::before {
     content: '';
     position: absolute;
     width: 150px;
@@ -43,7 +42,8 @@
     animation: animate 4s linear infinite;
 }
 
-.box::after {
+.box1::after,
+.box2::after {
     content: '';
     position: absolute;
     inset: 4px;
@@ -59,9 +59,25 @@
         transform: rotate(360deg);
     }
 }
-.box h2 {
+
+.box1 p,
+.box2 p {
     position: relative;
+    z-index: 10;
     color: #000000;
-    font-size: 10em;
+}
+
+.box1 a,
+.box2 a {
+    position: relative;
+    display: table;
+    padding: 10px;
+    z-index: 10;
+}
+
+.box1 button,
+.box2 button {
+    display: table-cell;
+    position: relative;
     z-index: 10;
 }

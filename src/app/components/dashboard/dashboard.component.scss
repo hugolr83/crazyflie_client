@@ -1,4 +1,26 @@
-// .debug {
-//     border: 1px solid green;
-//     height: 100%;
-// }
+.grid-container {
+    height: 100%;
+    border: 1px solid green;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 50px;
+    grid-auto-rows: 100px;
+    grid-template-areas:
+        'a a a a b b b b'
+        'a a a a b b b b'
+        'c c c c d d d d'
+        'c c c c d d d d';
+}
+
+.grid-item1 {
+    grid-area: b;
+    align-self: center;
+    justify-self: center;
+}
+
+.grid-item2 {
+    grid-area: d;
+    align-self: center;
+    //justify-self: center;
+}
