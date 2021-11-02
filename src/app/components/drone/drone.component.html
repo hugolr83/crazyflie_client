@@ -1,77 +1,75 @@
 <div class="layout">
   <div class="box1">
-    <p>Drone : {{ drone.uuid }}</p>
-    <a *ngIf="drone.state === DroneState.Waiting">
-      <i nz-icon nzType="interaction"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Starting">
-      <i nz-icon nzType="play-circle"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Navigating">
-      <i nz-icon nzType="eye" nzTheme="twotone"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Crashed">
-      <i nz-icon nzType="warning" nzTheme="twotone"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Landing">
-      <i nz-icon nzType="check-circle" nzTheme="twotone"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a>
-      <i nz-icon nzType="environment" nzTheme="twotone"></i>
-      <p>Position</p></a
-    >
-    <a>
-      <i nz-icon nzType="compass" nzTheme="twotone"></i>
-      <p>Orientation</p></a
-    >
-    <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
-        <i nz-icon nzType="info-circle"></i>
-        Identifier
-      </button>
-    </div>
+    <ul>
+      <li>
+        <p>
+          <i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : <span class="data">{{ drone.uuid }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Waiting">
+        <p><i nz-icon nzType="interaction"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Starting">
+        <p><i nz-icon nzType="play-circle"></i> Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Navigating">
+        <p><i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Crashed">
+        <p><i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Landing">
+        <p><i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li>
+        <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position</p>
+      </li>
+      <li>
+        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation</p>
+      </li>
+      <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
+          <i nz-icon nzType="info-circle"></i>
+          Identifier
+        </button>
+      </li>
+    </ul>
   </div>
 
   <div class="box2">
-    <p>Drone : {{ drone.uuid }}</p>
-    <a *ngIf="drone.state === DroneState.Waiting">
-      <i nz-icon nzType="interaction"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Starting">
-      <i nz-icon nzType="play-circle"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Navigating">
-      <i nz-icon nzType="eye"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Crashed">
-      <i nz-icon nzType="warning" nzTheme="fill"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a *ngIf="drone.state === DroneState.Landing">
-      <i nz-icon nzType="check-circle"></i>
-      <p>Etat : {{ drone.state }}</p>
-    </a>
-    <a>
-      <i nz-icon nzType="environment"></i>
-      <p>Position</p></a
-    >
-    <a>
-      <i nz-icon nzType="compass"></i>
-      <p>Orientation</p></a
-    >
-    <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button nz-button nzType="dashed" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
-        <i nz-icon nzType="info-circle"></i>
-        Identifier
-      </button>
-    </div>
+    <ul>
+      <li>
+        <p>
+          <i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : <span class="data">{{ drone.uuid }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Waiting">
+        <p><i nz-icon nzType="interaction"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Starting">
+        <p><i nz-icon nzType="play-circle"></i> Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Navigating">
+        <p><i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Crashed">
+        <p><i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Landing">
+        <p><i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : {{ drone.state }}</p>
+      </li>
+      <li>
+        <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position</p>
+      </li>
+      <li>
+        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation</p>
+      </li>
+      <div class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
+          <i nz-icon nzType="info-circle"></i>
+          Identifier
+        </button>
+      </div>
+    </ul>
   </div>
 </div>

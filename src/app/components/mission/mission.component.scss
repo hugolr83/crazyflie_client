@@ -8,6 +8,7 @@
     background: rgba($color: #ffffff, $alpha: 0.5);
     overflow: hidden;
     border-radius: 20px;
+    justify-items: center;
 }
 
 .box::before {
@@ -35,16 +36,18 @@
         transform: rotate(360deg);
     }
 }
-.box a {
+.box li {
     color: #000000;
     position: relative;
     display: table;
-    padding: 10px;
+    padding: 5px;
     z-index: 10;
 }
 
-.box button {
-    display: table-cell;
-    position: relative;
-    z-index: 10;
+.box li p i {
+    padding-right: 7px;
+}
+
+.button {
+    width: 50px;
 }

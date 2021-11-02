@@ -1,6 +1,12 @@
 nz-sider {
-    overflow: auto;
     height: 100%;
     position: fixed;
+    overflow: auto;
     left: 0;
+}
+
+@media (max-width: 900px) {
+    .sider-menu {
+        display: none;
+    }
 }

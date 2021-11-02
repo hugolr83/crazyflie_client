@@ -2,21 +2,18 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    gap: 30px;
-    grid-auto-rows: 80px;
+    gap: 2%;
     grid-template-areas: 'a b';
+    justify-items: center;
 }
 
 .box1 {
     grid-area: a;
-    align-self: center;
-    justify-self: center;
 }
 
 .box2 {
     grid-area: b;
-    align-self: center;
-    justify-self: center;
+    justify-items: center;
 }
 
 .box1,
@@ -30,6 +27,15 @@
     background: rgba($color: #ffffff, $alpha: 0.5);
     overflow: hidden;
     border-radius: 20px;
+}
+
+.box1 li,
+.box2 li {
+    color: #000000;
+    position: relative;
+    display: table;
+    padding: 5px;
+    z-index: 10;
 }
 
 .box1::before,
@@ -51,6 +57,15 @@
     border-radius: 16px;
 }
 
+.box1 li p i,
+.box2 li p i {
+    padding-right: 7px;
+}
+
+.data {
+    background-color: #f3f6f4;
+}
+
 @keyframes animate {
     0% {
         transform: rotate(0deg);
@@ -58,26 +73,4 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-.box1 p,
-.box2 p {
-    position: relative;
-    z-index: 10;
-    color: #000000;
-}
-
-.box1 a,
-.box2 a {
-    position: relative;
-    display: table;
-    padding: 10px;
-    z-index: 10;
-}
-
-.box1 button,
-.box2 button {
-    display: table-cell;
-    position: relative;
-    z-index: 10;
 }

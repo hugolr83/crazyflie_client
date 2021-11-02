@@ -5,15 +5,6 @@
     background-color: white;
 }
 
-li,
-a {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: #305aad;
-    text-decoration: none;
-}
-
 nz-header {
     display: flex;
     justify-content: space-between;
@@ -35,6 +26,15 @@ nz-header {
     list-style: none;
 }
 
+.nav_links li a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #305aad;
+    padding-bottom: 10px;
+    transition: all 0.3s ease 0s;
+}
+
 .nav_links li {
     display: inline-block;
     padding: 0 20px;
@@ -45,21 +45,17 @@ nz-header {
     width: 100%;
 }
 
-.nav_links li a {
-    transition: all 0.3s ease 0s;
-}
-
 .nav_links li a:hover {
     color: #a33b3b;
+    width: 100%;
 }
 
 .nav_links ul li a {
     position: relative;
 }
 
-.nav_links li a:active {
+.nav_links li a:hover:after {
     width: 100%;
-    color: #a33b3b;
 }
 
 .nav_links li a:after {
@@ -74,13 +70,50 @@ nz-header {
     background: #a33b3b;
     height: 2px;
 }
-.nav_links li a:hover:after {
-    width: 100%;
+
+.sidebar-toggle {
+    float: right;
+    line-height: 64px;
+    font-size: 24px;
+    color: #a33b3b;
+    cursor: pointer;
+    display: none;
 }
 
-// .header-menu {
-//     background-color: #a33b3b;
-//     padding: 0;
-//     margin: 0;
-//     list-style: none;
-// }
+.type-toggle {
+    float: left;
+    line-height: 64px;
+    font-size: 24px;
+    color: #a33b3b;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .ant-dropdown-menu {
+        margin-right: 15px;
+        font-size: 24rem;
+    }
+    .sidebar-toggle {
+        display: block;
+        padding-left: 30px;
+    }
+
+    .type-toggle {
+        display: block;
+        padding-right: 30px;
+    }
+
+    .nav_links {
+        display: none;
+    }
+
+    .logo {
+        float: none;
+        display: block;
+        height: 18px;
+        margin: auto;
+        padding: auto;
+        align-items: center;
+    }
+}
