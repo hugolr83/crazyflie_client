@@ -48,6 +48,10 @@
     padding-right: 7px;
 }
 
-.button {
-    width: 50px;
+.button p {
+    margin: 0;
+}
+
+.ant-btn-round {
+    height: auto;
 }

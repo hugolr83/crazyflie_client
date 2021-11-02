@@ -33,7 +33,7 @@
 .box2 li {
     color: #000000;
     position: relative;
-    display: table;
+    display: block;
     padding: 5px;
     z-index: 10;
 }
@@ -64,6 +64,9 @@
 
 .data {
     background-color: #f3f6f4;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    padding: 0 10px 0 10px;
 }
 
 @keyframes animate {
