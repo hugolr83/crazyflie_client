@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CommonApiService, CrazyflieApiService, Drone } from '@backend/api-client';
-import { AppService } from './app/app.service';
-
+import { AppService } from '../app/app.service';
 @Injectable({
     providedIn: 'root',
 })

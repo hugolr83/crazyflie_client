@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DroneService } from './../../services/drone.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 
 @Component({
     selector: 'app-sidebar',

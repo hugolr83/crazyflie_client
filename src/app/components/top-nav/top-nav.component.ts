@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DroneType } from '@backend/api-client';
 import { AppService } from 'src/app/services/app/app.service';
-import { DroneService } from './../../services/drone.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 
 @Component({
     selector: 'app-top-nav',
