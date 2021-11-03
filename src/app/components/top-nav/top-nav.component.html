@@ -11,14 +11,14 @@
     <ul nz-menu>
       <li nz-submenu nzTitle="Mission" nzIcon="login">
         <ul>
-          <li nz-menu-item>Lancer la mission</li>
-          <li nz-menu-item>Terminer la mission</li>
+          <li nz-menu-item (click)="droneService.startMission()">Lancer la mission</li>
+          <li nz-menu-item (click)="droneService.endMission()">Terminer la mission</li>
         </ul>
       </li>
 
       <li nz-submenu nzTitle="Directives" nzIcon="laptop">
         <ul>
-          <li nz-menu-item>Retour à la base</li>
+          <li nz-menu-item (click)="droneService.returnToBase()">Retour à la base</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">

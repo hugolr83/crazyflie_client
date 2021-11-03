@@ -7,6 +7,10 @@
 
 nz-header {
     display: flex;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
     justify-content: space-between;
     align-items: left;
     padding: 30px 10%;

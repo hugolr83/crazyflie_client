@@ -12,12 +12,16 @@ describe('DroneComponent', () => {
         state: DroneState.Waiting,
         type: DroneType.Argos,
         uuid: 'test',
+        battery: { charge_percentage: 80, voltage: 5 },
+        position: { x: 50, y: 50, z: 70 },
+        range: { front: 1, back: 2, up: 3, left: 4, right: 5, bottom: 6 },
     };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             declarations: [DroneComponent],
+            providers: [{ provide: DroneComponent, usevalue: {} }],
         }).compileComponents();
     });
 

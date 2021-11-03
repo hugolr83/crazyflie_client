@@ -1,14 +1,14 @@
-<nz-sider class="sider-menu" id="navID" nzTheme="light" onmouseover="toggleSidebar()">
+<nz-sider class="sider-menu" id="navID" nzTheme="light">
   <ul nz-menu nzMode="inline">
     <li nz-submenu nzOpen nzTitle="Mission" nzIcon="login">
       <ul>
-        <li nz-menu-item nzSelected (click)="startMission()">Lancer la mission</li>
-        <li nz-menu-item (click)="endMission()">Terminer la mission</li>
+        <li nz-menu-item nzSelected (click)="droneService.startMission()">Lancer la mission</li>
+        <li nz-menu-item (click)="droneService.endMission()">Terminer la mission</li>
       </ul>
     </li>
     <li nz-submenu nzTitle="Directives" nzIcon="laptop">
       <ul>
-        <li nz-menu-item (click)="returnToBase()">Retour à la base</li>
+        <li nz-menu-item (click)="droneService.returnToBase()">Retour à la base</li>
       </ul>
     </li>
     <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">

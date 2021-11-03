@@ -16,7 +16,16 @@ export class DroneContainerComponent implements OnInit {
 
     ngOnInit(): void {
         this.appService.droneRegistry = {
-            ARGOS: [{ state: DroneState.Crashed, type: DroneType.Argos, uuid: '123' }],
+            ARGOS: [
+                {
+                    state: DroneState.Crashed,
+                    type: DroneType.Argos,
+                    uuid: '123',
+                    battery: { charge_percentage: 80, voltage: 5 },
+                    position: { x: 50, y: 50, z: 70 },
+                    range: { front: 1, back: 2, up: 3, left: 4, right: 5, bottom: 6 },
+                },
+            ],
             CRAZYFLIE: [],
         };
     }
