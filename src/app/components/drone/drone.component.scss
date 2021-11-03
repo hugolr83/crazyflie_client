@@ -45,7 +45,7 @@
     width: 150px;
     height: 140%;
     background: linear-gradient(#a33b3b, #305aad);
-    animation: animate 4s linear infinite;
+    animation: animate 15s linear infinite;
 }
 
 .box1::after,
@@ -75,5 +75,16 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 700px) {
+    .layout {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+            'a'
+            'b';
+        gap: 4%;
     }
 }

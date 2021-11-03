@@ -91,7 +91,19 @@
         </p>
       </li>
       <li>
-        <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position <span class="data">test</span></p>
+        <p>
+          <i nz-icon nzType="compass" nzTheme="twotone"></i>Batterie :
+          <span class="data"
+            >{{ drone.battery.charge_percentage }} <i nz-icon nzType="percentage" nzTheme="outline"></i>,
+            {{ drone.battery.voltage }} <i nz-icon nzType="thunderbolt" nzTheme="outline"></i
+          ></span>
+        </p>
+      </li>
+      <li>
+        <p>
+          <i nz-icon nzType="environment" nzTheme="twotone"></i>Position
+          <span class="data">[ {{ drone.position.x }}, {{ drone.position.y }}, {{ drone.position.z }} ]</span>
+        </p>
       </li>
       <li>
         <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation <span class="data">test</span></p>
