@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType } from '@backend/api-client';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { AppService } from 'src/app/services/app/app.service';
-import { SocketService } from 'src/app/services/communication/socket.service';
+import { CommunicationService } from 'src/app/services/communication/communication.service';
 
 export type DroneRegistry = { [key in DroneType]: Drone[] };
 // state: 'Waiting' | 'Start-Up' | 'Exploring' | 'ReturnToBase' | 'ImmediateLanding' | 'Crashed';
@@ -23,7 +23,7 @@ export class DroneComponent {
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-        public socketService: SocketService,
+        public communicationService: CommunicationService,
     ) {}
 
     identifyDrone(uuid: string): void {

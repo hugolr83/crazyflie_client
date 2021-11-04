@@ -1,10 +1,6 @@
-<div
-  nz-icon
-  [nzType]="'loading'"
-  *ngIf="appService.droneRegistry[appService.droneType].length === 0; else droneContainer"
-></div>
-<ng-template #droneContainer>
-  <div *ngFor="let drone of appService.droneRegistry[appService.droneType]">
-    <app-drone [drone]="drone"></app-drone>
-  </div>
-</ng-template>
+<div nz-icon [nzType]="'loading'" *ngIf="isSpinning"></div>
+<div class="layout" *ngIf="!isSpinning">
+  <ng-container *ngFor="let item of appService.droneRegistry[appService.droneType] | keyvalue">
+    <app-drone [drone]="item.value"></app-drone>
+  </ng-container>
+</div>

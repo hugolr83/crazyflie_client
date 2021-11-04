@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Drone, DroneType } from '@backend/api-client';
-import { SocketService } from '../communication/socket.service';
+import { CommunicationService } from '../communication/communication.service';
 
 /*
 Service that manages global state of application.
 */
 
-export type DroneRegistry = { [key in DroneType]: Drone[] };
+export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
 
 @Injectable({
     providedIn: 'root',
 })
 export class AppService {
     droneType: DroneType = DroneType.Crazyflie;
-    droneRegistry: DroneRegistry = { CRAZYFLIE: [], ARGOS: [] };
+    droneRegistry: DroneRegistry = { CRAZYFLIE: {}, ARGOS: {} };
 
-    constructor(public socketService: SocketService) {
+    constructor(public communicationService: CommunicationService) {
         this.registerDronePulse();
     }
 
@@ -24,9 +24,9 @@ export class AppService {
     }
 
     registerDronePulse(): void {
-        this.socketService.listenDronePulse().subscribe((drones) => {
+        this.communicationService.listenDronePulse().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
-                this.droneRegistry[drone.type].push(drone);
+                this.droneRegistry[drone.type][drone.uuid] = drone;
             });
         });
     }
