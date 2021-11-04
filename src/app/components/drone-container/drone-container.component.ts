@@ -14,7 +14,6 @@ export class DroneContainerComponent {
         public appService: AppService,
     ) {}
 
-
     get isSpinning(): boolean {
         return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
     }
