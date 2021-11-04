@@ -13,7 +13,7 @@ export class CommunicationService implements OnDestroy {
     constructor(private http: HttpClient) {}
 
     listenDronePulse(): Observable<Drone[]> {
-        return timer(1, 1000).pipe(
+        return timer(1, 100000).pipe(
             switchMap(() => this.http.get<Drone[]>('http://localhost:8000/drones')),
             retry(),
             share(),
