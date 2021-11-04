@@ -1,0 +1,57 @@
+.box {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($color: #ffffff, $alpha: 0.5);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.box li {
+    color: #000000;
+    position: relative;
+    display: block;
+    justify-content: left;
+    padding: 5px;
+    z-index: 10;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 140%;
+    background: linear-gradient(#a33b3b, #305aad);
+    animation: animate 15s linear infinite;
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #ffffff;
+    border-radius: 16px;
+}
+
+.box li p i {
+    padding-right: 7px;
+}
+
+.data {
+    background-color: #f3f6f4;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    padding: 0 10px 0 10px;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,60 @@
+<div class="layout">
+  <div class="box">
+    <ul>
+      <li>
+        <p>
+          <i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : <span class="data">{{ drone.uuid }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Waiting">
+        <p>
+          <i nz-icon nzType="interaction"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Starting">
+        <p>
+          <i nz-icon nzType="play-circle"></i> Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Navigating">
+        <p>
+          <i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Crashed">
+        <p>
+          <i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.Landing">
+        <p>
+          <i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li>
+        <p>
+          <i nz-icon nzType="compass" nzTheme="twotone"></i>Batterie :
+          <span class="data"
+            >{{ drone.battery.charge_percentage }} <i nz-icon nzType="percentage" nzTheme="outline"></i>,
+            {{ drone.battery.voltage }} <i nz-icon nzType="thunderbolt" nzTheme="outline"></i
+          ></span>
+        </p>
+      </li>
+      <li>
+        <p>
+          <i nz-icon nzType="environment" nzTheme="twotone"></i>Position
+          <span class="data">[ {{ drone.position.x }}, {{ drone.position.y }}, {{ drone.position.z }} ]</span>
+        </p>
+      </li>
+      <li>
+        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation <span class="data">test</span></p>
+      </li>
+      <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
+          <i nz-icon nzType="info-circle"></i>
+          Identifier
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

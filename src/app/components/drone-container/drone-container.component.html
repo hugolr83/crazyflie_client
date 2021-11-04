@@ -1,0 +1,6 @@
+<div nz-icon [nzType]="'loading'" *ngIf="isSpinning"></div>
+<div class="layout" *ngIf="!isSpinning">
+  <ng-container *ngFor="let item of appService.droneRegistry[appService.droneType] | keyvalue">
+    <app-drone [drone]="item.value"></app-drone>
+  </ng-container>
+</div>

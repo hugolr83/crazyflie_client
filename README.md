@@ -23,6 +23,8 @@ Add a `.npmrc` file within the root directory with the following content:
 
 Don't commit the file (it is already ignored) since the CI will inject one automatically
 
+Make sure to enter the key that Gitlab created and not the Token name.
+
 ### Development
 
 ```shell
