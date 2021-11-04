@@ -1,0 +1,52 @@
+<nz-header class="topnav">
+  <i
+    nz-icon
+    nzType="menu-unfold"
+    class="sidebar-toggle"
+    nz-dropdown
+    [nzDropdownMenu]="sidebarMenu"
+    nzPlacement="bottomLeft"
+  ></i>
+  <nz-dropdown-menu #sidebarMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-submenu nzTitle="Mission" nzIcon="login">
+        <ul>
+          <li nz-menu-item (click)="droneService.startMission()">Lancer la mission</li>
+          <li nz-menu-item (click)="droneService.endMission()">Terminer la mission</li>
+        </ul>
+      </li>
+
+      <li nz-submenu nzTitle="Directives" nzIcon="laptop">
+        <ul>
+          <li nz-menu-item (click)="droneService.returnToBase()">Retour à la base</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">
+        <ul>
+          <li nz-menu-item>Mise à jour</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+  <img class="logo" src="assets\images\ge_full_logo.png" alt="logo" />
+  <nav class="nav_links">
+    <ul>
+      <li (click)="setDroneType(DroneType.Crazyflie)"><a>Robots aériens</a></li>
+      <li (click)="setDroneType(DroneType.Argos)"><a>Simulation</a></li>
+    </ul>
+  </nav>
+  <i
+    nz-icon
+    nzType="menu-fold"
+    class="type-toggle"
+    nz-dropdown
+    [nzDropdownMenu]="typeMenu"
+    nzPlacement="bottomRight"
+  ></i>
+  <nz-dropdown-menu #typeMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="setDroneType(DroneType.Crazyflie)">Robots aériens</li>
+      <li nz-menu-item (click)="setDroneType(DroneType.Argos)">Simulation</li>
+    </ul>
+  </nz-dropdown-menu>
+</nz-header>

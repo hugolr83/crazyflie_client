@@ -1,0 +1,13 @@
+nz-sider {
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+    left: 0;
+    margin-top: 64px;
+}
+
+@media (max-width: 900px) {
+    .sider-menu {
+        display: none;
+    }
+}
