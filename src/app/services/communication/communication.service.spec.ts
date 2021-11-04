@@ -11,7 +11,7 @@ describe('Service: communication', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: []
+            providers: [],
         });
 
         httpMock = TestBed.inject(HttpTestingController);
@@ -19,7 +19,7 @@ describe('Service: communication', () => {
         communicationService = TestBed.inject(CommunicationService);
     });
 
-    it('should ...',() => {
+    it('should ...', () => {
         expect(communicationService).toBeTruthy();
     });
 });

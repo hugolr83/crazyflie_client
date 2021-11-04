@@ -7,11 +7,9 @@ describe('AppService', () => {
     let service: AppService;
 
     beforeEach(() => {
-        
-
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [CommunicationService]
+            providers: [CommunicationService],
         });
 
         service = TestBed.inject(AppService);
