@@ -1,16 +1,23 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { CommunicationService } from './communication.service';
 
-describe('Service: Socket', () => {
+describe('Service: communication', () => {
+    let communicationService: CommunicationService;
+    let httpMock: HttpTestingController;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [CommunicationService],
+            providers: [HttpTestingController],
         });
+
+        httpMock = TestBed.inject(HttpTestingController);
+        communicationService = TestBed.inject(CommunicationService);
     });
 
-    it('should ...', inject([CommunicationService], (service: CommunicationService) => {
-        expect(service).toBeTruthy();
+    it('should ...', inject([CommunicationService], (Communicationservice: CommunicationService) => {
+        expect(Communicationservice).toBeTruthy();
     }));
 });

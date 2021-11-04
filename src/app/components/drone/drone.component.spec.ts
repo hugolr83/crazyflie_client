@@ -5,7 +5,7 @@ import { Drone, DroneState, DroneType } from '@backend/api-client';
 import { DroneComponent } from './drone.component';
 
 describe('DroneComponent', () => {
-    let component: DroneComponent;
+    let droneComponent: DroneComponent;
     let fixture: ComponentFixture<DroneComponent>;
 
     let mockDrone: Drone = {
@@ -27,12 +27,12 @@ describe('DroneComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(DroneComponent);
-        component = fixture.componentInstance;
-        component.drone = mockDrone;
+        droneComponent = fixture.componentInstance;
+        droneComponent.drone = mockDrone;
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(droneComponent).toBeTruthy();
     });
 });

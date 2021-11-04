@@ -50,7 +50,7 @@ registerLocaleData(en);
         NzListModule,
         NzDropDownModule,
     ],
-    providers: [{ provide: NZ_I18N, useValue: en_US }],
+    providers: [{ provide: NZ_I18N, useValue: en_US }, HttpClientModule],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
