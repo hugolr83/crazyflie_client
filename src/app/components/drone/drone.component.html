@@ -6,17 +6,27 @@
           <i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : <span class="data">{{ drone.uuid }}</span>
         </p>
       </li>
-      <li *ngIf="drone.state === DroneState.Waiting">
+      <li *ngIf="drone.state === DroneState.NotReady">
         <p>
           <i nz-icon nzType="interaction"></i>Etat : <span class="data">{{ drone.state }}</span>
         </p>
       </li>
-      <li *ngIf="drone.state === DroneState.Starting">
+      <li *ngIf="drone.state === DroneState.Ready">
+        <p>
+          <i nz-icon nzType="interaction"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.TakingOff">
         <p>
           <i nz-icon nzType="play-circle"></i> Etat : <span class="data">{{ drone.state }}</span>
         </p>
       </li>
-      <li *ngIf="drone.state === DroneState.Navigating">
+      <li *ngIf="drone.state === DroneState.Exploring">
+        <p>
+          <i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+        </p>
+      </li>
+      <li *ngIf="drone.state === DroneState.ReturningBase">
         <p>
           <i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
         </p>
@@ -35,9 +45,8 @@
         <p>
           <i nz-icon nzType="compass" nzTheme="twotone"></i>Batterie :
           <span class="data"
-            >{{ drone.battery.charge_percentage }} <i nz-icon nzType="percentage" nzTheme="outline"></i>,
-            {{ drone.battery.voltage }} <i nz-icon nzType="thunderbolt" nzTheme="outline"></i
-          ></span>
+            >{{ drone.battery.charge_percentage }} <i nz-icon nzType="percentage" nzTheme="outline"></i>
+          </span>
         </p>
       </li>
       <li>
@@ -47,7 +56,7 @@
         </p>
       </li>
       <li>
-        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation <span class="data">test</span></p>
+        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation <span class="data">{{ drone.orientation.yaw }},</span></p>
       </li>
       <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
         <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
