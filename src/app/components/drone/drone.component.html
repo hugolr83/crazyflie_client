@@ -54,15 +54,15 @@
       <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
       <!-- <span class="data">[ x = {{ drone.position.x }}, y = {{ drone.position.y }}, z = {{ drone.position.z }} ]</span> -->
       <ol class="position">
-        <li class="data">x = {{ drone.position.x }}</li>
-        <li class="data">y = {{ drone.position.y }}</li>
-        <li class="data">z = {{ drone.position.z }}</li>
+        <li class="data">x = {{ position.x }}</li>
+        <li class="data">y = {{ position.y }}</li>
+        <li class="data">z = {{ position.z }}</li>
       </ol>
     </li>
     <li>
       <p>
         <i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :
-        <span class="data">{{ drone.orientation.yaw }}</span>
+        <span class="data">{{ orientation.yaw }}</span>
       </p>
     </li>
     <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
