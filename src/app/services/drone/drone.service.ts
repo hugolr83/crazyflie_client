@@ -38,10 +38,10 @@ export class DroneService {
                 this.appService.activeMission = activeMission;
             }),
             switchMap((activeMission: Mission) => {
-                if(!activeMission){ 
+                if (!activeMission) {
                     return of([]);
                 }
-                return this.commonApiService.getLogs(activeMission.id, idLog)
+                return this.commonApiService.getLogs(activeMission.id, idLog);
             }),
         );
     }

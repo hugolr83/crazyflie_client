@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app/app.service';
-import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { MapService } from 'src/app/services/map/map.service';
 
 @Component({
@@ -10,11 +9,7 @@ import { MapService } from 'src/app/services/map/map.service';
 })
 export class MapContainerComponent {
     timeout!: any;
-    constructor(
-        public appService: AppService,
-        public mapService: MapService,
-        public commService: CommunicationService,
-    ) {
+    constructor(public appService: AppService, public mapService: MapService) {
         this.timeout = setInterval(() => {
             for (const drone of Object.values(this.appService.droneRegistry[this.appService.droneType])) {
                 this.mapService.drawPos(drone);
