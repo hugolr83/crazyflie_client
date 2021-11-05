@@ -23,3 +23,15 @@
 .box li p i {
     padding-right: 7px;
 }
+
+@media (max-width: 1400px) {
+    .box {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .box {
+        width: 300px;
+    }
+}

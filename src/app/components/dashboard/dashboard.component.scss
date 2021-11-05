@@ -37,11 +37,15 @@
 }
 
 @media (max-width: 900px) {
+    .grid-container .grid-map {
+        display: none;
+    }
     .grid-container {
         grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: repeat(4 1fr);
+        grid-template-rows: repeat(5, 1fr);
         grid-template-areas:
             'd'
+            'l'
             'm'
             'c'
             'i';
