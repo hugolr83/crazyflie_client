@@ -31,7 +31,7 @@ export class LogComponent implements OnDestroy {
             });
             return;
         }
-        const missionId: number =  this.logs[0].mission_id;
+        const missionId: number = this.logs[0].mission_id;
 
         if (missionId != this.appService.activeMission?.id) {
             this.droneService.getLogs().subscribe((logs: Log[]) => {
@@ -39,11 +39,10 @@ export class LogComponent implements OnDestroy {
             });
             return;
         }
-        
 
         const lastLogId: number = this.logs[len - 1].id;
         this.droneService.getLogs(lastLogId + 1).subscribe((logs: Log[]) => {
-            if(!logs) return;
+            if (!logs) return;
             logs.forEach((log: Log) => {
                 this.logs.push(log);
             });
@@ -54,7 +53,7 @@ export class LogComponent implements OnDestroy {
         this.stopPolling.next();
     }
 
-    showLogs() : void {
+    showLogs(): void {
         this.appService.isHidden = !this.appService.isHidden;
     }
 }

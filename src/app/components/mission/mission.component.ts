@@ -12,19 +12,19 @@ export class MissionComponent {
     missions: Mission[] = [];
     constructor(public communicationService: CommonApiService, public appService: AppService) {}
 
-    getMissions(){
+    getMissions() {
         this.isMission = true;
-        this.communicationService.getMissions().subscribe((misssions: Mission[])=>{
+        this.communicationService.getMissions().subscribe((misssions: Mission[]) => {
             this.missions = misssions;
         });
     }
 
-    close(){
+    close() {
         this.isMission = false;
         this.appService.isHidden = true;
     }
 
-    call(mission: Mission){
+    call(mission: Mission) {
         this.appService.activeMission = mission;
         this.appService.isHidden = false;
     }

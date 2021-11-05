@@ -18,8 +18,7 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    isHidden : boolean = true;
-
+    isHidden: boolean = true;
 
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();

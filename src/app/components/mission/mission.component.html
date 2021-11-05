@@ -19,27 +19,22 @@
       <p><i nz-icon nzType="control" nzTheme="outline"></i>Type :</p>
     </li>
     <li class="button">
-      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)='getMissions()'>
+      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="getMissions()">
         <p>
-          <i nz-icon nzType="folder"></i>Ouvrir logs  <br />
+          <i nz-icon nzType="folder"></i>Ouvrir logs <br />
           d'une précédente mission
         </p>
       </button>
     </li>
   </ul>
   <div class="oldlogs" *ngIf="isMission">
-    <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)='close()'>
-      <p>
-        <i nz-icon></i>Fermer
-      </p>
+    <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="close()">
+      <p><i nz-icon></i>Fermer</p>
     </button>
     <div class="oldMissions" *ngFor="let mission of missions">
-      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)='call(mission)'>
-        <p>
-          <i nz-icon nzType="folder"></i> Mission {{mission.id}}
-        </p>
+      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="call(mission)">
+        <p><i nz-icon nzType="folder"></i> Mission {{ mission.id }}</p>
       </button>
     </div>
-
   </div>
 </div>
