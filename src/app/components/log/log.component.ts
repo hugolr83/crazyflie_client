@@ -12,6 +12,7 @@ import { DroneService } from 'src/app/services/drone/drone.service';
 export class LogComponent implements OnDestroy {
     logs: Log[] = [];
     private stopPolling = new Subject();
+    isHidden : boolean = true;
 
     constructor(public droneService: DroneService) {
         timer(1, 500)
@@ -41,5 +42,9 @@ export class LogComponent implements OnDestroy {
 
     ngOnDestroy() {
         this.stopPolling.next();
+    }
+
+    showLogs() : void {
+        this.isHidden = !this.isHidden;
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CommonApiService, CrazyflieApiService, Drone, Log, Mission } from '@backend/api-client';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
@@ -36,9 +36,13 @@ export class DroneService {
         return this.appService.getActiveMission().pipe(
             tap((activeMission: Mission) => {
                 this.appService.activeMission = activeMission;
-                console.log(activeMission);
             }),
-            switchMap((activeMission: Mission) => this.commonApiService.getLogs(activeMission.id, idLog)),
+            switchMap((activeMission: Mission) => {
+                if(!activeMission){ 
+                    return of([]);
+                }
+                return this.commonApiService.getLogs(activeMission.id, idLog)
+            }),
         );
     }
 
