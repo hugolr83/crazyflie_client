@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Drone, DroneType } from '@backend/api-client';
+import { CommonApiService, Drone, DroneType, Mission } from '@backend/api-client';
+import { Observable, of } from 'rxjs';
 import { CommunicationService } from '../communication/communication.service';
 
 /*
@@ -15,7 +16,9 @@ export class AppService {
     droneType: DroneType = DroneType.Crazyflie;
     droneRegistry: DroneRegistry = { CRAZYFLIE: {}, ARGOS: {} };
 
-    constructor(public communicationService: CommunicationService) {
+    activeMission?: Mission = undefined;
+
+    constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();
     }
 
@@ -29,5 +32,12 @@ export class AppService {
                 this.droneRegistry[drone.type][drone.uuid] = drone;
             });
         });
+    }
+
+    getActiveMission(): Observable<Mission> {
+        if (!this.activeMission) {
+            return this.commonApiService.getActiveMission(this.droneType);
+        }
+        return of(this.activeMission);
     }
 }
