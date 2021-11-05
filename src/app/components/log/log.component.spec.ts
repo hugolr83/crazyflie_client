@@ -28,7 +28,7 @@ describe('LogComponent', () => {
 
     beforeEach(async () => {
         droneService = jasmine.createSpyObj('DroneService', ['getLogs']);
-        appService = { ...jasmine.createSpyObj('AppService', ['']), activeMission: undefined, isHidden: true };
+        appService = { ...jasmine.createSpyObj('AppService', ['']) };
 
         await TestBed.configureTestingModule({
             declarations: [LogComponent],
