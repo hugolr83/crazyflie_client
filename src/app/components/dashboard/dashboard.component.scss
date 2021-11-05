@@ -12,6 +12,12 @@
         's c d'
         's l d';
 }
+.grid-map {
+    padding-top: 10px;
+    grid-area: i;
+    align-self: center;
+    justify-self: center;
+}
 
 .grid-log {
     padding-top: 10px;
