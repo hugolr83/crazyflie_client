@@ -9,9 +9,10 @@ describe('Service: communication', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
             providers: [],
         });
-        
+
         communicationService = TestBed.inject(CommunicationService);
     });
 

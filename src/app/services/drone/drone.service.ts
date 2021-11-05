@@ -19,10 +19,9 @@ export class DroneService {
 
     startMission(): void {
         this.commonApiService.createMission(this.appService.droneType).subscribe((mission: Mission) => {
-            this.appService.activeMission = mission;    
+            this.appService.activeMission = mission;
             this.callApi(this.commonApiService.startMission.bind(this.commonApiService));
         });
-        
     }
 
     endMission(): void {
@@ -33,11 +32,14 @@ export class DroneService {
         this.callApi(this.commonApiService.returnToBase.bind(this.commonApiService));
     }
 
-    getLogs(idLog?: number): Observable<Log[]>{
+    getLogs(idLog?: number): Observable<Log[]> {
         return this.appService.getActiveMission().pipe(
-            tap((activeMission: Mission) => {this.appService.activeMission = activeMission; console.log(activeMission)}),
-            switchMap((activeMission: Mission) => this.commonApiService.getLogs(activeMission.id, idLog))
-        )
+            tap((activeMission: Mission) => {
+                this.appService.activeMission = activeMission;
+                console.log(activeMission);
+            }),
+            switchMap((activeMission: Mission) => this.commonApiService.getLogs(activeMission.id, idLog)),
+        );
     }
 
     private callApi(func: Func): void {
@@ -46,5 +48,4 @@ export class DroneService {
             func(this.appService.activeMission.id).subscribe((drones: Drone[]) => {});
         });
     }
-
 }

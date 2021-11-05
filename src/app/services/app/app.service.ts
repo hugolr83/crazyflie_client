@@ -35,7 +35,7 @@ export class AppService {
     }
 
     getActiveMission(): Observable<Mission> {
-        if(!this.activeMission){
+        if (!this.activeMission) {
             return this.commonApiService.getActiveMission(this.droneType);
         }
         return of(this.activeMission);
