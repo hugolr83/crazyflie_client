@@ -8,9 +8,15 @@
     grid-column-gap: 2%;
     grid-row-gap: 1%;
     grid-template-areas:
-        's c m'
+        's i m'
         's c d'
-        's i d';
+        's l d';
+}
+
+.grid-log {
+    padding-top: 10px;
+    grid-area: l;
+    justify-self: center;
 }
 
 .grid-mission {

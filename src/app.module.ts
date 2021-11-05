@@ -22,6 +22,7 @@ import { DroneComponent } from './app/components/drone/drone.component';
 import { MissionComponent } from './app/components/mission/mission.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
+import { LogComponent } from './app/components/log/log.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -33,6 +34,7 @@ registerLocaleData(en);
         DashboardComponent,
         TopNavComponent,
         MissionComponent,
+        LogComponent,
     ],
     imports: [
         HttpClientModule,
