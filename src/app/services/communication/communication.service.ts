@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Drone } from '@backend/api-client';
+import { CommonApiService, Drone } from '@backend/api-client';
 import { Observable, Subject, timer } from 'rxjs';
 import { retry, share, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -10,11 +9,11 @@ import { retry, share, switchMap, takeUntil } from 'rxjs/operators';
 export class CommunicationService implements OnDestroy {
     private stopPolling = new Subject();
 
-    constructor(private http: HttpClient) {}
+    constructor(public commonApiService: CommonApiService) {}
 
     listenDronePulse(): Observable<Drone[]> {
         return timer(1, 1000).pipe(
-            switchMap(() => this.http.get<Drone[]>('http://localhost:8000/drones')),
+            switchMap(() => this.commonApiService.getDrones()),
             retry(),
             share(),
             takeUntil(this.stopPolling),

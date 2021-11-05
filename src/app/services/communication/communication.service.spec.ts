@@ -6,16 +6,12 @@ import { CommunicationService } from './communication.service';
 
 describe('Service: communication', () => {
     let communicationService: CommunicationService;
-    let httpMock: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
             providers: [],
         });
-
-        httpMock = TestBed.inject(HttpTestingController);
-
+        
         communicationService = TestBed.inject(CommunicationService);
     });
 
