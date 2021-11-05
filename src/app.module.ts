@@ -19,9 +19,12 @@ import { AppComponent } from './app/components/app/app.component';
 import { DashboardComponent } from './app/components/dashboard/dashboard.component';
 import { DroneContainerComponent } from './app/components/drone-container/drone-container.component';
 import { DroneComponent } from './app/components/drone/drone.component';
+import { LogComponent } from './app/components/log/log.component';
+import { MapComponent } from './app/components/map/map.component';
 import { MissionComponent } from './app/components/mission/mission.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
+import { MapContainerComponent } from './app/components/map-container/map-container.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -33,6 +36,9 @@ registerLocaleData(en);
         DashboardComponent,
         TopNavComponent,
         MissionComponent,
+        LogComponent,
+        MapComponent,
+        MapContainerComponent,
     ],
     imports: [
         HttpClientModule,

@@ -1,0 +1,18 @@
+<div class="display">
+  <button nz-button nzType="primary" nzShape="round" (click)="showLogs()">
+    <p><i nz-icon nzType="info-circle"></i>Activer/Desactiver les logs</p>
+  </button>
+  <div class="box" [hidden]="appService.isHidden">
+    <p *ngIf="logs.length === 0">No logs to display for now</p>
+    <div class="layout" *ngFor="let log of logs">
+      <ul class="log">
+        <li>
+          <p><i nz-icon nzType="calendar" nzTheme="twotone"></i>{{ log.timestamp }} :</p>
+        </li>
+        <li>
+          <p><i nz-icon nzType="tag" nzTheme="twotone"></i>{{ log.message }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

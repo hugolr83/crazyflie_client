@@ -1,0 +1,25 @@
+.box {
+    position: relative;
+    width: 500px;
+    height: 400px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    background: rgba($color: #ffffff, $alpha: 0.5);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 4px solid #305aad;
+    border-radius: 20px;
+}
+
+.box li {
+    position: relative;
+    display: block;
+    padding: 5px;
+    z-index: 10;
+}
+
+.box li p i {
+    padding-right: 7px;
+}

@@ -95,10 +95,6 @@ nz-header {
 }
 
 @media (max-width: 900px) {
-    .ant-dropdown-menu {
-        margin-right: 15px;
-        font-size: 24rem;
-    }
     .sidebar-toggle {
         display: block;
         padding-left: 30px;
@@ -107,6 +103,10 @@ nz-header {
     .type-toggle {
         display: block;
         padding-right: 30px;
+    }
+    .ant-dropdown-menu {
+        margin-right: 15px;
+        font-size: 24rem;
     }
 
     .nav_links {

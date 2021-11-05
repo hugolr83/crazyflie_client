@@ -28,6 +28,12 @@
     border-radius: 16px;
 }
 
+.oldlogs {
+    position: relative;
+    display: block;
+    z-index: 20;
+}
+
 @keyframes animate {
     0% {
         transform: rotate(0deg);
@@ -58,11 +64,11 @@
 
 @media (max-width: 1400px) {
     .box {
-        width: 300px;
+        width: 400px;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .box {
         width: 300px;
     }

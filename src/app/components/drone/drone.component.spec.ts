@@ -9,10 +9,11 @@ describe('DroneComponent', () => {
     let fixture: ComponentFixture<DroneComponent>;
 
     let mockDrone: Drone = {
-        state: DroneState.Waiting,
+        state: DroneState.NotReady,
         type: DroneType.Argos,
         uuid: 'test',
-        battery: { charge_percentage: 80, voltage: 5 },
+        battery: { charge_percentage: 80 },
+        orientation: { yaw: 0.5 },
         position: { x: 50, y: 50, z: 70 },
         range: { front: 1, back: 2, up: 3, left: 4, right: 5, bottom: 6 },
     };

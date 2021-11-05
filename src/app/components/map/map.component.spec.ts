@@ -1,21 +1,20 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MapComponent } from './map.component';
 
-import { MissionComponent } from './mission.component';
-
-describe('MissionComponent', () => {
-    let component: MissionComponent;
-    let fixture: ComponentFixture<MissionComponent>;
+describe('MapComponent', () => {
+    let component: MapComponent;
+    let fixture: ComponentFixture<MapComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [MissionComponent],
+            declarations: [MapComponent],
             imports: [HttpClientTestingModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MissionComponent);
+        fixture = TestBed.createComponent(MapComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
