@@ -28,7 +28,7 @@
     </li>
     <li *ngIf="drone.state === DroneState.ReturningBase">
       <p>
-        <i nz-icon nzType="vertical-align-bottom" nzTheme="twotone"></i>Etat :
+        <i nz-icon nzType="down-square" nzTheme="twotone"></i>Etat :
         <span class="data">{{ drone.state }}</span>
       </p>
     </li>
@@ -39,7 +39,7 @@
     </li>
     <li *ngIf="drone.state === DroneState.Landing">
       <p>
-        <i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+        <i nz-icon nzType="down-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
       </p>
     </li>
     <li>
@@ -52,7 +52,6 @@
     </li>
     <li>
       <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
-      <!-- <span class="data">[ x = {{ drone.position.x }}, y = {{ drone.position.y }}, z = {{ drone.position.z }} ]</span> -->
       <ol class="position">
         <li class="data">x = {{ position.x }}</li>
         <li class="data">y = {{ position.y }}</li>
