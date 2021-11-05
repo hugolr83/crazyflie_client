@@ -12,10 +12,6 @@ const MAX_RANGE_SCANNER = 2000;
 export class MapService {
     droneToContext: { [key: string]: CanvasRenderingContext2D } = {};
 
-    randomIntFromInterval(min: number, max: number): number {
-        return Math.random() * (max - min + 1) + min;
-    }
-
     constructor(private appServive: AppService) {
         this.droneToContext = {};
     }
@@ -54,7 +50,7 @@ export class MapService {
         return c + (old * newr) / oldr;
     }
 
-    drawRange(x: number, y: number, drone: Drone): void {
+    private drawRange(x: number, y: number, drone: Drone): void {
         const ctx = this.droneToContext[drone.uuid];
         if (drone.range.back > 0) {
             const backy = y + this.shift(drone.range.back, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
