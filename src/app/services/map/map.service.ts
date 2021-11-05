@@ -1,35 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Drone, DroneState, DroneVec3 } from '@backend/api-client';
+import { Drone, DroneState } from '@backend/api-client';
 import { AppService } from '../app/app.service';
 
-// Mocking input data
-interface Kalman {
-    kalman_state_x: number;
-    kalman_state_y: number;
-    kalman_state_z6?: number;
-    pm_vbat?: number;
-    drone_battery_level?: number;
-}
-
-interface RangeLogMessage {
-    range_front: number;
-    range_back: number;
-    range_left: number;
-    range_right: number;
-    range_up?: number;
-    range_zrange?: number;
-}
-
-interface Vec2 {
-    x: number;
-    y: number;
-}
+const WIDHT_ARENA = 4;
+const HEIGHT_ARENA = 4;
+const MAX_RANGE_SCANNER = 2000;
 
 @Injectable({
     providedIn: 'root',
 })
 export class MapService {
-    private fillStyle = ['blue', 'red'];
     droneToContext: { [key: string]: CanvasRenderingContext2D } = {};
 
     randomIntFromInterval(min: number, max: number): number {
@@ -58,11 +38,13 @@ export class MapService {
 
         const x = drone.position.x;
         const y = drone.position.y;
-        const shiftx = this.shift(y, -2, 2, 0, 400);
-        const shifty = this.shift(x, -2, 2, 0, 400);
+        // ARGOS x and y are switched
+        const shiftx = this.shift(y, -2, 2, 0, ctx.canvas.width);
+        const shifty = this.shift(x, -2, 2, 0, ctx.canvas.height);
         ctx.fillStyle = 'black';
         ctx.fillRect(shiftx, shifty, 5, 5);
-        this.drawRange(drone.position, drone);
+
+        this.drawRange(shiftx, shifty, drone);
     }
 
     private shift(value: number, a: number, b: number, c: number, d: number): number {
@@ -72,12 +54,30 @@ export class MapService {
         return c + (old * newr) / oldr;
     }
 
-    drawRange(position: DroneVec3, drone: Drone): void {
+    drawRange(x: number, y: number, drone: Drone): void {
         const ctx = this.droneToContext[drone.uuid];
         if (drone.range.back > 0) {
-            const x = position.x + drone.range.back / 1000;
+            const backy = y + this.shift(drone.range.back, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
             ctx.fillStyle = 'blue';
-            ctx.fillRect(x, position.y, 5, 5);
+            ctx.fillRect(x, backy, 5, 5);
+        }
+
+        if (drone.range.front > 0) {
+            const fronty = y - this.shift(drone.range.front, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(x, fronty, 5, 5);
+        }
+
+        if (drone.range.left > 0) {
+            const leftx = x - this.shift(drone.range.left, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(leftx, y, 5, 5);
+        }
+
+        if (drone.range.right > 0) {
+            const rightx = x + this.shift(drone.range.right, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(rightx, y, 5, 5);
         }
     }
 }

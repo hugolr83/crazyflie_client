@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Drone } from '@backend/api-client';
+import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app/app.service';
 import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { MapService } from 'src/app/services/map/map.service';
@@ -9,19 +8,18 @@ import { MapService } from 'src/app/services/map/map.service';
     templateUrl: './map-container.component.html',
     styleUrls: ['./map-container.component.scss'],
 })
-export class MapContainerComponent implements OnInit {
+export class MapContainerComponent {
+    timeout!: any;
     constructor(
         public appService: AppService,
         public mapService: MapService,
         public commService: CommunicationService,
-    ) {}
-
-    ngOnInit(): void {
-        this.commService.listenDronePulse().subscribe((drones: Drone[]) => {
-            for (const drone of drones) {
+    ) {
+        this.timeout = setInterval(() => {
+            for (const drone of Object.values(this.appService.droneRegistry[this.appService.droneType])) {
                 this.mapService.drawPos(drone);
             }
-        });
+        }, 1000);
     }
 
     get isSpinning(): boolean {
