@@ -8,13 +8,13 @@
     grid-column-gap: 2%;
     grid-row-gap: 1%;
     grid-template-areas:
-        's i m'
+        's l m'
         's c d'
-        's l d';
+        's i d';
 }
 .grid-map {
     padding-top: 10px;
-    grid-area: i;
+    grid-area: c;
     align-self: center;
     justify-self: center;
 }
