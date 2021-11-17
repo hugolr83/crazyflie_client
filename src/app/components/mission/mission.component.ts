@@ -8,24 +8,23 @@ import { AppService } from 'src/app/services/app/app.service';
     styleUrls: ['./mission.component.scss'],
 })
 export class MissionComponent {
-    isMission: boolean = false;
+    isVisible: boolean = false;
     missions: Mission[] = [];
     constructor(public communicationService: CommonApiService, public appService: AppService) {}
 
     getMissions() {
-        this.isMission = true;
+        this.isVisible = true;
         this.communicationService.getMissions().subscribe((misssions: Mission[]) => {
             this.missions = misssions;
         });
     }
 
-    close() {
-        this.isMission = false;
-        this.appService.isHidden = true;
-    }
-
     call(mission: Mission) {
         this.appService.activeMission = mission;
-        this.appService.isHidden = false;
+    }
+
+    handleClose(): void {
+        console.log('Button close clicked!');
+        this.isVisible = false;
     }
 }

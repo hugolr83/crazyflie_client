@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Log } from '@backend/api-client';
+import { CommonApiService, Log, Mission } from '@backend/api-client';
 import { Subject, timer } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 
@@ -11,10 +11,17 @@ import { DroneService } from 'src/app/services/drone/drone.service';
     styleUrls: ['./log.component.scss'],
 })
 export class LogComponent implements OnDestroy {
+    isVisible: boolean = false;
+    missions: Mission[] = [];
+
     logs: Log[] = [];
     private stopPolling = new Subject();
 
-    constructor(public droneService: DroneService, public appService: AppService) {
+    constructor(
+        public droneService: DroneService,
+        public appService: AppService,
+        public communicationService: CommonApiService,
+    ) {
         timer(1, 500)
             .pipe(
                 tap(() => this.updateLogs()),
@@ -54,6 +61,24 @@ export class LogComponent implements OnDestroy {
     }
 
     showLogs(): void {
-        this.appService.isHidden = !this.appService.isHidden;
+        this.appService.isLogsHidden = !this.appService.isLogsHidden;
+        console.log(this.appService.isLogsHidden);
+    }
+
+    getMissions() {
+        this.isVisible = true;
+        this.communicationService.getMissions().subscribe((misssions: Mission[]) => {
+            this.missions = misssions;
+        });
+    }
+
+    call(mission: Mission) {
+        this.appService.activeMission = mission;
+        this.appService.isLogsHidden = false;
+    }
+
+    handleClose(): void {
+        console.log('Button close clicked!');
+        this.isVisible = false;
     }
 }

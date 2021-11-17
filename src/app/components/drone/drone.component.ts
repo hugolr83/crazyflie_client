@@ -25,6 +25,9 @@ export class DroneComponent {
     selectedDroneUUID!: string;
     DroneState = DroneState;
     size!: NzButtonSize;
+    color: string = '#3DCC93';
+    isVisible: boolean = false;
+    value: number = 0;
 
     constructor(
         public commonApiService: CommonApiService,
@@ -53,5 +56,9 @@ export class DroneComponent {
     get orientation(): Orientation {
         this.drone.orientation.yaw = this.roundValue(this.drone.orientation.yaw, 3);
         return this.drone.orientation;
+    }
+
+    showPos(): void {
+        this.appService.isPosOriHidden = !this.appService.isPosOriHidden;
     }
 }

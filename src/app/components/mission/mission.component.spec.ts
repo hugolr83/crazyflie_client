@@ -1,8 +1,6 @@
-import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonApiService, Mission } from '@backend/api-client';
-import { of } from 'rxjs';
+import { CommonApiService, DroneType, Mission } from '@backend/api-client';
 import { AppService } from 'src/app/services/app/app.service';
 import { MissionComponent } from './mission.component';
 
@@ -10,20 +8,21 @@ describe('MissionComponent', () => {
     let component: MissionComponent;
     let fixture: ComponentFixture<MissionComponent>;
 
-    let commS: jasmine.SpyObj<CommonApiService>;
-    let appS: jasmine.SpyObj<AppService>;
+    let commService: jasmine.SpyObj<CommonApiService>;
+    let appService: jasmine.SpyObj<AppService>;
+    let appServiceStub: AppService;
+    let commonApiServiceStub: CommonApiService;
 
     beforeEach(async () => {
-        appS = { ...jasmine.createSpyObj('AppService', ['']), activeMission: undefined };
-        commS = jasmine.createSpyObj('CommonApiService', ['getMissions']);
-        commS.getMissions.and.returnValue(of(new HttpResponse()));
+        appService = { ...jasmine.createSpyObj('AppService', ['']), activeMission: undefined };
+        commService = jasmine.createSpyObj('CommonApiService', ['getMissions']);
 
         await TestBed.configureTestingModule({
             declarations: [MissionComponent],
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: CommonApiService, usevalue: { commS } },
-                { provide: AppService, usevalue: { appS } },
+                { provide: CommonApiService, usevalue: commService },
+                { provide: AppService, usevalue: appService },
             ],
         }).compileComponents();
     });
@@ -32,28 +31,35 @@ describe('MissionComponent', () => {
         fixture = TestBed.createComponent(MissionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        CommonApiService;
+        appServiceStub = TestBed.inject(AppService);
+        commonApiServiceStub = TestBed.inject(CommonApiService);
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    it('getMission should call commService', () => {
-        component.getMissions();
-        expect(component.isMission).toBeTrue();
-        expect(commS.getMissions).toHaveBeenCalled();
-    });
+    // it('getMission should call communicationService', () => {
+    //     component.getMissions();
+    //     expect(component.isVisible).toBeTrue();
+    //     commService.getMissions.and.returnValue(of(new HttpResponse()));
+    //     expect(commService.getMissions).toHaveBeenCalled();
+    // });
 
     it('close should hide', () => {
-        component.close();
-        expect(component.isMission).toBeFalse();
-        expect(appS.isHidden).toBeFalse();
+        component.handleClose();
+        expect(component.isVisible).toBeFalse();
+        expect(appServiceStub.isLogsHidden).toEqual(true);
     });
 
-    it('call should make active mission', () => {
-        let activeMission: Mission = {} as Mission;
-        component.call(activeMission);
-        expect(appS.activeMission).toEqual(activeMission);
-        expect(appS.isHidden).toBeFalse();
+    it('call should set activeMission to the chosen mission', () => {
+        let currentMission: Mission = {
+            id: 2,
+            drone_type: DroneType.Crazyflie,
+            starting_time: 'time3',
+        };
+        component.call(currentMission);
+        expect(appServiceStub.activeMission).toEqual(currentMission);
     });
 });
