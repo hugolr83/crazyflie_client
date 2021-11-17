@@ -33,6 +33,12 @@
       </p>
     </li>
     <li *ngIf="drone.state === DroneState.Crashed">
+      <nz-alert
+        nzType="error"
+        nzMessage="Erreur"
+        nzDescription="Il s'agit d'un message d'erreur lorsqu'un crash de drone survient"
+        nzShowIcon
+      ></nz-alert>
       <p>
         <i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
       </p>
@@ -44,10 +50,11 @@
     </li>
     <li>
       <p>
-        <i nz-icon nzType="compass" nzTheme="twotone"></i>Batterie :
+        <i nz-icon nzType="thunderbolt" nzTheme="twotone"></i>Batterie :
         <span class="data"
           >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
         </span>
+        <app-percentage-bar [color]="color" [percentage]="drone.battery.charge_percentage"></app-percentage-bar>
       </p>
     </li>
     <li>
@@ -69,5 +76,22 @@
         <p><i nz-icon nzType="info-circle"></i>Identifier</p>
       </button>
     </li>
+    <li class="button">
+      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="showPos()">
+        <p><i nz-icon nzType="form"></i>Choisir position et orientation initiale</p>
+      </button>
+    </li>
+    <div class="pos" *ngIf="appService.isPosOriHidden">
+      <li>
+        <nz-row>
+          <nz-col nzSpan="12">
+            <nz-slider [nzMin]="-180" [nzMax]="180" [(ngModel)]="value"></nz-slider>
+          </nz-col>
+          <div nz-col nzSpan="4">
+            <nz-input-number [nzMin]="-180" [nzMax]="180" [(ngModel)]="value"></nz-input-number>
+          </div>
+        </nz-row>
+      </li>
+    </div>
   </ul>
 </div>

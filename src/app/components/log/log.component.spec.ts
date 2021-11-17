@@ -12,6 +12,7 @@ describe('LogComponent', () => {
 
     let droneService: jasmine.SpyObj<DroneService>;
     let appService: jasmine.SpyObj<AppService>;
+    let appServiceStub: AppService;
 
     let logs: Log[] = [{ id: 12, mission_id: 0, timestamp: '4535345', message: 'Test' }];
     let activeMission0: Mission = {
@@ -28,14 +29,14 @@ describe('LogComponent', () => {
 
     beforeEach(async () => {
         droneService = jasmine.createSpyObj('DroneService', ['getLogs']);
-        appService = { ...jasmine.createSpyObj('AppService', ['']) };
+        appService = jasmine.createSpyObj('AppService', ['getActiveMission']);
 
         await TestBed.configureTestingModule({
             declarations: [LogComponent],
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: DroneService, usevalue: { droneService } },
-                { provide: AppService, usevalue: { appService } },
+                { provide: DroneService, usevalue: droneService },
+                { provide: AppService, usevalue: appService },
             ],
         }).compileComponents();
     });
@@ -44,6 +45,8 @@ describe('LogComponent', () => {
         fixture = TestBed.createComponent(LogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+
+        appServiceStub = TestBed.inject(AppService);
     });
 
     it('should create', () => {
@@ -78,19 +81,26 @@ describe('LogComponent', () => {
         expect(droneService.getLogs).not.toHaveBeenCalled();
     });
 
-    it('showLogs should trigger show false to true', () => {
-        appService.isHidden = false;
-
+    it('showLogs should trigger isLogsHidden false to true', () => {
+        appServiceStub.isLogsHidden = false;
         component.showLogs();
-
-        expect(appService.isHidden).toBeTrue();
+        expect(appServiceStub.isLogsHidden).toEqual(true);
     });
 
-    it('showLogs should trigger show true to false', () => {
-        appService.isHidden = true;
-
+    it('showLogs should trigger isLogsHidden true to false', () => {
+        appServiceStub.isLogsHidden = true;
         component.showLogs();
+        expect(appServiceStub.isLogsHidden).toEqual(false);
+    });
 
-        expect(appService.isHidden).toEqual(false);
+    it('call should set activeMission to the chosen mission', () => {
+        let currentMission: Mission = {
+            id: 2,
+            drone_type: DroneType.Crazyflie,
+            starting_time: 'time3',
+        };
+        component.call(currentMission);
+        expect(appServiceStub.activeMission).toEqual(currentMission);
+        expect(appServiceStub.isLogsHidden).toBeFalse();
     });
 });
