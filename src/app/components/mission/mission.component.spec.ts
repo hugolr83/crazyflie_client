@@ -1,10 +1,12 @@
+import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, DroneType, Mission } from '@backend/api-client';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
 import { MissionComponent } from './mission.component';
 
-describe('MissionComponent', () => {
+fdescribe('MissionComponent', () => {
     let component: MissionComponent;
     let fixture: ComponentFixture<MissionComponent>;
 
@@ -40,12 +42,12 @@ describe('MissionComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('getMission should call communicationService', () => {
-    //     component.getMissions();
-    //     expect(component.isVisible).toBeTrue();
-    //     commService.getMissions.and.returnValue(of(new HttpResponse()));
-    //     expect(commService.getMissions).toHaveBeenCalled();
-    // });
+    it('getMission should call communicationService', () => {
+        component.getMissions();
+        expect(component.isVisible).toBeTrue();
+        commService.getMissions.and.returnValue(of(new HttpResponse()));
+        expect(commService.getMissions).toHaveBeenCalled();
+    });
 
     it('close should hide', () => {
         component.handleClose();

@@ -57,14 +57,12 @@ describe('DroneComponent', () => {
     it('identify drone should call crazyflie service identifyCrazyflie', () => {
         const uuid = 'test';
         droneComponent.identifyDrone(uuid);
-
         expect(crService.identifyCrazyflie).toHaveBeenCalled();
     });
 
     it('identify drone should not call crazyflie service if uuid is empty', () => {
         const uuid = '';
         droneComponent.identifyDrone(uuid);
-
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
     });
 
@@ -77,17 +75,25 @@ describe('DroneComponent', () => {
 
     it('position should return rounded drone positions', () => {
         const expectedPosition = droneComponent.position;
-
         const pos = droneComponent.position;
-
         expect(pos).toEqual(expectedPosition);
     });
 
     it('orientation should return rounded drone orientation', () => {
         const expectedOr = droneComponent.orientation;
-
         const or = droneComponent.orientation;
-
         expect(or).toEqual(expectedOr);
+    });
+
+    it('showPos should show inputs for position and orientation', () => {
+        appService.isPosOriHidden = false;
+        droneComponent.showPos();
+        expect(appService.isPosOriHidden).toEqual(true);
+    });
+
+    it('showPos should hide inputs for position and orientation', () => {
+        appService.isPosOriHidden = true;
+        droneComponent.showPos();
+        expect(appService.isPosOriHidden).toEqual(false);
     });
 });

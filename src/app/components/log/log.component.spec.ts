@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DroneType, Log, Mission } from '@backend/api-client';
+import { CommonApiService, DroneType, Log, Mission } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
@@ -13,6 +13,7 @@ describe('LogComponent', () => {
     let droneService: jasmine.SpyObj<DroneService>;
     let appService: jasmine.SpyObj<AppService>;
     let appServiceStub: AppService;
+    let communicationService: jasmine.SpyObj<CommonApiService>;
 
     let logs: Log[] = [{ id: 12, mission_id: 0, timestamp: '4535345', message: 'Test' }];
     let activeMission0: Mission = {
@@ -30,6 +31,7 @@ describe('LogComponent', () => {
     beforeEach(async () => {
         droneService = jasmine.createSpyObj('DroneService', ['getLogs']);
         appService = jasmine.createSpyObj('AppService', ['getActiveMission']);
+        communicationService = jasmine.createSpyObj('CommonApiService', ['getMissions']);
 
         await TestBed.configureTestingModule({
             declarations: [LogComponent],
@@ -37,6 +39,7 @@ describe('LogComponent', () => {
             providers: [
                 { provide: DroneService, usevalue: droneService },
                 { provide: AppService, usevalue: appService },
+                { provide: CommonApiService, usevalue: communicationService },
             ],
         }).compileComponents();
     });
@@ -64,7 +67,7 @@ describe('LogComponent', () => {
 
     it('updateLogs should getLogs if mission id is not active mission', () => {
         component.logs = [{ id: 0, mission_id: 0, timestamp: '4535345', message: 'Test' }];
-        appService.activeMission = activeMission1;
+        appService.activeMission = activeMission0;
         droneService.getLogs.and.returnValue(of(logs));
 
         component.updateLogs();
@@ -102,5 +105,16 @@ describe('LogComponent', () => {
         component.call(currentMission);
         expect(appServiceStub.activeMission).toEqual(currentMission);
         expect(appServiceStub.isLogsHidden).toBeFalse();
+    });
+
+    it('should call getMissions', () => {
+        component.getMissions();
+        expect(component.getMissions).toHaveBeenCalled();
+    });
+
+    it('handleClose should hide logs modal', () => {
+        component.isVisible = true;
+        component.handleClose();
+        expect(component.isVisible).toEqual(false);
     });
 });

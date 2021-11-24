@@ -62,13 +62,12 @@ export class LogComponent implements OnDestroy {
 
     showLogs(): void {
         this.appService.isLogsHidden = !this.appService.isLogsHidden;
-        console.log(this.appService.isLogsHidden);
     }
 
-    getMissions() {
+    getMissions(): void {
         this.isVisible = true;
-        this.communicationService.getMissions().subscribe((misssions: Mission[]) => {
-            this.missions = misssions;
+        this.communicationService.getMissions().subscribe((missions: Mission[]) => {
+            this.missions = missions;
         });
     }
 
