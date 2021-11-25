@@ -50,16 +50,4 @@ describe('MapService', () => {
     it('should be created', () => {
         expect(service).toBeTruthy();
     });
-
-    it('drawPos should draw a position into canvas when drone is exploring', () => {
-        mockDroneRegistry.ARGOS.drone1.state = DroneState.Exploring;
-        service.drawPos(mockDroneRegistry.ARGOS.drone1);
-
-        spyOn<any>(service, 'shift');
-        expect(service['shift']).toHaveBeenCalledTimes(2);
-
-        expect(contextSpy.fillStyle).toHaveBeenCalled();
-        expect(contextSpy.fillRect).toHaveBeenCalled();
-        expect(service['drawRange']).toHaveBeenCalled();
-    });
 });

@@ -1,11 +1,86 @@
-import { Component } from '@angular/core';
-import { DroneService } from 'src/app/services/drone/drone.service';
+import { Component, ViewContainerRef } from '@angular/core';
+import { DroneType } from '@backend/api-client';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AppService } from 'src/app/services/app/app.service';
+import { LogService } from 'src/app/services/log/log.service';
+import { MissionService } from 'src/app/services/mission/mission.service';
+import { HistoryComponent } from '../dialog-boxes/history/history.component';
+import { InformationComponent } from '../dialog-boxes/information/information.component';
 
 @Component({
-    selector: 'app-sidebar',
+    selector: 'app-sidebar, nz-demo-radio-solid',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-    constructor(public droneService: DroneService) {}
+    constructor(
+        public appService: AppService,
+        public logService: LogService,
+        public missionService: MissionService,
+        private modal: NzModalService,
+        private viewContainerRef: ViewContainerRef,
+    ) {}
+
+    showHistory(): void {
+        const modal: NzModalRef = this.modal.create({
+            nzClosable: false,
+            nzWidth: 1500,
+            nzTitle: 'Historique',
+            nzContent: HistoryComponent,
+            nzCentered: true,
+            nzFooter: [
+                {
+                    label: 'Fermer',
+                    shape: 'round',
+                    onClick: () => modal.destroy(),
+                },
+            ],
+            nzViewContainerRef: this.viewContainerRef,
+        });
+    }
+
+    showInformation(): void {
+        const modal: NzModalRef = this.modal.create({
+            nzClosable: false,
+            nzTitle: 'Information',
+            nzContent: InformationComponent,
+            nzFooter: [
+                {
+                    label: 'Fermer',
+                    shape: 'round',
+                    onClick: () => modal.destroy(),
+                },
+            ],
+            nzViewContainerRef: this.viewContainerRef,
+        });
+    }
+
+    showLogs(): void {
+        this.logService.logIsShown = !this.logService.logIsShown;
+    }
+
+    toggleDroneType(): void {
+        if (this.appService.droneType === DroneType.Crazyflie) this.appService.setDroneType(DroneType.Argos);
+        else this.appService.setDroneType(DroneType.Crazyflie);
+    }
+
+    get isSpinning(): boolean {
+        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+    }
+
+    get logIsShown(): boolean {
+        return this.logService.logIsShown;
+    }
+
+    get missionIsStarted(): boolean {
+        return this.missionService.missionIsStarted;
+    }
+
+    get returnToBaseActivated(): boolean {
+        return this.missionService.returnToBaseActivated;
+    }
+
+    get updateActivated(): boolean {
+        return this.missionService.updateActivated;
+    }
 }

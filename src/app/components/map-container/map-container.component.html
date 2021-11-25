@@ -1,6 +1,0 @@
-<div class="load" nz-icon [nzType]="'loading'" *ngIf="isSpinning"><p>En attente de drones</p></div>
-<div class="layout" *ngIf="!isSpinning">
-  <!-- TODO : cant put ngFor here or it will rerender the component every pulse -->
-  <app-map name="canvas1"></app-map>
-  <app-map name="canvas2"></app-map>
-</div>

@@ -4,10 +4,234 @@ nz-sider {
     overflow: auto;
     left: 0;
     margin-top: 64px;
+    box-shadow: 2px 2px 2px rgba(00, 00, 00, 0.1);
+}
+
+.drone-type {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drone {
+    ::ng-deep .ant-switch {
+        height: 22px;
+        width: 120px;
+        color: black;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        font-variant: tabular-nums;
+        list-style: none;
+        font-feature-settings: 'tnum', 'tnum';
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        min-width: 44px;
+        height: 30px;
+        line-height: 22px;
+        vertical-align: middle;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    ::ng-deep .ant-switch {
+        background-color: #2652a4;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #b11422;
+    }
+
+    ::ng-deep .ant-switch-handle::before {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 26px;
+        padding-left: 0px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px 0 rgb(0 35 11 / 20%);
+        content: '';
+    }
+
+    ::ng-deep .ant-switch-inner {
+        font-size: 13px;
+    }
+}
+
+::ng-deep .command-button .ant-btn {
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-user-select: none;
+    user-select: none;
+    height: 32px;
+    padding: 4px 15px;
+}
+
+::ng-deep .ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:active,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary[disabled]:hover {
+    color: rgba(0, 0, 0, 0.25);
+    background: #f5f5f5;
+    border-color: white;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+::ng-deep .ant-menu-item-selected,
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover,
+.ant-menu-item > .ant-badge a:hover {
+    color: #2652a4;
+}
+
+::ng-deep .ant-menu-submenu-selected {
+    color: #2652a4;
+}
+
+.log-switch {
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
+}
+.folder {
+    padding-right: 10px;
+}
+
+.info-container {
+    width: 100%;
 }
 
 @media (max-width: 900px) {
     .sider-menu {
         display: none;
+    }
+}
+
+.info {
+    margin-top: auto;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    cursor: pointer;
+    border: 1px transparent;
+    -webkit-border-radius: 40px;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 6px;
+    margin-left: 5%;
+    height: 40px;
+    width: 90%;
+    text-align: center;
+    z-index: 50;
+}
+
+button:disabled,
+button[disabled] {
+    border: 1px transparent;
+    background-color: #f3f0f6;
+    pointer-events: none;
+    color: #c6c3c8;
+}
+
+.start:enabled {
+    --darkColor: #3cff00;
+    --lightColor: #a6ff8b;
+    animation: glowing 2s infinite;
+}
+
+.base:enabled {
+    --darkColor: #00c2f3;
+    --lightColor: #9bebff;
+    animation: glowing 2s infinite;
+}
+
+.stop:enabled {
+    --darkColor: #ff2600;
+    --lightColor: #faa099;
+    animation: glowing 2s infinite;
+}
+
+.update:enabled {
+    --darkColor: #f1f500;
+    --lightColor: #f1f500;
+    animation: glowing 2s infinite;
+}
+
+.button:hover:not([disabled]) {
+    color: #ffffff;
+    background-color: #2652a4 !important;
+    box-shadow: 0 0 5px #2652a4 !important;
+}
+
+.logs:disabled {
+    cursor: pointer;
+    border: 1px transparent;
+    background-color: #f8f8f8;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 6px;
+    height: 40px;
+    width: 70%;
+    text-align: center;
+}
+
+.log-switch {
+    width: 30%;
+    height: 100%;
+    padding-bottom: 1px;
+}
+
+.button-history {
+    cursor: pointer;
+    border: 1px transparent;
+    background-color: transparent;
+    height: 40px;
+    width: 100%;
+    text-align: left;
+    text-indent: 9%;
+    z-index: 30;
+}
+
+.button-history:hover {
+    color: #1d79fe;
+}
+
+@keyframes glowing {
+    0% {
+        background-color: var(--darkColor);
+        box-shadow: 0 0 3px var(--darkColor);
+    }
+    50% {
+        background-color: var(--lightColor);
+        box-shadow: 0 0 10px var(--lightColor);
+    }
+    100% {
+        background-color: var(--darkColor);
+        box-shadow: 0 0 3px var(--darkColor);
     }
 }

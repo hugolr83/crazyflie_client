@@ -18,7 +18,8 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    isHidden: boolean = true;
+    // boolean to display drones orientation and position before starting a mission
+    isPosOriHidden: boolean = false;
 
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();

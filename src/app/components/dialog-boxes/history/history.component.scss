@@ -1,0 +1,74 @@
+::ng-deep .ant-table,
+.ant-table.ant-table-middle,
+.ant-table.ant-table-small {
+    font-size: 13px;
+}
+
+::ng-deep .anticon {
+    color: inherit;
+    line-height: 0;
+    text-align: center;
+    margin-right: 3px;
+}
+
+::ng-deep .ant-table-thead > tr > th {
+    position: relative;
+    font-weight: 500;
+    text-align: left;
+    transition: background 0.3s ease;
+    font-size: 15px;
+    font-weight: 800;
+    color: #2652a4;
+}
+::ng-deep .ant-table-row-indent + .ant-table-row-expand-icon {
+    margin-top: 0;
+    margin-right: 36px;
+    margin-left: 23px;
+    color: #2652a4;
+}
+
+.map {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    img {
+        max-width: 100%;
+        height: auto;
+        width: auto;
+    }
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #2652a4;
+}
+
+.nlogs {
+    font-style: italic;
+    font-size: 11px;
+    margin-top: 4px;
+    height: 100%;
+}
+
+.log-container {
+    min-width: 77vw;
+    max-width: 1200px;
+    height: 175px;
+    overflow-y: auto;
+    overflow-x: auto;
+    .logs {
+        height: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        margin-left: 0;
+        white-space: pre;
+        display: flex;
+        flex-direction: column;
+        margin-top: 3px;
+        text-align: left;
+        p {
+            height: 15px;
+        }
+    }
+}

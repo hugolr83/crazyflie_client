@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
-
 .ant-layout-header {
     padding: 0;
     background-color: white;
+    border-bottom: 3px solid #b11422;
+    box-shadow: 2px 2px 2px rgba(00, 00, 00, 0.1);
 }
 
 nz-header {
@@ -18,13 +18,13 @@ nz-header {
 }
 
 .logo {
-    width: auto;
-    height: 25px;
     margin: 17px 30px 10px 0;
     padding-left: 15px;
     float: left;
-    cursor: pointer;
     margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    width: auto;
 }
 
 .nav_links {
@@ -32,10 +32,9 @@ nz-header {
 }
 
 .nav_links li a {
-    font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 16px;
-    color: #305aad;
+    font-size: 19px;
+    color: #2652a4;
     padding-bottom: 10px;
     transition: all 0.3s ease 0s;
 }
@@ -119,6 +118,22 @@ nz-header {
         height: 18px;
         margin: auto;
         padding: auto;
-        align-items: center;
+        align-items: right;
     }
+}
+
+.log-switch {
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
+}
+
+::ng-deep .anticon,
+.anticon svg {
+    display: inline-block;
+    margin-right: 3px;
 }
