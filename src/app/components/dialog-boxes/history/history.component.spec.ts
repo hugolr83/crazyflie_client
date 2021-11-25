@@ -1,25 +1,25 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SidebarComponent } from './sidebar.component';
+import { HistoryComponent } from './history.component';
 
-describe('SidebarComponent', () => {
-    let component: SidebarComponent;
-    let fixture: ComponentFixture<SidebarComponent>;
+describe('HistoryComponent', () => {
+    let component: HistoryComponent;
+    let fixture: ComponentFixture<HistoryComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            declarations: [SidebarComponent],
+            declarations: [HistoryComponent],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SidebarComponent);
+        fixture = TestBed.createComponent(HistoryComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
-    /*it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
-    });*/
+    });
 });

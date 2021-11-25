@@ -1,3 +1,11 @@
+.container-loading {
+    margin-left: 200px;
+    margin-top: 65px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
 .container {
     margin-left: 200px;
     margin-top: 65px;
@@ -8,7 +16,6 @@
 
 .container div {
     margin: 10px;
-    border: 2px solid gold;
     justify-content: center;
     align-items: center;
 }
@@ -17,15 +24,10 @@
     display: flex;
     align-items: center;
     flex: 310px;
+    background-color: transparent;
 }
 
 .drones {
-    display: flex;
-    align-items: center;
-    flex: 400px;
-}
-
-.mission {
     display: flex;
     align-items: center;
     flex: 400px;
@@ -35,10 +37,35 @@
     display: flex;
     flex: 500px;
 }
+.map-drone-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+}
 
 @media screen and (max-width: 900px) {
     .container {
         margin-left: 0;
         justify-content: center;
+    }
+}
+
+.loading {
+    margin-top: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.load {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+        font-size: 15px;
+        font-weight: 800;
+        color: #2652a4;
+        margin-top: 5%;
     }
 }

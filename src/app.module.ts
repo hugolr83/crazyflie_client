@@ -19,17 +19,22 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/components/app/app.component';
 import { DashboardComponent } from './app/components/dashboard/dashboard.component';
-import { DroneContainerComponent } from './app/components/drone-container/drone-container.component';
-import { DroneComponent } from './app/components/drone/drone.component';
-import { LogComponent } from './app/components/log/log.component';
-import { MapContainerComponent } from './app/components/map-container/map-container.component';
-import { MapComponent } from './app/components/map/map.component';
-import { MissionComponent } from './app/components/mission/mission.component';
-import { PercentageBarComponent } from './app/components/percentage-bar/percentage-bar.component';
+import { DroneContainerComponent } from './app/components/dashboard/drone-container/drone-container.component';
+import { DroneComponent } from './app/components/dashboard/drone-container/drone/drone.component';
+import { PercentageBarComponent } from './app/components/dashboard/drone-container/drone/percentage-bar/percentage-bar.component';
+import { LogComponent } from './app/components/dashboard/log/log.component';
+import { MapContainerComponent } from './app/components/dashboard/map-container/map-container.component';
+import { MapComponent } from './app/components/dashboard/map-container/map/map.component';
+import { HistoryComponent } from './app/components/dialog-boxes/history/history.component';
+import { InformationComponent } from './app/components/dialog-boxes/information/information.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
 registerLocaleData(en);
@@ -42,11 +47,12 @@ registerLocaleData(en);
         DroneContainerComponent,
         DashboardComponent,
         TopNavComponent,
-        MissionComponent,
         LogComponent,
         MapComponent,
         MapContainerComponent,
         PercentageBarComponent,
+        InformationComponent,
+        HistoryComponent,
     ],
     imports: [
         HttpClientModule,
@@ -55,6 +61,7 @@ registerLocaleData(en);
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        NzSelectModule,
         ApiModule,
         NzMenuModule,
         NzLayoutModule,
@@ -62,9 +69,12 @@ registerLocaleData(en);
         NzIconModule,
         NzDividerModule,
         NzListModule,
+        NzSwitchModule,
+        NzSpinModule,
         NzDropDownModule,
         NzAlertModule,
         NzModalModule,
+        NzTableModule,
         NzInputModule,
         NzInputNumberModule,
         NzSliderModule,

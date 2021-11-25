@@ -1,20 +1,82 @@
 <nz-sider class="sider-menu" id="navID" nzTheme="light">
   <ul nz-menu nzMode="inline">
-    <li nz-submenu nzOpen nzTitle="Mission" nzIcon="login">
+    <li>
+      <div class="drone-type">
+        <nz-switch
+          class="drone"
+          [ngModel]="true"
+          nzCheckedChildren="Crazyflie"
+          nzUnCheckedChildren="Simulation"
+          (ngModelChange)="toggleDroneType()"
+        ></nz-switch>
+      </div>
+    </li>
+    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Mission" nzIcon="login">
       <ul>
-        <li nz-menu-item nzSelected (click)="droneService.startMission()">Lancer la mission</li>
-        <li nz-menu-item (click)="droneService.endMission()">Terminer la mission</li>
+        <li>
+          <button
+            class="button start"
+            [disabled]="isSpinning || missionIsStarted"
+            (click)="missionService.startMission()"
+          >
+            Lancer la mission
+          </button>
+        </li>
+        <li>
+          <button class="button stop" [disabled]="!missionIsStarted" (click)="missionService.endMission()">
+            Terminer la mission
+          </button>
+        </li>
+        <li nz-submenu [nzOpen]="missionIsStarted" nzTitle="Directives" nzIcon="laptop">
+          <ul>
+            <button
+              class="button base"
+              [disabled]="!missionIsStarted || returnToBaseActivated"
+              (click)="missionService.returnToBase()"
+            >
+              Retour à la base
+            </button>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li nz-submenu nzTitle="Directives" nzIcon="laptop">
-      <ul>
-        <li nz-menu-item (click)="droneService.returnToBase()">Retour à la base</li>
-      </ul>
+    <li>
+      <button class="button-history" (click)="showHistory()">
+        <i class="folder" nz-icon nzType="folder-open" nzTheme="outline"></i>Historique
+      </button>
     </li>
-    <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">
+    <li nz-submenu [nzOpen]="missionIsStarted" nzTitle="Paramètres" nzIcon="setting">
       <ul>
-        <li nz-menu-item>Mise à jour</li>
+        <li>
+          <button
+            class="button update"
+            [disabled]="!missionIsStarted || updateActivated"
+            (click)="missionService.update()"
+          >
+            Mise à jour
+          </button>
+        </li>
+        <li>
+          <button class="logs" disabled>Afficher logs</button>
+          <nz-switch
+            class="log-switch"
+            [nzDisabled]="!missionIsStarted"
+            [ngModel]="logIsShown"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
+            (ngModelChange)="showLogs()"
+          >
+            <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+          </nz-switch>
+        </li>
       </ul>
     </li>
   </ul>
+  <div class="info-container">
+    <button nz-button nzType="primary" nzShape="round" (click)="showInformation()">
+      <i nz-icon nzType="info-circle"></i>
+      Informations
+    </button>
+  </div>
 </nz-sider>

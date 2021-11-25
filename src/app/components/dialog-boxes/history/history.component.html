@@ -1,0 +1,67 @@
+<nz-table
+  [nzLoading]="isLoading"
+  #nestedTable
+  [nzPageSize]="10"
+  nzSize="small"
+  [nzData]="missionsData"
+  nzBordered
+  [nzScroll]="{ x: '1200px' }"
+>
+  <thead>
+    <tr>
+      <th rowspan="2" [nzSortFn]="sortNumber" [nzSortDirections]="filter" nzAlign="center">Mission</th>
+      <th colspan="2" [nzSortFn]="sortCreated" [nzSortDirections]="filter" nzAlign="center">Création</th>
+      <th rowspan="2" [nzSortFn]="sortElapsedTime" [nzSortDirections]="filter" nzAlign="center">
+        <i nz-icon nzType="dashboard" nzTheme="outline"></i>Temps de vol
+      </th>
+      <th rowspan="2" [nzSortFn]="sortNumber" [nzSortDirections]="filter" nzAlign="center">
+        <i nz-icon nzType="rocket" nzTheme="outline"></i>Nombre de robots
+      </th>
+      <th rowspan="2" [nzFilters]="filterType" [nzFilterFn]="filterTypeFn" nzAlign="center">
+        <i nz-icon nzType="control" nzTheme="outline"></i>Type
+      </th>
+      <th rowspan="2" [nzSortFn]="sortNumber" [nzSortDirections]="filter" nzAlign="center">
+        <i nz-icon nzType="info-circle" nzTheme="outline"></i>Distance parcouru
+      </th>
+      <th rowspan="2" nzAlign="center"><i nz-icon nzType="global" nzTheme="outline"></i>Carte</th>
+      <th rowspan="2" nzWidth="80px" nzAlign="center"><i nz-icon nzType="file" nzTheme="outline"></i>Logs</th>
+    </tr>
+    <tr>
+      <th rowspan="1" nzAlign="center"><i nz-icon nzType="calendar" nzTheme="outline"></i>Date</th>
+      <th rowspan="1" nzAlign="center"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+      <tr>
+        <td nzAlign="center">Mission {{ data.id }}</td>
+        <td nzAlign="center">{{ data.startingDate }}</td>
+        <td nzAlign="center">{{ data.startingTime }}</td>
+        <td nzAlign="center">{{ data.elapsedTime }}</td>
+        <td nzAlign="center">{{ data.numberRobots }}</td>
+        <td nzAlign="center">{{ data.droneType }}</td>
+        <td nzAlign="center">{{ data.distance }}</td>
+        <td [(nzExpand)]="data.expandMap" nzAlign="center"></td>
+        <td class="nlogs" [(nzExpand)]="data.expandLog" nzAlign="center">({{ data.logs?.length }} logs)</td>
+      </tr>
+      <tr [nzExpand]="data.expandLog" nzAlign="center">
+        <tbody>
+          <p class="title"><i nz-icon nzType="file" nzTheme="outline"></i>Logs</p>
+          <div class="log-container">
+            <div class="logs" *ngFor="let log of data.logs">
+              {{ logService.formatTimestamp(log.timestamp).date_time }} {{ log.message }}
+            </div>
+          </div>
+        </tbody>
+      </tr>
+      <tr [nzExpand]="data.expandMap" nzAlign="center">
+        <tbody>
+          <p class="title"><i nz-icon nzType="global" nzTheme="outline"></i>Carte</p>
+          <div class="map">
+            <img draggable="false" src="assets\images\ge_full_logo.png" alt="logo" />
+          </div>
+        </tbody>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

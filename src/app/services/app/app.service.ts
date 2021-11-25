@@ -18,8 +18,7 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    isLogsHidden: boolean = true;
-    // boolean to display drones orientaion and position before starting a mission
+    // boolean to display drones orientation and position before starting a mission
     isPosOriHidden: boolean = false;
 
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
