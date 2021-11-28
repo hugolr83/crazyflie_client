@@ -9,43 +9,61 @@
   ></i>
   <nz-dropdown-menu #sidebarMenu="nzDropdownMenu">
     <ul nz-menu>
+      <li nz-submenu nzTitle="Type" nzIcon="control">
+        <ul>
+          <li nz-menu-item (click)="setDroneType(DroneType.Crazyflie)">Robots aériens</li>
+          <li nz-menu-item (click)="setDroneType(DroneType.Argos)">Simulation</li>
+        </ul>
+      </li>
       <li nz-submenu nzTitle="Mission" nzIcon="login">
         <ul>
-          <li nz-menu-item (click)="droneService.startMission()">Lancer la mission</li>
-          <li nz-menu-item (click)="droneService.endMission()">Terminer la mission</li>
+          <li nz-menu-item [nzDisabled]="isSpinning || missionIsStarted" (click)="missionService.startMission()">
+            Lancer la mission
+          </li>
+          <li nz-menu-item [nzDisabled]="!missionIsStarted" (click)="missionService.endMission()">
+            Terminer la mission
+          </li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Directives" nzIcon="laptop">
         <ul>
-          <li nz-menu-item (click)="droneService.returnToBase()">Retour à la base</li>
+          <li
+            nz-menu-item
+            [nzDisabled]="!missionIsStarted || returnToBaseActivated"
+            (click)="missionService.returnToBase()"
+          >
+            Retour à la base
+          </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Logiciel" nzIcon="cloud-download">
+      <li nz-menu-item (click)="sidebarComponent.showHistory()">
+        <i nz-icon nzType="folder-open" nzTheme="outline"></i>Historique
+      </li>
+      <li nz-submenu nzTitle="Paramètres" nzIcon="cloud-download">
         <ul>
-          <li nz-menu-item>Mise à jour</li>
+          <li nz-menu-item [nzDisabled]="!missionIsStarted || updateActivated" (click)="missionService.update()">
+            Mise à jour
+          </li>
+          <li>
+            Logs
+            <nz-switch
+              class="log-switch"
+              [nzDisabled]="!missionIsStarted"
+              [ngModel]="logIsShown"
+              [nzCheckedChildren]="checkedTemplate"
+              [nzUnCheckedChildren]="unCheckedTemplate"
+              (ngModelChange)="showLogs()"
+            >
+              <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+              <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+            </nz-switch>
+          </li>
         </ul>
+      </li>
+      <li nz-menu-item (click)="sidebarComponent.showInformation()">
+        <i nz-icon nzType="info-circle" nzTheme="outline"></i>Informations
       </li>
     </ul>
   </nz-dropdown-menu>
-  <img class="logo" src="assets\images\ge_full_logo.png" alt="logo" />
-  <nav class="nav_links">
-    <ul>
-      <li (click)="setDroneType(DroneType.Crazyflie)"><a>Robots aériens</a></li>
-      <li (click)="setDroneType(DroneType.Argos)"><a>Simulation</a></li>
-    </ul>
-  </nav>
-  <i
-    nz-icon
-    nzType="menu-fold"
-    class="type-toggle"
-    nz-dropdown
-    [nzDropdownMenu]="typeMenu"
-    nzPlacement="bottomRight"
-  ></i>
-  <nz-dropdown-menu #typeMenu="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item (click)="setDroneType(DroneType.Crazyflie)">Robots aériens</li>
-      <li nz-menu-item (click)="setDroneType(DroneType.Argos)">Simulation</li>
-    </ul>
-  </nz-dropdown-menu>
+  <img class="logo" draggable="false" src="assets\images\ge_full_logo.png" alt="logo" />
 </nz-header>

@@ -1,3 +1,43 @@
 .layout {
     min-height: 100vh;
 }
+
+::ng-deep .ant-btn-primary {
+    background: #2652a4;
+    color: #fff;
+    background: #2652a4;
+    border-color: #2652a4;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+}
+
+::ng-deep .ant-modal-content {
+    border-radius: 25px 25px 25px 25px;
+    box-shadow: 3px 3px 3px rgba(00, 00, 00, 0.3);
+
+    .ant-modal-header {
+        padding: 16px 24px;
+        background: #2652a4;
+        border-radius: 20px 20px 0 0;
+        border-bottom: 5px solid #b11422;
+        .ant-modal-title {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            color: white;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 22px;
+            word-wrap: break-word;
+        }
+    }
+
+    .ant-modal-footer {
+        display: flex;
+        justify-content: center;
+        padding: 10px 16px;
+        text-align: right;
+        background: #2652a4;
+        border-top: 5px solid #b11422;
+        border-radius: 0 0 20px 20px;
+    }
+}

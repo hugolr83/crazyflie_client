@@ -1,0 +1,9 @@
+<div class="box">
+  <div class="title"><i nz-icon nzType="file" nzTheme="outline"></i>Logs</div>
+  <div class="log-container">
+    <p class="nolog" *ngIf="logs.length === 0">Aucun log à afficher pour le moment</p>
+    <div class="logs" *ngFor="let log of logs">
+      <p>{{ logService.formatTimestamp(log.timestamp).date_time }} {{ log.message }}</p>
+    </div>
+  </div>
+</div>
