@@ -38,23 +38,18 @@ describe('DroneService', () => {
     });
 
     it('should startMission', () => {
-        // const mission : Mission[] = [];
         commonApiService.createMission.and.returnValue(of(new HttpResponse()));
         service.startMission();
         expect(service['callApi']).toHaveBeenCalled;
     });
 
     it('should end mission', () => {
-        let commonApiSpy = spyOn(CommonApiService.prototype, 'endMission');
         service.endMission();
-        expect(commonApiSpy).toHaveBeenCalled();
+        expect(service['callApi']).toHaveBeenCalled();
     });
 
-    // callApi bien appele
-
     it('should return to base', () => {
-        let commonApiSpy = spyOn(CommonApiService.prototype, 'returnToBase');
-        service.endMission();
-        expect(commonApiSpy).toHaveBeenCalled();
+        service.returnToBase();
+        expect(service['callApi']).toHaveBeenCalled();
     });
 });

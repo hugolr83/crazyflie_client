@@ -5,7 +5,7 @@ import { AppModule } from 'src/app.module';
 import { AppService } from 'src/app/services/app/app.service';
 import { TopNavComponent } from './top-nav.component';
 
-fdescribe('TopNavComponent', () => {
+describe('TopNavComponent', () => {
     let component: TopNavComponent;
     let fixture: ComponentFixture<TopNavComponent>;
     let appService: jasmine.SpyObj<AppService>;

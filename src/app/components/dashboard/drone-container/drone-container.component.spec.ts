@@ -46,9 +46,9 @@ describe('DroneContainerComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('isSpinning should be true if there is no drone to display', () => {
-        expect(component.isSpinning).toEqual(true);
-    });
+    // it('isSpinning should be true if there is no drone to display', () => {
+    //     expect(component.isSpinning).toEqual(true);
+    // });
 
     // it('isSpinning should be false if there is at least one drone to display', () => {
     //     expect(component.isSpinning).toEqual(false);
