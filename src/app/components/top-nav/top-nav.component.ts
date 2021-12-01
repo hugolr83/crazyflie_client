@@ -20,12 +20,18 @@ export class TopNavComponent {
         public sidebarComponent: SidebarComponent,
     ) {}
 
-    setDroneType(type: DroneType): void {
-        this.appService.setDroneType(type);
-    }
-
     showLogs(): void {
         this.logService.logIsShown = !this.logService.logIsShown;
+    }
+
+    toggleDroneType(): void {
+        if (this.appService.droneType === DroneType.Crazyflie) {
+            this.appService.setDroneType(DroneType.Argos);
+            this.missionService.isSimulation = true;
+        } else {
+            this.appService.setDroneType(DroneType.Crazyflie);
+            this.missionService.isSimulation = false;
+        }
     }
 
     get logIsShown(): boolean {
@@ -40,11 +46,11 @@ export class TopNavComponent {
         return this.missionService.returnToBaseActivated;
     }
 
-    get updateActivated(): boolean {
-        return this.missionService.updateActivated;
-    }
-
     get isSpinning(): boolean {
         return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+    }
+
+    get isSimulation(): boolean {
+        return this.missionService.isSimulation;
     }
 }

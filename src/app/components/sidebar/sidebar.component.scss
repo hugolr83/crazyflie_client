@@ -114,10 +114,6 @@ nz-sider {
     padding-right: 10px;
 }
 
-.info-container {
-    width: 100%;
-}
-
 @media (max-width: 900px) {
     .sider-menu {
         display: none;
@@ -128,7 +124,8 @@ nz-sider {
     margin-top: auto;
 }
 
-.info-container {
+.button-container {
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -176,15 +173,15 @@ button[disabled] {
 }
 
 .update:enabled {
-    --darkColor: #f1f500;
-    --lightColor: #f1f500;
+    --darkColor: #00c2f3;
+    --lightColor: #9bebff;
     animation: glowing 2s infinite;
 }
 
 .button:hover:not([disabled]) {
     color: #ffffff;
-    background-color: #2652a4 !important;
-    box-shadow: 0 0 5px #2652a4 !important;
+    background-color: #1d79fe !important;
+    box-shadow: 0 0 5px #1d79fe !important;
 }
 
 .logs:disabled {
@@ -234,4 +231,10 @@ button[disabled] {
         background-color: var(--darkColor);
         box-shadow: 0 0 3px var(--darkColor);
     }
+}
+
+.help {
+    background-color: white;
+    border-width: 3px;
+    color: #2652a4;
 }
