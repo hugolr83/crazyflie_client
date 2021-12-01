@@ -45,12 +45,12 @@
         <i class="folder" nz-icon nzType="folder-open" nzTheme="outline"></i>Historique
       </button>
     </li>
-    <li nz-submenu [nzOpen]="missionIsStarted" nzTitle="Paramètres" nzIcon="setting">
+    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Paramètres" nzIcon="setting">
       <ul>
         <li>
           <button
             class="button update"
-            [disabled]="!missionIsStarted || updateActivated"
+            [disabled]="missionIsStarted || isSpinning || isSimulation"
             (click)="missionService.update()"
           >
             Mise à jour
@@ -73,7 +73,10 @@
       </ul>
     </li>
   </ul>
-  <div class="info-container">
+  <div class="button-container">
+    <button class="help" nz-button nzType="primary" nzShape="round" (click)="showHelp()">Aide</button>
+  </div>
+  <div class="button-container">
     <button nz-button nzType="primary" nzShape="round" (click)="showInformation()">
       <i nz-icon nzType="info-circle"></i>
       Informations

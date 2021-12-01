@@ -4,6 +4,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
+import { HelpComponent } from '../dialog-boxes/help/help.component';
 import { HistoryComponent } from '../dialog-boxes/history/history.component';
 import { InformationComponent } from '../dialog-boxes/information/information.component';
 
@@ -55,17 +56,44 @@ export class SidebarComponent {
         });
     }
 
+    showHelp(): void {
+        const modal: NzModalRef = this.modal.create({
+            nzClosable: false,
+            nzTitle: 'Aide',
+            nzWidth: 1000,
+            nzContent: HelpComponent,
+            nzFooter: [
+                {
+                    label: 'Fermer',
+                    shape: 'round',
+                    onClick: () => modal.destroy(),
+                },
+            ],
+            nzViewContainerRef: this.viewContainerRef,
+        });
+    }
+
     showLogs(): void {
         this.logService.logIsShown = !this.logService.logIsShown;
     }
 
     toggleDroneType(): void {
-        if (this.appService.droneType === DroneType.Crazyflie) this.appService.setDroneType(DroneType.Argos);
-        else this.appService.setDroneType(DroneType.Crazyflie);
+        if (this.appService.droneType === DroneType.Crazyflie) {
+            this.appService.setDroneType(DroneType.Argos);
+            this.missionService.isSimulation = true;
+        } else {
+            this.appService.setDroneType(DroneType.Crazyflie);
+            this.missionService.isSimulation = false;
+        }
+    }
+
+    get isSimulation(): boolean {
+        return this.missionService.isSimulation;
     }
 
     get isSpinning(): boolean {
-        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+        //return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+        return false;
     }
 
     get logIsShown(): boolean {
@@ -78,9 +106,5 @@ export class SidebarComponent {
 
     get returnToBaseActivated(): boolean {
         return this.missionService.returnToBaseActivated;
-    }
-
-    get updateActivated(): boolean {
-        return this.missionService.updateActivated;
     }
 }

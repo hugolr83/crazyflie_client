@@ -123,6 +123,8 @@ nz-header {
 }
 
 .log-switch {
+    margin-left: 5px;
+
     ::ng-deep .ant-switch {
         background-color: #d20010;
     }
@@ -136,4 +138,71 @@ nz-header {
 .anticon svg {
     display: inline-block;
     margin-right: 3px;
+}
+
+.drone-type {
+    width: 120px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drone {
+    ::ng-deep .ant-switch {
+        height: 22px;
+        width: 110px;
+        color: black;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        font-variant: tabular-nums;
+        list-style: none;
+        font-feature-settings: 'tnum', 'tnum';
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        min-width: 44px;
+        height: 30px;
+        line-height: 22px;
+        vertical-align: middle;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    ::ng-deep .ant-switch {
+        background-color: #2652a4;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #b11422;
+    }
+
+    ::ng-deep .ant-switch-handle::before {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 26px;
+        padding-left: 0px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px 0 rgb(0 35 11 / 20%);
+        content: '';
+    }
+
+    ::ng-deep .ant-switch-inner {
+        font-size: 13px;
+    }
+}
+
+.log-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
