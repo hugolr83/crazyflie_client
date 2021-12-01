@@ -47,8 +47,7 @@ export class TopNavComponent {
     }
 
     get isSpinning(): boolean {
-        //return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
-        return false;
+        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
     }
 
     get isSimulation(): boolean {
