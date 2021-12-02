@@ -1,5 +1,5 @@
 <div class="layout">
-  <ng-container *ngFor="let item of appService.droneRegistry[appService.droneType] | keyvalue">
-    <app-drone [drone]="item.value"></app-drone>
+  <ng-container *ngFor="let uuid of appService.connectedDrones[appService.droneType]">
+    <app-drone [droneUUID]="uuid"></app-drone>
   </ng-container>
 </div>

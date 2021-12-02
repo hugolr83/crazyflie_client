@@ -3,94 +3,69 @@
     <li>
       <p class="drone"><i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone :</p>
       <ul>
-        <li class="data">{{ drone.uuid }}</li>
+        <li class="data">{{ droneUUID }}</li>
       </ul>
     </li>
-    <li *ngIf="drone.state === DroneState.NotReady">
-      <p>
-        <i nz-icon nzType="stop" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.Ready">
-      <p>
-        <i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.TakingOff">
-      <p>
-        <i nz-icon nzType="up-circle" nzTheme="twotone"></i> Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.Exploring">
-      <p>
-        <i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.ReturningBase">
-      <p>
-        <i nz-icon nzType="down-square" nzTheme="twotone"></i>Etat :
-        <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.Crashed">
-      <nz-alert
-        nzType="error"
-        nzMessage="Erreur"
-        nzDescription="Il s'agit d'un message d'erreur lorsqu'un crash de drone survient"
-        nzShowIcon
-      ></nz-alert>
-      <p>
-        <i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li *ngIf="drone.state === DroneState.Landing">
-      <p>
-        <i nz-icon nzType="down-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
-      </p>
-    </li>
-    <li>
-      <p>
-        <i nz-icon nzType="thunderbolt" nzTheme="twotone"></i>Batterie :
-        <span class="data"
-          >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
-        </span>
-        <app-percentage-bar [color]="color" [percentage]="drone.battery.charge_percentage"></app-percentage-bar>
-      </p>
-    </li>
-    <li>
-      <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
-      <ol class="position">
-        <li class="data">x = {{ position.x }}</li>
-        <li class="data">y = {{ position.y }}</li>
-        <li class="data">z = {{ position.z }}</li>
-      </ol>
-    </li>
-    <li>
-      <p>
-        <i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :
-        <span class="data">{{ orientation.yaw }}</span>
-      </p>
-    </li>
+    <app-drone-pulse [drone]="drone"></app-drone-pulse>
     <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(drone.uuid)">
+      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(droneUUID)">
         <p><i nz-icon nzType="info-circle"></i>Identifier</p>
       </button>
     </li>
     <li class="button">
       <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="showPos()">
-        <p><i nz-icon nzType="form"></i>Choisir position et orientation initiale</p>
+        <p><i nz-icon nzType="form"></i>Choisir positions et orientation initiales</p>
       </button>
     </li>
     <div class="pos" *ngIf="appService.isPosOriHidden">
       <li>
+        <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
+        <ol class="choosePos">
+          <li>
+            <p>
+              x :
+              <nz-input-number [(ngModel)]="position.x" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
+            </p>
+          </li>
+          <li>
+            <p>
+              y :
+              <nz-input-number [(ngModel)]="position.y" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
+            </p>
+          </li>
+          <li>
+            <p>
+              z :
+              <nz-input-number [(ngModel)]="position.z" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
+            </p>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :</p>
         <nz-row>
           <nz-col nzSpan="12">
-            <nz-slider [nzMin]="-180" [nzMax]="180" [(ngModel)]="value"></nz-slider>
+            <nz-slider
+              [nzMin]="-180"
+              [nzMax]="180"
+              [(ngModel)]="orientation.yaw"
+              [disabled]="isMissionStarted"
+            ></nz-slider>
           </nz-col>
           <div nz-col nzSpan="4">
-            <nz-input-number [nzMin]="-180" [nzMax]="180" [(ngModel)]="value"></nz-input-number>
+            <nz-input-number
+              [nzMin]="-180"
+              [nzMax]="180"
+              [(ngModel)]="orientation.yaw"
+              [disabled]="isMissionStarted"
+            ></nz-input-number>
           </div>
         </nz-row>
+      </li>
+      <li class="button">
+        <button nz-button NzSize="small" nzType="dashed" nzShape="round">
+          <p><i nz-icon nzType="check-circle"></i>Valider</p>
+        </button>
       </li>
     </div>
   </ul>

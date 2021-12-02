@@ -8,8 +8,8 @@
 </div>
 <div class="container" *ngIf="!isSpinning">
   <div class="map-drone-container">
-    <div class="map"><app-map-container></app-map-container></div>
     <div class="drones"><app-drone-container></app-drone-container></div>
+    <div class="map"><app-map-container></app-map-container></div>
   </div>
   <div class="log" [hidden]="!logService.logIsShown"><app-log></app-log></div>
 </div>
