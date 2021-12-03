@@ -51,7 +51,7 @@ export class HistoryComponent implements OnInit {
                 startingTime: this.logService.formatTimestamp(mission.starting_time).time,
                 elapsedTime: this.historyService.getElapsedTime(
                     mission.starting_time,
-                    (mission.ending_time = '2021-11-24T21:25:00'),
+                    (mission.ending_time = '2021-12-01T17:25:00'),
                 ),
                 numberRobots: 2,
                 droneType: mission.drone_type,

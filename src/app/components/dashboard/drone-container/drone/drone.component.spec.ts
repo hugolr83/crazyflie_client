@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
+import { MissionService } from 'src/app/services/mission/mission.service';
 import { DroneComponent } from './drone.component';
 
 describe('DroneComponent', () => {
@@ -24,11 +25,13 @@ describe('DroneComponent', () => {
     let commonService: jasmine.SpyObj<CommonApiService>;
     let appService: jasmine.SpyObj<AppService>;
     let crService: jasmine.SpyObj<CrazyflieApiService>;
+    let missionService: jasmine.SpyObj<MissionService>;
 
     beforeEach(async () => {
         crService = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
         appService = jasmine.createSpyObj('AppService', ['']);
         commonService = jasmine.createSpyObj('CommonApiService', ['']);
+        missionService = jasmine.createSpyObj('MissionService', ['']);
         crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
 
         await TestBed.configureTestingModule({
@@ -36,9 +39,10 @@ describe('DroneComponent', () => {
             declarations: [DroneComponent],
             providers: [
                 { provide: DroneComponent, usevalue: {} },
-                { provide: CrazyflieApiService, useValue: crService },
-                { provide: AppService, useValue: appService },
-                { provide: CommonApiService, useValue: commonService },
+                { provide: CrazyflieApiService, usevalue: crService },
+                { provide: AppService, usevalue: appService },
+                { provide: CommonApiService, usevalue: commonService },
+                { provide: MissionService, usevalue: missionService },
             ],
         }).compileComponents();
     });
@@ -46,7 +50,6 @@ describe('DroneComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(DroneComponent);
         droneComponent = fixture.componentInstance;
-        droneComponent.drone = mockDrone;
         fixture.detectChanges();
     });
 
@@ -54,35 +57,43 @@ describe('DroneComponent', () => {
         expect(droneComponent).toBeTruthy();
     });
 
-    it('identify drone should call crazyflie service identifyCrazyflie', () => {
-        const uuid = 'test';
-        droneComponent.identifyDrone(uuid);
-        expect(crService.identifyCrazyflie).toHaveBeenCalled();
+    // it('identify drone should call crazyflie service identifyCrazyflie', () => {
+    //     const uuid = mockDrone.uuid;
+    //     droneComponent.identifyDrone(uuid);
+    //     expect(crService.identifyCrazyflie).toHaveBeenCalled();
+    // });
+
+    // it('identify drone should not call crazyflie service if uuid is empty', () => {
+    //     let uuid = '';
+    //     droneComponent.identifyDrone(uuid);
+    //     expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
+    // });
+
+    it('isMissionStarted should be false if there is no mission started', () => {
+        const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
+        expect(droneComponent.isMissionStarted).toEqual(false);
+        expect(spy).toHaveBeenCalled();
     });
 
-    it('identify drone should not call crazyflie service if uuid is empty', () => {
-        const uuid = '';
-        droneComponent.identifyDrone(uuid);
-        expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
+    it('isMissionStarted should be true if a mission is started', () => {
+        droneComponent.missionService.startMission();
+        const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
+        expect(droneComponent.isMissionStarted).toEqual(true);
+        expect(spy).toHaveBeenCalled();
     });
 
-    it('roundValue should round value', () => {
-        const expectedRound = Number.parseFloat((123.34534345).toFixed(2));
-        const ret = droneComponent.roundValue(123.34534345, 2);
-
-        expect(ret).toEqual(expectedRound);
+    it('getDroneType should return Crazyflie if we are using Crazyflie drones', () => {
+        droneComponent.appService.droneType = DroneType.Crazyflie;
+        const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
+        expect(droneComponent.droneType).toEqual(DroneType.Crazyflie);
+        expect(spy).toHaveBeenCalled();
     });
 
-    it('position should return rounded drone positions', () => {
-        const expectedPosition = droneComponent.position;
-        const pos = droneComponent.position;
-        expect(pos).toEqual(expectedPosition);
-    });
-
-    it('orientation should return rounded drone orientation', () => {
-        const expectedOr = droneComponent.orientation;
-        const or = droneComponent.orientation;
-        expect(or).toEqual(expectedOr);
+    it('getDroneType should return Argos if we are in simulation', () => {
+        droneComponent.appService.droneType = DroneType.Argos;
+        const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
+        expect(droneComponent.droneType).toEqual(DroneType.Argos);
+        expect(spy).toHaveBeenCalled();
     });
 
     it('showPos should show inputs for position and orientation', () => {

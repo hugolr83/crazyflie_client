@@ -40,17 +40,11 @@
 .map-drone-container {
     position: relative;
     width: 100%;
-    display: flex;
-}
-
-@media screen and (max-width: 900px) {
-    .container {
-        margin-left: 0;
-        justify-content: center;
-    }
+    display: block;
 }
 
 .loading {
+    position: relative;
     margin-top: 25%;
     width: 100%;
     display: flex;
@@ -58,6 +52,7 @@
 }
 
 .load {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,5 +62,13 @@
         font-weight: 800;
         color: #2652a4;
         margin-top: 5%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .container,
+    .container-loading {
+        margin-left: 0;
+        justify-content: center;
     }
 }

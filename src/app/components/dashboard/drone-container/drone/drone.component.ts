@@ -1,18 +1,9 @@
 import { Component, Input } from '@angular/core';
-import {
-    CommonApiService,
-    CrazyflieApiService,
-    Drone,
-    DroneState,
-    DroneType,
-    DroneVec3,
-    Orientation,
-} from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, DroneType, DroneVec3, Orientation } from '@backend/api-client';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { AppService } from 'src/app/services/app/app.service';
-
-export type DroneRegistry = { [key in DroneType]: Drone[] };
-// state: 'Waiting' | 'Start-Up' | 'Exploring' | 'ReturnToBase' | 'ImmediateLanding' | 'Crashed';
+import { DroneService } from 'src/app/services/drone/drone.service';
+import { MissionService } from 'src/app/services/mission/mission.service';
 
 @Component({
     selector: 'app-drone',
@@ -20,40 +11,38 @@ export type DroneRegistry = { [key in DroneType]: Drone[] };
     styleUrls: ['./drone.component.scss'],
 })
 export class DroneComponent {
-    @Input() drone!: Drone;
+    @Input() droneUUID!: string;
     DroneType = DroneType;
-    selectedDroneUUID!: string;
-    DroneState = DroneState;
     size!: NzButtonSize;
-    color: string = '#3DCC93';
-    isVisible: boolean = false;
-    value: number = 0;
+    position: DroneVec3;
+    orientation: Orientation;
 
     constructor(
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-    ) {}
+        public droneService: DroneService,
+        public missionService: MissionService,
+    ) {
+        this.position = { x: 0, y: 0, z: 0 };
+        this.orientation = { yaw: 0 };
+    }
 
     identifyDrone(uuid: string): void {
         if (!uuid) return;
         this.crazyflieApiService.identifyCrazyflie(uuid).subscribe((drone: Drone) => {});
     }
 
-    roundValue(value: number, precision: number): number {
-        return Number.parseFloat(value.toFixed(precision));
+    get isMissionStarted(): boolean {
+        return this.missionService.missionIsStarted;
     }
 
-    get position(): DroneVec3 {
-        this.drone.position.x = this.roundValue(this.drone.position.x, 3);
-        this.drone.position.y = this.roundValue(this.drone.position.y, 3);
-        this.drone.position.z = this.roundValue(this.drone.position.z, 3);
-        return this.drone.position;
+    get droneType(): DroneType {
+        return this.appService.droneType;
     }
 
-    get orientation(): Orientation {
-        this.drone.orientation.yaw = this.roundValue(this.drone.orientation.yaw, 3);
-        return this.drone.orientation;
+    get drone(): Drone {
+        return this.appService.droneRegistry[this.droneType][this.droneUUID];
     }
 
     showPos(): void {

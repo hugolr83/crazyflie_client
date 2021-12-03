@@ -37,6 +37,7 @@ import { HistoryComponent } from './app/components/dialog-boxes/history/history.
 import { InformationComponent } from './app/components/dialog-boxes/information/information.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
+import { DronePulseComponent } from './app/components/dashboard/drone-container/drone/drone-pulse/drone-pulse.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -53,6 +54,7 @@ registerLocaleData(en);
         PercentageBarComponent,
         InformationComponent,
         HistoryComponent,
+        DronePulseComponent,
     ],
     imports: [
         HttpClientModule,
