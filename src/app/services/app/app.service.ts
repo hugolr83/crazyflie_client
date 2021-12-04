@@ -7,9 +7,10 @@ import { CommunicationService } from '../communication/communication.service';
 Service that manages global state of application.
 */
 
-export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
+export type DroneRegistry = { [key in DroneType]: { [id: number]: Drone } };
 
-export type Drones = { [key in DroneType]: Set<string> };
+// Set of ids
+export type Drones = { [key in DroneType]: Set<number> };
 
 export type DroneControl = {
     [key in DroneType]: {
@@ -45,11 +46,11 @@ export class AppService {
         this.communicationService.listenDronePulse().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
                 // Drone pulse state info
-                this.droneRegistry[drone.type][drone.uuid] = drone;
+                this.droneRegistry[drone.type][drone.id] = drone;
 
                 // Connected drones
-                if (!this.connectedDrones[drone.type].has(drone.uuid)) {
-                    this.connectedDrones[drone.type].add(drone.uuid);
+                if (!this.connectedDrones[drone.type].has(drone.id)) {
+                    this.connectedDrones[drone.type].add(drone.id);
                 }
             });
         });

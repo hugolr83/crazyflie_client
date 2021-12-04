@@ -2,7 +2,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType } from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, DroneType } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
@@ -11,16 +11,6 @@ import { DroneComponent } from './drone.component';
 describe('DroneComponent', () => {
     let droneComponent: DroneComponent;
     let fixture: ComponentFixture<DroneComponent>;
-
-    let mockDrone: Drone = {
-        state: DroneState.NotReady,
-        type: DroneType.Argos,
-        uuid: 'test',
-        battery: { charge_percentage: 80 },
-        orientation: { yaw: 90 },
-        position: { x: 50, y: 50, z: 70 },
-        range: { front: 1, back: 2, up: 3, left: 4, right: 5, bottom: 6 },
-    };
 
     let commonService: jasmine.SpyObj<CommonApiService>;
     let appService: jasmine.SpyObj<AppService>;
