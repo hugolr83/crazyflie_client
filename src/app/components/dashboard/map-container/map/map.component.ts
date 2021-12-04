@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { AppService } from 'src/app/services/app/app.service';
-import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { MapService } from 'src/app/services/map/map.service';
 
 @Component({
@@ -12,18 +11,28 @@ export class MapComponent implements AfterViewInit {
     totalProgress?: number;
     @ViewChild('mapCanvas') canvas!: ElementRef;
     @Input() name!: string;
+    @Input() type!: 'path' | 'position' | 'obstacle';
+    @Input() zindex!: string;
+    @Input() droneUUID!: string;
 
-    constructor(
-        private mapService: MapService,
-        private commService: CommunicationService,
-        public appService: AppService,
-        public elementRef: ElementRef,
-    ) {
+    constructor(private mapService: MapService, public appService: AppService, public elementRef: ElementRef) {
         this.totalProgress = 80;
     }
 
     ngAfterViewInit(): void {
         const ctx = (document.getElementById(this.name) as HTMLCanvasElement).getContext('2d');
-        this.mapService.setContext(ctx);
+
+        switch (this.type) {
+            case 'position':
+                this.mapService.setPositionContext(ctx, this.droneUUID);
+                break;
+            case 'obstacle':
+                this.mapService.setObstacleContext(ctx);
+                break;
+
+            case 'path':
+                this.mapService.setPathContext(ctx, this.droneUUID);
+                break;
+        }
     }
 }

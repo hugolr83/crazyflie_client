@@ -1,7 +1,28 @@
 <div>
+  <button class="paths">Afficher trajet</button>
+  <nz-switch
+    class="path-switch"
+    [ngModel]="pathIsShow"
+    (ngModelChange)="togglePaths($event)"
+    [nzCheckedChildren]="checkedTemplate"
+    [nzUnCheckedChildren]="unCheckedTemplate"
+  >
+    <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+    <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+  </nz-switch>
+
   <div class="layout">
-    <!-- TODO : cant put ngFor here or it will rerender the component every pulse -->
-    <app-map name="canvas1"></app-map>
-    <app-map name="canvas2"></app-map>
+    <!-- position canvas for every drone -->
+    <div *ngFor="let uuid of connectedDrones" style="position: absolute">
+      <app-map [droneUUID]="uuid" [name]="uuid + 'position'" type="position" zindex="2"></app-map>
+    </div>
+    <!-- path canvas for every drone -->
+    <div *ngFor="let uuid of connectedDrones" style="position: absolute">
+      <app-map [droneUUID]="uuid" [name]="uuid + 'path'" type="path" zindex="1"></app-map>
+    </div>
+    <!-- obstacle canvas for all drones -->
+    <div style="position: absolute">
+      <app-map name="baseCanvas" type="obstacle" zindex="0"></app-map>
+    </div>
   </div>
 </div>

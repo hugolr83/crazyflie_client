@@ -9,7 +9,7 @@ Service that manages global state of application.
 
 export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
 
-export type Drones = { [key in DroneType]: Set<string> };
+export type Drones = { [key in DroneType]: { [id: string]: { fillStyle: string } } };
 
 export type DroneControl = {
     [key in DroneType]: {
@@ -26,7 +26,7 @@ export type DroneControl = {
 export class AppService {
     droneType: DroneType = DroneType.Crazyflie;
     droneRegistry: DroneRegistry = { CRAZYFLIE: {}, ARGOS: {} };
-    connectedDrones: Drones = { CRAZYFLIE: new Set(), ARGOS: new Set() };
+    connectedDrones: Drones = { CRAZYFLIE: {}, ARGOS: {} };
 
     activeMission?: Mission = undefined;
 
@@ -48,8 +48,8 @@ export class AppService {
                 this.droneRegistry[drone.type][drone.uuid] = drone;
 
                 // Connected drones
-                if (!this.connectedDrones[drone.type].has(drone.uuid)) {
-                    this.connectedDrones[drone.type].add(drone.uuid);
+                if (!this.connectedDrones[drone.type][drone.uuid]) {
+                    this.connectedDrones[drone.type][drone.uuid] = { fillStyle: this.generateRandomColor() };
                 }
             });
         });
@@ -60,5 +60,9 @@ export class AppService {
             return this.commonApiService.getActiveMission(this.droneType);
         }
         return of(this.activeMission);
+    }
+
+    private generateRandomColor(): string {
+        return '#' + Math.floor(Math.random() * 2 ** 24).toString(16);
     }
 }

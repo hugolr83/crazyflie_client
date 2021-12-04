@@ -1,14 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    CommonApiService,
-    CrazyflieApiService,
-    Drone,
-    DroneType,
-    DroneVec3,
-    Log,
-    Mission,
-    Orientation,
-} from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, Log, Mission } from '@backend/api-client';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { AppService } from '../app/app.service';

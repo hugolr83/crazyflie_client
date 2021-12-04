@@ -45,6 +45,10 @@ export class DroneComponent {
         return this.appService.droneRegistry[this.droneType][this.droneUUID];
     }
 
+    get droneFillStyle(): string {
+        return this.appService.connectedDrones[this.droneType][this.droneUUID].fillStyle;
+    }
+
     showPos(): void {
         this.appService.isPosOriHidden = !this.appService.isPosOriHidden;
     }
