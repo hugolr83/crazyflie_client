@@ -59,15 +59,16 @@ describe('DroneComponent', () => {
 
     // it('identify drone should call crazyflie service identifyCrazyflie', () => {
     //     const uuid = mockDrone.uuid;
+    //     spyOn(droneComponent, 'identifyDrone').and.callThrough();
     //     droneComponent.identifyDrone(uuid);
     //     expect(crService.identifyCrazyflie).toHaveBeenCalled();
     // });
 
-    // it('identify drone should not call crazyflie service if uuid is empty', () => {
-    //     let uuid = '';
-    //     droneComponent.identifyDrone(uuid);
-    //     expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
-    // });
+    it('identify drone should not call crazyflie service if uuid is empty', () => {
+        let uuid = '';
+        droneComponent.identifyDrone(uuid);
+        expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
+    });
 
     it('isMissionStarted should be false if there is no mission started', () => {
         const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
@@ -97,14 +98,16 @@ describe('DroneComponent', () => {
     });
 
     it('showPos should show inputs for position and orientation', () => {
-        appService.isPosOriHidden = false;
+        droneComponent.appService.isPosOriHidden = false;
+        spyOn(droneComponent, 'showPos').and.callThrough();
         droneComponent.showPos();
-        expect(appService.isPosOriHidden).toEqual(true);
+        expect(droneComponent.appService.isPosOriHidden).toEqual(true);
     });
 
     it('showPos should hide inputs for position and orientation', () => {
-        appService.isPosOriHidden = true;
+        droneComponent.appService.isPosOriHidden = true;
+        spyOn(droneComponent, 'showPos').and.callThrough();
         droneComponent.showPos();
-        expect(appService.isPosOriHidden).toEqual(false);
+        expect(droneComponent.appService.isPosOriHidden).toEqual(false);
     });
 });

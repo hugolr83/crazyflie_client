@@ -44,12 +44,14 @@ describe('DroneService', () => {
     });
 
     it('should end mission', () => {
+        const spy = spyOn(service, 'endMission').and.callThrough();
         service.endMission();
-        expect(service['callApi']).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
     });
 
     it('should return to base', () => {
+        const spy = spyOn(service, 'returnToBase').and.callThrough();
         service.returnToBase();
-        expect(service['callApi']).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
     });
 });

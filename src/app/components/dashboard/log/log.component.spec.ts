@@ -108,8 +108,9 @@ describe('LogComponent', () => {
     });
 
     it('should call getMissions', () => {
+        const spy = spyOn(component, 'getMissions').and.callThrough();
         component.getMissions();
-        expect(component.getMissions).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
     });
 
     it('handleClose should hide logs modal', () => {

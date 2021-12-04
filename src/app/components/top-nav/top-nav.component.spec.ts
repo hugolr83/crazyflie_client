@@ -1,6 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DroneType } from '@backend/api-client';
 import { AppModule } from 'src/app.module';
 import { AppService } from 'src/app/services/app/app.service';
 import { TopNavComponent } from './top-nav.component';
@@ -30,12 +29,5 @@ describe('TopNavComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('should set drone type to Argos', () => {
-        // spyOn(appService, 'setDroneType');
-        let argos = DroneType.Argos;
-        component.setDroneType(argos);
-        expect(appService.setDroneType).not.toHaveBeenCalled();
     });
 });

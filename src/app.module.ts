@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
@@ -28,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/components/app/app.component';
 import { DashboardComponent } from './app/components/dashboard/dashboard.component';
 import { DroneContainerComponent } from './app/components/dashboard/drone-container/drone-container.component';
+import { DronePulseComponent } from './app/components/dashboard/drone-container/drone/drone-pulse/drone-pulse.component';
 import { DroneComponent } from './app/components/dashboard/drone-container/drone/drone.component';
 import { PercentageBarComponent } from './app/components/dashboard/drone-container/drone/percentage-bar/percentage-bar.component';
 import { LogComponent } from './app/components/dashboard/log/log.component';
@@ -37,7 +39,6 @@ import { HistoryComponent } from './app/components/dialog-boxes/history/history.
 import { InformationComponent } from './app/components/dialog-boxes/information/information.component';
 import { SidebarComponent } from './app/components/sidebar/sidebar.component';
 import { TopNavComponent } from './app/components/top-nav/top-nav.component';
-import { DronePulseComponent } from './app/components/dashboard/drone-container/drone/drone-pulse/drone-pulse.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -81,6 +82,7 @@ registerLocaleData(en);
         NzInputNumberModule,
         NzSliderModule,
         NzGridModule,
+        OverlayModule,
     ],
     providers: [{ provide: NZ_I18N, useValue: en_US }, HttpClientModule],
     bootstrap: [AppComponent],
