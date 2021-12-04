@@ -6,12 +6,12 @@
         <span>Drone : </span>
       </div>
       <ul>
-        <li class="data">{{ droneUUID }}</li>
+        <li class="data">{{ droneID }}</li>
       </ul>
     </li>
     <app-drone-pulse [drone]="drone"></app-drone-pulse>
     <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(droneUUID)">
+      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(droneID)">
         <p><i nz-icon nzType="info-circle"></i>Identifier</p>
       </button>
     </li>

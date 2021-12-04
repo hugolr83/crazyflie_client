@@ -8,11 +8,12 @@ describe('DronePulseComponent', () => {
     let mockDrone: Drone = {
         state: DroneState.NotReady,
         type: DroneType.Argos,
-        uuid: 'test',
+        id: 0,
         battery: { charge_percentage: 80 },
         orientation: { yaw: 90 },
         position: { x: 50, y: 50, z: 70 },
         range: { front: 1, back: 2, up: 3, left: 4, right: 5, bottom: 6 },
+        total_distance: 10,
     };
 
     beforeEach(async () => {

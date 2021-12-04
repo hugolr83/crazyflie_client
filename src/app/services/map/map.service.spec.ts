@@ -17,14 +17,15 @@ describe('MapService', () => {
     let contextSpy: CanvasRenderingContext2D;
     let mockDroneRegistry: DroneRegistry = {
         ARGOS: {
-            drone1: {
+            0: {
                 battery: { charge_percentage: 0 },
                 orientation: { yaw: 0 },
                 position: { x: 0, y: 0, z: 0 },
                 range: {} as DroneRange,
                 state: DroneState.Exploring,
                 type: 'ARGOS' as DroneType,
-                uuid: 'id1',
+                id: 0,
+                total_distance: 10,
             },
         },
         CRAZYFLIE: {},

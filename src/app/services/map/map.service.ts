@@ -67,7 +67,7 @@ export class MapService {
     }
 
     private drawPosition(drone: Drone, fillStyle: string): void {
-        const ctx = this.droneToPosContext[drone.uuid];
+        const ctx = this.droneToPosContext[drone.id];
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -76,7 +76,7 @@ export class MapService {
     }
 
     private drawDronePath(drone: Drone, fillStyle: string): void {
-        const ctx = this.droneToPathContext[drone.uuid];
+        const ctx = this.droneToPathContext[drone.id];
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 
         this.drawPath(ctx, shiftx, shifty, fillStyle);

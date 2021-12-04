@@ -7,9 +7,9 @@ import { CommunicationService } from '../communication/communication.service';
 Service that manages global state of application.
 */
 
-export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
+export type DroneRegistry = { [key in DroneType]: { [id: number]: Drone } };
 
-export type Drones = { [key in DroneType]: { [id: string]: { fillStyle: string } } };
+export type Drones = { [key in DroneType]: { [id: number]: { fillStyle: string } } };
 
 export type DroneControl = {
     [key in DroneType]: {
@@ -45,11 +45,11 @@ export class AppService {
         this.communicationService.listenDronePulse().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
                 // Drone pulse state info
-                this.droneRegistry[drone.type][drone.uuid] = drone;
+                this.droneRegistry[drone.type][drone.id] = drone;
 
                 // Connected drones
-                if (!this.connectedDrones[drone.type][drone.uuid]) {
-                    this.connectedDrones[drone.type][drone.uuid] = { fillStyle: this.generateRandomColor() };
+                if (!this.connectedDrones[drone.type][drone.id]) {
+                    this.connectedDrones[drone.type][drone.id] = { fillStyle: this.generateRandomColor() };
                 }
             });
         });
