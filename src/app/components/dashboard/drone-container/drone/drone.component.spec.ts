@@ -54,8 +54,8 @@ describe('DroneComponent', () => {
     // });
 
     it('identify drone should not call crazyflie service if uuid is empty', () => {
-        let uuid = '';
-        droneComponent.identifyDrone(uuid);
+        let id: number = 0;
+        droneComponent.identifyDrone(id);
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
     });
 

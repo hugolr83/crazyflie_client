@@ -16,6 +16,7 @@ describe('DroneService', () => {
     let activeMission0: Mission = {
         id: 0,
         drone_type: DroneType.Argos,
+        total_distance: 10,
         starting_time: 'time0',
     };
 

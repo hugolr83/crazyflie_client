@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CommonApiService, Drone, DroneType, DroneVec3, Mission, Orientation } from '@backend/api-client';
+import { CommonApiService, Drone, DroneType, DroneVec3, Mission } from '@backend/api-client';
+import { DroneOrientation } from '@backend/api-client/model/droneOrientation';
 import { Observable, of } from 'rxjs';
 import { CommunicationService } from '../communication/communication.service';
 
@@ -16,7 +17,7 @@ export type DroneControl = {
     [key in DroneType]: {
         [id: string]: {
             position: DroneVec3;
-            orientation: Orientation;
+            orientation: DroneOrientation;
         };
     };
 };

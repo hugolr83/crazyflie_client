@@ -103,6 +103,7 @@ describe('LogComponent', () => {
             id: 2,
             drone_type: DroneType.Crazyflie,
             starting_time: 'time3',
+            total_distance: 10,
         };
         component.call(currentMission);
         expect(appServiceStub.activeMission).toEqual(currentMission);
