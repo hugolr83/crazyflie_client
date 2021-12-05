@@ -31,7 +31,7 @@ export class DroneComponent {
 
     identifyDrone(id: number): void {
         if (!id) return;
-        this.crazyflieApiService.identifyCrazyflie(id).subscribe((_) => { });
+        this.crazyflieApiService.identifyCrazyflie(id).subscribe((_) => {});
     }
 
     get isMissionStarted(): boolean {

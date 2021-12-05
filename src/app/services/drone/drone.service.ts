@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    CommonApiService,
-    CrazyflieApiService,
-    Drone,
-    Log,
-    Mission
-} from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, Log, Mission } from '@backend/api-client';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
@@ -20,7 +14,7 @@ export class DroneService {
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-    ) { }
+    ) {}
 
     startMission(): void {
         this.commonApiService.createMission(this.appService.droneType).subscribe((mission: Mission) => {
@@ -54,7 +48,7 @@ export class DroneService {
     private callApi(func: Func): void {
         this.appService.getActiveMission().subscribe((activeMission: Mission) => {
             this.appService.activeMission = activeMission;
-            func(this.appService.activeMission.id).subscribe((drones: Drone[]) => { });
+            func(this.appService.activeMission.id).subscribe((drones: Drone[]) => {});
         });
     }
 }
