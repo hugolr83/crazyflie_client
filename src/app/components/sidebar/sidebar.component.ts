@@ -2,6 +2,7 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { DroneType } from '@backend/api-client';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { HelpComponent } from '../dialog-boxes/help/help.component';
@@ -18,6 +19,7 @@ export class SidebarComponent {
         public appService: AppService,
         public logService: LogService,
         public missionService: MissionService,
+        public droneService: DroneService,
         private modal: NzModalService,
         private viewContainerRef: ViewContainerRef,
     ) {}
@@ -91,19 +93,23 @@ export class SidebarComponent {
         return this.missionService.isSimulation;
     }
 
-    get isSpinning(): boolean {
-        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
-    }
-
     get logIsShown(): boolean {
         return this.logService.logIsShown;
     }
 
-    get missionIsStarted(): boolean {
-        return this.missionService.missionIsStarted;
+    get isMissionStarted(): boolean {
+        return this.missionService.isMissionStarted;
     }
 
     get returnToBaseActivated(): boolean {
         return this.missionService.returnToBaseActivated;
+    }
+
+    get isSpinning(): boolean {
+        return this.droneService.isSpinning;
+    }
+
+    get isStateReady(): boolean {
+        return this.droneService.isStateReady;
     }
 }

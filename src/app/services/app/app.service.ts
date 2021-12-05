@@ -3,10 +3,6 @@ import { CommonApiService, Drone, DroneType, DroneVec3, Mission, Orientation } f
 import { Observable, of } from 'rxjs';
 import { CommunicationService } from '../communication/communication.service';
 
-/*
-Service that manages global state of application.
-*/
-
 export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
 
 export type Drones = { [key in DroneType]: Set<string> };
@@ -31,7 +27,7 @@ export class AppService {
     activeMission?: Mission = undefined;
 
     // boolean to display drones orientation and position before starting a mission
-    isPosOriHidden: boolean = false;
+    isInputHidden: boolean = false;
 
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();

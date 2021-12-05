@@ -1,10 +1,7 @@
 <div class="box">
   <ul>
     <li>
-      <p class="drone"><i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone :</p>
-      <ul>
-        <li class="data">{{ droneUUID }}</li>
-      </ul>
+      <p class="drone"><i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : {{ droneUUID }}</p>
     </li>
     <app-drone-pulse [drone]="drone"></app-drone-pulse>
     <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
@@ -13,33 +10,53 @@
       </button>
     </li>
     <li class="button">
-      <button nz-button NzSize="small" nzType="dashed" nzShape="round" (click)="showPos()">
+      <button nz-button nzType="primary" nzShape="round" (click)="showInput()">
         <p><i nz-icon nzType="form"></i>Choisir positions et orientation initiales</p>
       </button>
     </li>
-    <div class="pos" *ngIf="appService.isPosOriHidden">
+    <div class="pos" *ngIf="appService.isInputHidden">
       <li>
-        <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
-        <ol class="choosePos">
-          <li>
-            <p>
-              x :
-              <nz-input-number [(ngModel)]="position.x" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
-            </p>
-          </li>
-          <li>
-            <p>
-              y :
-              <nz-input-number [(ngModel)]="position.y" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
-            </p>
-          </li>
-          <li>
-            <p>
-              z :
-              <nz-input-number [(ngModel)]="position.z" [nzMin]="-2" [nzMax]="2" [nzStep]="0.001"></nz-input-number>
-            </p>
-          </li>
-        </ol>
+        <p class="title"><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
+      </li>
+      <li>
+        <div class="position-container">
+          <p class="input-pos">
+            x :
+            <nz-input-number
+              [(ngModel)]="position.x"
+              [nzMin]="-2"
+              [nzMax]="2"
+              [nzStep]="0.001"
+              [disabled]="isMissionStarted"
+              nzSize="small"
+              style="width: 70px"
+            ></nz-input-number>
+          </p>
+          <p class="input-pos">
+            y :
+            <nz-input-number
+              [(ngModel)]="position.y"
+              [nzMin]="-2"
+              [nzMax]="2"
+              [nzStep]="0.001"
+              [disabled]="isMissionStarted"
+              nzSize="small"
+              style="width: 70px"
+            ></nz-input-number>
+          </p>
+          <p class="input-pos">
+            z :
+            <nz-input-number
+              [(ngModel)]="position.z"
+              [nzMin]="-2"
+              [nzMax]="2"
+              [nzStep]="0.001"
+              [disabled]="isMissionStarted"
+              nzSize="small"
+              style="width: 70px"
+            ></nz-input-number>
+          </p>
+        </div>
       </li>
       <li>
         <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :</p>
@@ -63,7 +80,7 @@
         </nz-row>
       </li>
       <li class="button">
-        <button nz-button NzSize="small" nzType="dashed" nzShape="round">
+        <button nz-button [disabled]="isMissionStarted" nzType="primary" nzShape="round">
           <p><i nz-icon nzType="check-circle"></i>Valider</p>
         </button>
       </li>

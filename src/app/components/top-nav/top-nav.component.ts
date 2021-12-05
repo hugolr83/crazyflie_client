@@ -38,8 +38,8 @@ export class TopNavComponent {
         return this.logService.logIsShown;
     }
 
-    get missionIsStarted(): boolean {
-        return this.missionService.missionIsStarted;
+    get isMissionStarted(): boolean {
+        return this.missionService.isMissionStarted;
     }
 
     get returnToBaseActivated(): boolean {

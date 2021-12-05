@@ -15,17 +15,17 @@
     background: rgba($color: #ffffff, $alpha: 0.5);
     overflow: hidden;
     border-radius: 20px;
+
+    li {
+        color: #000000;
+        position: relative;
+        display: block;
+        padding: 5px;
+        z-index: 10;
+    }
 }
 
-.box li {
-    color: #000000;
-    position: relative;
-    display: block;
-    padding: 5px;
-    z-index: 10;
-}
-
-.box button p i {
+.box .box button p i {
     padding-right: 7px;
 }
 
@@ -33,9 +33,15 @@
     text-align: center;
 }
 
-.position li {
-    text-align: center;
-    margin: 0 0 0 50px 0;
+.position-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    .input-pos {
+        margin-right: 13px;
+    }
 }
 
 @media screen and (max-width: 1400px) {

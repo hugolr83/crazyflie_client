@@ -9,7 +9,7 @@ export class PercentageBarComponent implements OnInit {
     @Input() public color!: string;
     @Input() public percentage!: number;
     arrayColor = [] as any;
-    totalPin = 5;
+
     pinColor = '#efefed';
 
     constructor() {}
@@ -19,17 +19,19 @@ export class PercentageBarComponent implements OnInit {
     }
 
     renderArrayColor() {
-        const part = 100 / this.totalPin;
+        const totalPin = 5;
+        const part = 100 / totalPin;
         let currentLevel = 0 + part;
-        for (let i = 0; i < this.totalPin; i++) {
+        for (let i = 0; i < totalPin; i++) {
+            console.log(this.percentage);
             if (this.percentage >= currentLevel) {
-                this.arrayColor.push({ full: true, color: this.color, width: '7px' });
+                this.arrayColor.push({ full: true, color: this.color, width: '10px' });
                 currentLevel += part;
             } else {
-                const newWidth = ((this.percentage - currentLevel + part) * 7) / 20;
+                const newWidth = ((this.percentage - currentLevel + part) * 10) / 20;
                 this.arrayColor.push({ full: false, color: this.pinColor, width: newWidth + 'px' });
-                for (let j = i + 1; j < this.totalPin; j++) {
-                    this.arrayColor.push({ full: true, color: this.pinColor, width: '7px' });
+                for (let j = i + 1; j < totalPin; j++) {
+                    this.arrayColor.push({ full: true, color: this.pinColor, width: '10px' });
                 }
                 break;
             }

@@ -47,16 +47,20 @@
       <span class="data"
         >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
       </span>
-      <app-percentage-bar [color]="color" [percentage]="drone.battery.charge_percentage"></app-percentage-bar>
+      <app-percentage-bar
+        class="percentage-bar"
+        [color]="color"
+        [percentage]="drone.battery.charge_percentage"
+      ></app-percentage-bar>
     </p>
   </li>
   <li>
-    <p><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
-    <ol class="position">
-      <li class="data">x = {{ drone.position.x | number: '1.0-3' }}</li>
-      <li class="data">y = {{ drone.position.y | number: '1.0-3' }}</li>
-      <li class="data">z = {{ drone.position.z | number: '1.0-3' }}</li>
-    </ol>
+    <div class="position-container">
+      <p class="title"><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
+      <p class="position">x = {{ drone.position.x | number: '1.0-3' }}</p>
+      <p class="position">y = {{ drone.position.y | number: '1.0-3' }}</p>
+      <p class="position">z = {{ drone.position.z | number: '1.0-3' }}</p>
+    </div>
   </li>
   <li>
     <p>

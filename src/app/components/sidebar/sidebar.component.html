@@ -5,6 +5,7 @@
         <nz-switch
           class="drone"
           [ngModel]="true"
+          [nzDisabled]="isMissionStarted"
           nzCheckedChildren="Crazyflie"
           nzUnCheckedChildren="Simulation"
           (ngModelChange)="toggleDroneType()"
@@ -16,22 +17,22 @@
         <li>
           <button
             class="button start"
-            [disabled]="isSpinning || missionIsStarted"
+            [disabled]="!isStateReady || isMissionStarted"
             (click)="missionService.startMission()"
           >
             Lancer la mission
           </button>
         </li>
         <li>
-          <button class="button stop" [disabled]="!missionIsStarted" (click)="missionService.endMission()">
+          <button class="button stop" [disabled]="!isMissionStarted" (click)="missionService.endMission()">
             Terminer la mission
           </button>
         </li>
-        <li nz-submenu [nzOpen]="missionIsStarted" nzTitle="Directives" nzIcon="laptop">
+        <li nz-submenu [nzOpen]="isMissionStarted" nzTitle="Directives" nzIcon="laptop">
           <ul>
             <button
               class="button base"
-              [disabled]="!missionIsStarted || returnToBaseActivated"
+              [disabled]="!isMissionStarted || returnToBaseActivated"
               (click)="missionService.returnToBase()"
             >
               Retour à la base
@@ -50,7 +51,7 @@
         <li>
           <button
             class="button update"
-            [disabled]="missionIsStarted || isSpinning || isSimulation"
+            [disabled]="isMissionStarted || isSpinning || isSimulation"
             (click)="missionService.update()"
           >
             Mise à jour
@@ -60,7 +61,7 @@
           <button class="logs" disabled>Afficher logs</button>
           <nz-switch
             class="log-switch"
-            [nzDisabled]="!missionIsStarted"
+            [nzDisabled]="!isMissionStarted"
             [ngModel]="logIsShown"
             [nzCheckedChildren]="checkedTemplate"
             [nzUnCheckedChildren]="unCheckedTemplate"

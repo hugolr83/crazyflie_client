@@ -10,7 +10,18 @@
     padding-right: 0;
 }
 
-.position li {
-    text-align: center;
-    margin: 0 0 0 50px 0;
+.position-container {
+    width: 100%;
+    display: flex;
+    .title {
+        margin-right: 19px;
+    }
+    .position {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+}
+
+.percentage-bar {
+    margin-left: 5px;
 }

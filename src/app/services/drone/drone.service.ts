@@ -1,14 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    CommonApiService,
-    CrazyflieApiService,
-    Drone,
-    DroneType,
-    DroneVec3,
-    Log,
-    Mission,
-    Orientation,
-} from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType, Log, Mission } from '@backend/api-client';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
@@ -59,5 +50,21 @@ export class DroneService {
             this.appService.activeMission = activeMission;
             func(this.appService.activeMission.id).subscribe((drones: Drone[]) => {});
         });
+    }
+
+    get isSpinning(): boolean {
+        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+    }
+
+    get droneType(): DroneType {
+        return this.appService.droneType;
+    }
+
+    get isStateReady(): boolean {
+        if (!this.isSpinning)
+            return Object.values(this.appService.droneRegistry[this.droneType]).every(
+                (drone) => drone.state === DroneState.Ready,
+            );
+        else return false;
     }
 }
