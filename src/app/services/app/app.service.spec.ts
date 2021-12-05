@@ -34,4 +34,10 @@ describe('AppService', () => {
         service.setDroneType(argos);
         expect(service.droneType).toEqual(argos);
     });
+
+    it('should set drone type to Crazyflie', () => {
+        let crazyflie = DroneType.Crazyflie;
+        service.setDroneType(crazyflie);
+        expect(service.droneType).toEqual(crazyflie);
+    });
 });

@@ -11,7 +11,7 @@ export class LogService {
         this.logIsShown = false;
     }
 
-    msToTime(duration: number) {
+    msToTime(duration: number): string {
         let seconds = Math.floor((duration / 1000) % 60);
         let minutes = Math.floor((duration / (1000 * 60)) % 60);
         let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);

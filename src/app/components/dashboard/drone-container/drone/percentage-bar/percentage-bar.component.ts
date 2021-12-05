@@ -9,8 +9,8 @@ export class PercentageBarComponent implements OnInit {
     @Input() public color!: string;
     @Input() public percentage!: number;
     arrayColor = [] as any;
-    totalPin = 5;
-    pinColor = '#efefed';
+    totalPin: number = 5;
+    pinColor: string = '#efefed';
 
     constructor() {}
 

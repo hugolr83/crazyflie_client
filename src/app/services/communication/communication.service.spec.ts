@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { CommunicationService } from './communication.service';
 
 describe('Service: communication', () => {
@@ -16,7 +16,7 @@ describe('Service: communication', () => {
         communicationService = TestBed.inject(CommunicationService);
     });
 
-    it('should ...', () => {
+    it('should create', () => {
         expect(communicationService).toBeTruthy();
     });
 });

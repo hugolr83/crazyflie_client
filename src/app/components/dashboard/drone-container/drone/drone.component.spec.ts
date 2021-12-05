@@ -59,7 +59,6 @@ describe('DroneComponent', () => {
 
     // it('identify drone should call crazyflie service identifyCrazyflie', () => {
     //     const uuid = mockDrone.uuid;
-    //     spyOn(droneComponent, 'identifyDrone').and.callThrough();
     //     droneComponent.identifyDrone(uuid);
     //     expect(crService.identifyCrazyflie).toHaveBeenCalled();
     // });
@@ -83,14 +82,14 @@ describe('DroneComponent', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('getDroneType should return Crazyflie if we are using Crazyflie drones', () => {
+    it('DroneType should return Crazyflie if we are using Crazyflie drones', () => {
         droneComponent.appService.droneType = DroneType.Crazyflie;
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Crazyflie);
         expect(spy).toHaveBeenCalled();
     });
 
-    it('getDroneType should return Argos if we are in simulation', () => {
+    it('DroneType should return Argos if we are in simulation', () => {
         droneComponent.appService.droneType = DroneType.Argos;
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Argos);
@@ -99,14 +98,12 @@ describe('DroneComponent', () => {
 
     it('showPos should show inputs for position and orientation', () => {
         droneComponent.appService.isPosOriHidden = false;
-        spyOn(droneComponent, 'showPos').and.callThrough();
         droneComponent.showPos();
         expect(droneComponent.appService.isPosOriHidden).toEqual(true);
     });
 
     it('showPos should hide inputs for position and orientation', () => {
         droneComponent.appService.isPosOriHidden = true;
-        spyOn(droneComponent, 'showPos').and.callThrough();
         droneComponent.showPos();
         expect(droneComponent.appService.isPosOriHidden).toEqual(false);
     });

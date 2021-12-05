@@ -8,27 +8,8 @@ describe('DroneContainerComponent', () => {
     let fixture: ComponentFixture<DroneContainerComponent>;
     let appService: jasmine.SpyObj<AppService>;
     let appServiceStub: AppService;
-    // let mockDroneRegistry: DroneRegistry = {
-    //     ARGOS: [
-    //         {
-    //             battery: { charge_percentage: 0 },
-    //             orientation: { yaw: 0 },
-    //             position: { x: 0, y: 0, z: 0 },
-    //             range: {} as DroneRange,
-    //             state: DroneState.Exploring,
-    //             type: 'ARGOS' as DroneType,
-    //             uuid: 'id1',
-    //         }
-    //     ],
-    //     CRAZYFLIE: [],
-    // };
 
     beforeEach(async () => {
-        // appService = {
-        //     ...jasmine.createSpyObj('AppService', ['']),
-        //     droneRegistry: mockDroneRegistry,
-        //     droneType: DroneType.Argos,
-        // };
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             declarations: [DroneContainerComponent],
@@ -45,12 +26,4 @@ describe('DroneContainerComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    // it('isSpinning should be true if there is no drone to display', () => {
-    //     expect(component.isSpinning).toEqual(true);
-    // });
-
-    // it('isSpinning should be false if there is at least one drone to display', () => {
-    //     expect(component.isSpinning).toEqual(false);
-    // });
 });
