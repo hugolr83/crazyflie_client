@@ -21,6 +21,6 @@ export class DronePulseComponent {
     }
 
     get isBatteryDead(): boolean {
-        return this.drone.battery.charge_percentage <= 30;
+        return this.drone.battery.charge_percentage < 30;
     }
 }
