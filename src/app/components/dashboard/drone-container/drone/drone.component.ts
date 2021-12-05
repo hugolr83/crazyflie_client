@@ -11,7 +11,7 @@ import { MissionService } from 'src/app/services/mission/mission.service';
     styleUrls: ['./drone.component.scss'],
 })
 export class DroneComponent {
-    @Input() droneUUID!: string;
+    @Input() droneID!: number;
     DroneType = DroneType;
     size!: NzButtonSize;
     position: DroneVec3;
@@ -28,9 +28,9 @@ export class DroneComponent {
         this.orientation = { yaw: 0 };
     }
 
-    identifyDrone(uuid: string): void {
-        if (!uuid) return;
-        this.crazyflieApiService.identifyCrazyflie(uuid).subscribe((drone: Drone) => {});
+    identifyDrone(id: number): void {
+        if (!id) return;
+        this.crazyflieApiService.identifyCrazyflie(id).subscribe((_) => {});
     }
 
     get isMissionStarted(): boolean {
@@ -42,7 +42,7 @@ export class DroneComponent {
     }
 
     get drone(): Drone {
-        return this.appService.droneRegistry[this.droneType][this.droneUUID];
+        return this.appService.droneRegistry[this.droneType][this.droneID];
     }
 
     showInput(): void {

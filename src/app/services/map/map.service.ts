@@ -19,8 +19,8 @@ export class MapService {
     setContext(context: CanvasRenderingContext2D | null): void {
         if (!context) return;
         for (const drone of Object.values(this.appServive.droneRegistry[this.appServive.droneType])) {
-            if (!this.droneToContext[drone.uuid]) {
-                this.droneToContext[drone.uuid] = context;
+            if (!this.droneToContext[drone.id]) {
+                this.droneToContext[drone.id] = context;
                 break;
             }
         }
@@ -30,7 +30,7 @@ export class MapService {
         if (!drone) return;
         if (drone.state !== DroneState.Exploring) return;
 
-        const ctx = this.droneToContext[drone.uuid];
+        const ctx = this.droneToContext[drone.id];
 
         const x = drone.position.x;
         const y = drone.position.y;
@@ -51,7 +51,7 @@ export class MapService {
     }
 
     private drawRange(x: number, y: number, drone: Drone): void {
-        const ctx = this.droneToContext[drone.uuid];
+        const ctx = this.droneToContext[drone.id];
         if (drone.range.back > 0) {
             const backy = y + this.shift(drone.range.back, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
             ctx.fillStyle = 'blue';
