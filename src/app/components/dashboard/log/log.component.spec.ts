@@ -20,12 +20,14 @@ describe('LogComponent', () => {
         id: 0,
         drone_type: DroneType.Argos,
         starting_time: 'time1',
+        total_distance: 10,
     };
 
     let activeMission1: Mission = {
         id: 1,
         drone_type: DroneType.Crazyflie,
         starting_time: 'time2',
+        total_distance: 10,
     };
 
     beforeEach(async () => {
