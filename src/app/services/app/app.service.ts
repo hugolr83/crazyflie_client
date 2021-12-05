@@ -27,11 +27,11 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    // boolean to display drones orientation and position before starting a mission
-    isInputHidden: boolean = false;
+    isInputShown: boolean;
 
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();
+        this.isInputShown = false;
     }
 
     setDroneType(type: DroneType): void {
@@ -41,10 +41,8 @@ export class AppService {
     registerDronePulse(): void {
         this.communicationService.listenDronePulse().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
-                // Drone pulse state info
                 this.droneRegistry[drone.type][drone.id] = drone;
 
-                // Connected drones
                 if (!this.connectedDrones[drone.type].has(drone.id)) {
                     this.connectedDrones[drone.type].add(drone.id);
                 }

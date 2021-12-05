@@ -24,6 +24,8 @@ export class LogService {
     }
 
     formatTimestamp(timestamp: string): MissionTimestamp {
+        timestamp = new Date(timestamp + 'Z').toLocaleString();
+
         let year = new Date(timestamp).getFullYear();
         let month = new Date(timestamp).getMonth() + 1;
         let day = new Date(timestamp).getDate();

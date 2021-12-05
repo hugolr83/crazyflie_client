@@ -4,27 +4,30 @@
       <div class="drone-type">
         <nz-switch
           class="drone"
-          [ngModel]="true"
-          [nzDisabled]="isMissionStarted"
+          [ngModel]="!isSimulationSelected"
           nzCheckedChildren="Crazyflie"
           nzUnCheckedChildren="Simulation"
           (ngModelChange)="toggleDroneType()"
         ></nz-switch>
       </div>
     </li>
-    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Mission" nzIcon="login">
+    <li nz-submenu [nzOpen]="!isNotConnected" nzTitle="Mission" nzIcon="login">
       <ul>
         <li>
           <button
             class="button start"
-            [disabled]="!isStateReady || isMissionStarted"
+            [disabled]="isStateNotReady || !isStateReady || isMissionStarted"
             (click)="missionService.startMission()"
           >
             Lancer la mission
           </button>
         </li>
         <li>
-          <button class="button stop" [disabled]="!isMissionStarted" (click)="missionService.endMission()">
+          <button
+            class="button stop"
+            [disabled]="!isMissionStarted || returnToBaseActivated"
+            (click)="missionService.endMission()"
+          >
             Terminer la mission
           </button>
         </li>
@@ -46,15 +49,20 @@
         <i class="folder" nz-icon nzType="folder-open" nzTheme="outline"></i>Historique
       </button>
     </li>
-    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Paramètres" nzIcon="setting">
+    <li nz-submenu [nzOpen]="!isNotConnected" nzTitle="Paramètres" nzIcon="setting">
       <ul>
         <li>
           <button
             class="button update"
-            [disabled]="isMissionStarted || isSpinning || isSimulation"
+            [disabled]="isMissionStarted || isNotConnected || isSimulationSelected"
             (click)="missionService.update()"
           >
-            Mise à jour
+            Mise à jour robots
+          </button>
+        </li>
+        <li>
+          <button [disabled]="isNotConnected" class="button update" (click)="droneService.showInput()">
+            Configuration robots
           </button>
         </li>
         <li>

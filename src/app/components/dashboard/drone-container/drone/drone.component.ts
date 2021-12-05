@@ -45,7 +45,7 @@ export class DroneComponent {
         return this.appService.droneRegistry[this.droneType][this.droneID];
     }
 
-    showInput(): void {
-        this.appService.isInputHidden = !this.appService.isInputHidden;
+    get isStateNotReady(): boolean {
+        return this.droneService.isStateNotReady;
     }
 }

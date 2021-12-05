@@ -1,4 +1,4 @@
-<div class="container-loading" *ngIf="isSpinning">
+<div class="container-loading" *ngIf="isNotConnected">
   <div class="loading">
     <div class="load">
       <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
@@ -6,10 +6,10 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="!isSpinning">
-  <div class="map-drone-container">
+<div class="container" *ngIf="!isNotConnected">
+  <div class="dashboard-container">
     <div class="drones"><app-drone-container></app-drone-container></div>
     <div class="map"><app-map-container></app-map-container></div>
+    <div class="log" [hidden]="!logService.logIsShown"><app-log></app-log></div>
   </div>
-  <div class="log" [hidden]="!logService.logIsShown"><app-log></app-log></div>
 </div>

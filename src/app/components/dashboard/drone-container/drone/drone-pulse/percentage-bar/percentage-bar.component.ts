@@ -1,29 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'app-percentage-bar',
     templateUrl: './percentage-bar.component.html',
     styleUrls: ['./percentage-bar.component.scss'],
 })
-export class PercentageBarComponent implements OnInit {
-    @Input() public color!: string;
+export class PercentageBarComponent implements OnChanges {
     @Input() public percentage!: number;
     arrayColor = [] as any;
-
     pinColor = '#efefed';
+    color: string = '#3DCC93';
 
     constructor() {}
 
-    ngOnInit() {
+    ngOnChanges() {
         this.renderArrayColor();
     }
 
     renderArrayColor() {
+        this.arrayColor = [];
         const totalPin = 5;
         const part = 100 / totalPin;
         let currentLevel = 0 + part;
         for (let i = 0; i < totalPin; i++) {
-            console.log(this.percentage);
             if (this.percentage >= currentLevel) {
                 this.arrayColor.push({ full: true, color: this.color, width: '10px' });
                 currentLevel += part;

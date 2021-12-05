@@ -1,89 +1,91 @@
 <div class="box">
-  <ul>
-    <li>
-      <p class="drone"><i nz-icon nzType="rocket" nzTheme="twotone"></i>Drone : {{ droneUUID }}</p>
-    </li>
-    <app-drone-pulse [drone]="drone"></app-drone-pulse>
-    <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
-      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(droneID)">
-        <p><i nz-icon nzType="info-circle"></i>Identifier</p>
-      </button>
-    </li>
-    <li class="button">
-      <button nz-button nzType="primary" nzShape="round" (click)="showInput()">
-        <p><i nz-icon nzType="form"></i>Choisir positions et orientation initiales</p>
-      </button>
-    </li>
-    <div class="pos" *ngIf="appService.isInputHidden">
+  <div class="drone-title"><i nz-icon nzType="rocket" nzTheme="outline"></i>Robot ID: {{ droneID }}</div>
+  <div class="content">
+    <ul>
       <li>
-        <p class="title"><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
+        <p><i class="icon" nz-icon nzType="tag" nzTheme="outline"></i>Couleur trajet :</p>
       </li>
-      <li>
-        <div class="position-container">
-          <p class="input-pos">
-            x :
-            <nz-input-number
-              [(ngModel)]="position.x"
-              [nzMin]="-2"
-              [nzMax]="2"
-              [nzStep]="0.001"
-              [disabled]="isMissionStarted"
-              nzSize="small"
-              style="width: 70px"
-            ></nz-input-number>
-          </p>
-          <p class="input-pos">
-            y :
-            <nz-input-number
-              [(ngModel)]="position.y"
-              [nzMin]="-2"
-              [nzMax]="2"
-              [nzStep]="0.001"
-              [disabled]="isMissionStarted"
-              nzSize="small"
-              style="width: 70px"
-            ></nz-input-number>
-          </p>
-          <p class="input-pos">
-            z :
-            <nz-input-number
-              [(ngModel)]="position.z"
-              [nzMin]="-2"
-              [nzMax]="2"
-              [nzStep]="0.001"
-              [disabled]="isMissionStarted"
-              nzSize="small"
-              style="width: 70px"
-            ></nz-input-number>
-          </p>
-        </div>
-      </li>
-      <li>
-        <p><i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :</p>
-        <nz-row>
-          <nz-col nzSpan="12">
-            <nz-slider
-              [nzMin]="-180"
-              [nzMax]="180"
-              [(ngModel)]="orientation.yaw"
-              [disabled]="isMissionStarted"
-            ></nz-slider>
-          </nz-col>
-          <div nz-col nzSpan="4">
-            <nz-input-number
-              [nzMin]="-180"
-              [nzMax]="180"
-              [(ngModel)]="orientation.yaw"
-              [disabled]="isMissionStarted"
-            ></nz-input-number>
-          </div>
-        </nz-row>
-      </li>
-      <li class="button">
-        <button nz-button [disabled]="isMissionStarted" nzType="primary" nzShape="round">
-          <p><i nz-icon nzType="check-circle"></i>Valider</p>
+      <app-drone-pulse [drone]="drone"></app-drone-pulse>
+      <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="identifyDrone(droneID)">
+          <p><i class="icon" nz-icon nzType="info-circle" nzTheme="outline"></i>Identifier</p>
         </button>
       </li>
-    </div>
-  </ul>
+      <div class="input-container" *ngIf="appService.isInputShown">
+        <li>
+          <p class="title"><i class="icon" nz-icon nzType="environment" nzTheme="outline"></i>Position :</p>
+        </li>
+        <li>
+          <div class="position-container">
+            <p class="input-pos">
+              x :
+              <nz-input-number
+                [(ngModel)]="position.x"
+                [nzMin]="-2"
+                [nzMax]="2"
+                [nzStep]="0.001"
+                [disabled]="isMissionStarted || isStateNotReady"
+                nzSize="small"
+                style="width: 68px"
+              ></nz-input-number>
+            </p>
+            <p class="input-pos">
+              y :
+              <nz-input-number
+                [(ngModel)]="position.y"
+                [nzMin]="-2"
+                [nzMax]="2"
+                [nzStep]="0.001"
+                [disabled]="isMissionStarted || isStateNotReady"
+                nzSize="small"
+                style="width: 68px"
+              ></nz-input-number>
+            </p>
+            <p class="input-pos">
+              z :
+              <nz-input-number
+                [(ngModel)]="position.z"
+                [nzMin]="-2"
+                [nzMax]="2"
+                [nzStep]="0.001"
+                [disabled]="isMissionStarted || isStateNotReady"
+                nzSize="small"
+                style="width: 68px"
+              ></nz-input-number>
+            </p>
+          </div>
+        </li>
+        <li>
+          <p><i class="icon" class="icon" nz-icon nzType="compass" nzTheme="outline"></i>Orientation :</p>
+          <div class="orientation-container">
+            <div class="slider">
+              <nz-slider
+                [nzMin]="-180"
+                [nzMax]="180"
+                [(ngModel)]="orientation.yaw"
+                [disabled]="isMissionStarted || isStateNotReady"
+              ></nz-slider>
+            </div>
+            <div class="number">
+              <nz-input-number
+                [nzMin]="-180"
+                [nzMax]="180"
+                [(ngModel)]="orientation.yaw"
+                [disabled]="isMissionStarted || isStateNotReady"
+                nzSize="small"
+                style="width: 70px"
+              ></nz-input-number>
+            </div>
+          </div>
+        </li>
+        <div class="button-container">
+          <li class="button">
+            <button nz-button [disabled]="isMissionStarted || isStateNotReady" nzType="primary" nzShape="round">
+              <p><i nz-icon nzType="check-circle" nzTheme="outline"></i>Valider</p>
+            </button>
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
 </div>

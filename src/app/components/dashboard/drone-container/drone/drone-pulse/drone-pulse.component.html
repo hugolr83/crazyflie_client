@@ -1,27 +1,29 @@
 <div class="info">
   <li *ngIf="drone.state === DroneState.NotReady">
     <p>
-      <i nz-icon nzType="stop" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="stop" nzTheme="outline"></i>Etat : <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li *ngIf="drone.state === DroneState.Ready">
     <p>
-      <i nz-icon nzType="check-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="check-circle" nzTheme="outline"></i>Etat :
+      <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li *ngIf="drone.state === DroneState.TakingOff">
     <p>
-      <i nz-icon nzType="up-circle" nzTheme="twotone"></i> Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="up-circle" nzTheme="outline"></i> Etat :
+      <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li *ngIf="drone.state === DroneState.Exploring">
     <p>
-      <i nz-icon nzType="eye" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="eye" nzTheme="outline"></i>Etat : <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li *ngIf="drone.state === DroneState.ReturningBase">
     <p>
-      <i nz-icon nzType="down-square" nzTheme="twotone"></i>Etat :
+      <i class="icon" nz-icon nzType="down-square" nzTheme="outline"></i>Etat :
       <span class="data">{{ drone.state }}</span>
     </p>
   </li>
@@ -33,39 +35,45 @@
       nzShowIcon
     ></nz-alert>
     <p>
-      <i nz-icon nzType="warning" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="warning" nzTheme="outline"></i>Etat : <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li *ngIf="drone.state === DroneState.Landing">
     <p>
-      <i nz-icon nzType="down-circle" nzTheme="twotone"></i>Etat : <span class="data">{{ drone.state }}</span>
+      <i class="icon" nz-icon nzType="down-circle" nzTheme="outline"></i>Etat :
+      <span class="data">{{ drone.state }}</span>
     </p>
   </li>
   <li>
-    <p>
-      <i nz-icon nzType="thunderbolt" nzTheme="twotone"></i>Batterie :
-      <span class="data"
-        >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
-      </span>
-      <app-percentage-bar
-        class="percentage-bar"
-        [color]="color"
-        [percentage]="drone.battery.charge_percentage"
-      ></app-percentage-bar>
-    </p>
+    <div class="batterie-container">
+      <p><i class="icon" nz-icon nzType="thunderbolt" nzTheme="outline"></i>Batterie :</p>
+      <div class="batterie-data" *ngIf="!isStateNotReady">
+        <span class="data"
+          >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
+        </span>
+        <app-percentage-bar class="percentage-bar" [percentage]="drone.battery.charge_percentage"></app-percentage-bar>
+      </div>
+      <div class="batterie-alert" *ngIf="isBatteryDead && missionService.isMissionStarted">
+        <p>Batteries faibles <i nz-icon nzType="warning" nzTheme="outline"></i></p>
+      </div>
+    </div>
   </li>
   <li>
     <div class="position-container">
-      <p class="title"><i nz-icon nzType="environment" nzTheme="twotone"></i>Position :</p>
-      <p class="position">x = {{ drone.position.x | number: '1.0-3' }}</p>
-      <p class="position">y = {{ drone.position.y | number: '1.0-3' }}</p>
-      <p class="position">z = {{ drone.position.z | number: '1.0-3' }}</p>
+      <div class="title-container">
+        <p class="title"><i class="icon" nz-icon nzType="environment" nzTheme="outline"></i>Position :</p>
+      </div>
+      <div class="positions" *ngIf="!isStateNotReady">
+        <p class="position">x = {{ drone.position.x | number: '1.0-3' }}</p>
+        <p class="position">y = {{ drone.position.y | number: '1.0-3' }}</p>
+        <p class="position">z = {{ drone.position.z | number: '1.0-3' }}</p>
+      </div>
     </div>
   </li>
   <li>
     <p>
-      <i nz-icon nzType="compass" nzTheme="twotone"></i>Orientation :
-      <span class="data">{{ drone.orientation.yaw }}</span>
+      <i class="icon" nz-icon nzType="compass" nzTheme="outline"></i>Orientation :
+      <span class="data" *ngIf="!isStateNotReady">{{ drone.orientation.yaw }}</span>
     </p>
   </li>
 </div>

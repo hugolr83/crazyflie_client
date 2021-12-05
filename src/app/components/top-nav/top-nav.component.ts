@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DroneType } from '@backend/api-client';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -18,6 +19,7 @@ export class TopNavComponent {
         public missionService: MissionService,
         public logService: LogService,
         public sidebarComponent: SidebarComponent,
+        public droneService: DroneService,
     ) {}
 
     showLogs(): void {
@@ -27,10 +29,10 @@ export class TopNavComponent {
     toggleDroneType(): void {
         if (this.appService.droneType === DroneType.Crazyflie) {
             this.appService.setDroneType(DroneType.Argos);
-            this.missionService.isSimulation = true;
+            this.missionService.isSimulationSelected = true;
         } else {
             this.appService.setDroneType(DroneType.Crazyflie);
-            this.missionService.isSimulation = false;
+            this.missionService.isSimulationSelected = false;
         }
     }
 
@@ -46,11 +48,11 @@ export class TopNavComponent {
         return this.missionService.returnToBaseActivated;
     }
 
-    get isSpinning(): boolean {
+    get isNotConnected(): boolean {
         return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
     }
 
-    get isSimulation(): boolean {
-        return this.missionService.isSimulation;
+    get isSimulationSelected(): boolean {
+        return this.missionService.isSimulationSelected;
     }
 }

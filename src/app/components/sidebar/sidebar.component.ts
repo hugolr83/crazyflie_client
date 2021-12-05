@@ -24,6 +24,10 @@ export class SidebarComponent {
         private viewContainerRef: ViewContainerRef,
     ) {}
 
+    get droneType(): DroneType {
+        return this.appService.droneType;
+    }
+
     showHistory(): void {
         const modal: NzModalRef = this.modal.create({
             nzClosable: false,
@@ -62,7 +66,7 @@ export class SidebarComponent {
         const modal: NzModalRef = this.modal.create({
             nzClosable: false,
             nzTitle: 'Aide',
-            nzWidth: 1000,
+            nzWidth: 1100,
             nzContent: HelpComponent,
             nzFooter: [
                 {
@@ -82,15 +86,15 @@ export class SidebarComponent {
     toggleDroneType(): void {
         if (this.appService.droneType === DroneType.Crazyflie) {
             this.appService.setDroneType(DroneType.Argos);
-            this.missionService.isSimulation = true;
+            this.missionService.isSimulationSelected = true;
         } else {
             this.appService.setDroneType(DroneType.Crazyflie);
-            this.missionService.isSimulation = false;
+            this.missionService.isSimulationSelected = false;
         }
     }
 
-    get isSimulation(): boolean {
-        return this.missionService.isSimulation;
+    get isSimulationSelected(): boolean {
+        return this.missionService.isSimulationSelected;
     }
 
     get logIsShown(): boolean {
@@ -105,8 +109,12 @@ export class SidebarComponent {
         return this.missionService.returnToBaseActivated;
     }
 
-    get isSpinning(): boolean {
-        return this.droneService.isSpinning;
+    get isNotConnected(): boolean {
+        return this.droneService.isNotConnected;
+    }
+
+    get isStateNotReady(): boolean {
+        return this.droneService.isStateNotReady;
     }
 
     get isStateReady(): boolean {

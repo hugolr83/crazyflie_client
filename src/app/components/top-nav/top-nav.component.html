@@ -14,7 +14,7 @@
           <div class="drone-type">
             <nz-switch
               class="drone"
-              [ngModel]="true"
+              [ngModel]="!isSimulationSelected"
               nzCheckedChildren="Crazyflie"
               nzUnCheckedChildren="Simulation"
               (ngModelChange)="toggleDroneType()"
@@ -24,7 +24,7 @@
       </li>
       <li nz-submenu nzTitle="Mission" nzIcon="login">
         <ul>
-          <li nz-menu-item [nzDisabled]="isSpinning || isMissionStarted" (click)="missionService.startMission()">
+          <li nz-menu-item [nzDisabled]="isNotConnected || isMissionStarted" (click)="missionService.startMission()">
             Lancer la mission
           </li>
           <li nz-menu-item [nzDisabled]="!isMissionStarted" (click)="missionService.endMission()">
@@ -48,9 +48,10 @@
       </li>
       <li nz-submenu nzTitle="Paramètres" nzIcon="cloud-download">
         <ul>
-          <li nz-menu-item [nzDisabled]="isMissionStarted || isSimulation" (click)="missionService.update()">
-            Mise à jour
+          <li nz-menu-item [nzDisabled]="isMissionStarted || isSimulationSelected" (click)="missionService.update()">
+            Mise à jour robots
           </li>
+          <li nz-menu-item [nzDisabled]="isNotConnected" (click)="droneService.showInput()">Configuration robots</li>
           <li>
             <div class="log-container">
               Logs

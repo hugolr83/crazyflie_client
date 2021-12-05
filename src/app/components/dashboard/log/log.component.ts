@@ -56,7 +56,7 @@ export class LogComponent implements OnDestroy {
         this.droneService.getLogs(lastLogId + 1).subscribe((logs: Log[]) => {
             if (!logs) return;
             logs.forEach((log: Log) => {
-                this.logs.push(log);
+                this.logs.unshift(log);
             });
         });
     }

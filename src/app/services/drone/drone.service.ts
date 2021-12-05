@@ -45,6 +45,10 @@ export class DroneService {
         );
     }
 
+    showInput(): void {
+        this.appService.isInputShown = !this.appService.isInputShown;
+    }
+
     private callApi(func: Func): void {
         this.appService.getActiveMission().subscribe((activeMission: Mission) => {
             this.appService.activeMission = activeMission;
@@ -52,7 +56,7 @@ export class DroneService {
         });
     }
 
-    get isSpinning(): boolean {
+    get isNotConnected(): boolean {
         return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
     }
 
@@ -60,8 +64,16 @@ export class DroneService {
         return this.appService.droneType;
     }
 
+    get isStateNotReady(): boolean {
+        if (!this.isNotConnected)
+            return Object.values(this.appService.droneRegistry[this.droneType]).every(
+                (drone) => drone.state === DroneState.NotReady,
+            );
+        else return true;
+    }
+
     get isStateReady(): boolean {
-        if (!this.isSpinning)
+        if (!this.isNotConnected)
             return Object.values(this.appService.droneRegistry[this.droneType]).every(
                 (drone) => drone.state === DroneState.Ready,
             );

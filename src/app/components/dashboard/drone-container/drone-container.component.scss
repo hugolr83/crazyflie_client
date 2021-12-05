@@ -1,7 +1,6 @@
 .layout {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 7%;
+    grid-template-columns: repeat(2, 450px);
     justify-items: center;
 }
 
