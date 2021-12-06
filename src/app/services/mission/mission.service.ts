@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { DroneType } from '@backend/api-client';
+import { AppService } from '../app/app.service';
 import { DroneService } from '../drone/drone.service';
 import { LogService } from '../log/log.service';
 
@@ -6,36 +8,44 @@ import { LogService } from '../log/log.service';
     providedIn: 'root',
 })
 export class MissionService {
-    missionIsStarted: boolean;
-    returnToBaseActivated: boolean;
-    isSimulation: boolean;
+    isMissionStarted: boolean;
+    isReturnToBaseDisabled: boolean;
+    isSimulationSelected: boolean;
 
-    constructor(public logService: LogService, public droneService: DroneService) {
-        this.missionIsStarted = false;
-        this.returnToBaseActivated = false;
+    constructor(public logService: LogService, public droneService: DroneService, public appService: AppService) {
+        this.isReturnToBaseDisabled = false;
         this.logService.logIsShown = false;
-        this.isSimulation = false;
+        this.isSimulationSelected = false;
+        this.isMissionStarted = false;
     }
 
     startMission(): void {
-        this.missionIsStarted = true;
-        this.returnToBaseActivated = false;
+        this.droneService.inputIsShown = false;
+        this.isMissionStarted = true;
+        this.isReturnToBaseDisabled = false;
+        this.logService.loggingIsStopped = false;
+        this.logService.startGettingLogs();
         this.droneService.startMission();
     }
 
     endMission(): void {
-        this.missionIsStarted = false;
-        this.returnToBaseActivated = true;
-        this.logService.logIsShown = false;
+        this.isMissionStarted = false;
+        this.logService.loggingIsStopped = true;
+        this.isReturnToBaseDisabled = true;
         this.droneService.endMission();
     }
 
     returnToBase(): void {
-        this.returnToBaseActivated = true;
+        this.isReturnToBaseDisabled = true;
+        this.isMissionStarted = false;
         this.droneService.returnToBase();
     }
 
-    update(): void {
-        console.log('update');
+    get isNotConnected(): boolean {
+        return this.droneService.isNotConnected;
+    }
+
+    get droneType(): DroneType {
+        return this.appService.droneType;
     }
 }

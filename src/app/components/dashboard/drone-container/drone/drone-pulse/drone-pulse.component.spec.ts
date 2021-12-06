@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Drone, DroneState, DroneType } from '@backend/api-client';
 import { DronePulseComponent } from './drone-pulse.component';
@@ -18,6 +19,7 @@ describe('DronePulseComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
             declarations: [DronePulseComponent],
         }).compileComponents();
     });

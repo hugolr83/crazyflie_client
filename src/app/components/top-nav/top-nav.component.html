@@ -14,7 +14,7 @@
           <div class="drone-type">
             <nz-switch
               class="drone"
-              [ngModel]="true"
+              [ngModel]="!isSimulationSelected"
               nzCheckedChildren="Crazyflie"
               nzUnCheckedChildren="Simulation"
               (ngModelChange)="toggleDroneType()"
@@ -24,10 +24,10 @@
       </li>
       <li nz-submenu nzTitle="Mission" nzIcon="login">
         <ul>
-          <li nz-menu-item [nzDisabled]="isSpinning || missionIsStarted" (click)="missionService.startMission()">
+          <li nz-menu-item [nzDisabled]="isNotConnected || isMissionStarted" (click)="missionService.startMission()">
             Lancer la mission
           </li>
-          <li nz-menu-item [nzDisabled]="!missionIsStarted" (click)="missionService.endMission()">
+          <li nz-menu-item [nzDisabled]="!isMissionStarted" (click)="missionService.endMission()">
             Terminer la mission
           </li>
         </ul>
@@ -36,7 +36,7 @@
         <ul>
           <li
             nz-menu-item
-            [nzDisabled]="!missionIsStarted || returnToBaseActivated"
+            [nzDisabled]="!isMissionStarted || isReturnToBaseDisabled"
             (click)="missionService.returnToBase()"
           >
             Retour à la base
@@ -48,15 +48,34 @@
       </li>
       <li nz-submenu nzTitle="Paramètres" nzIcon="cloud-download">
         <ul>
-          <li nz-menu-item [nzDisabled]="missionIsStarted || isSimulation" (click)="missionService.update()">
-            Mise à jour
+          <li
+            *ngIf="!isSimulationSelected"
+            nz-menu-item
+            [nzDisabled]="isNotConnected || p2pIsActivated"
+            (click)="droneService.activateP2P()"
+          >
+            P2P
           </li>
           <li>
-            <div class="log-container">
-              Logs
+            <div class="switch-container">
+              Configuration robots
+              <nz-switch
+                class="config-switch"
+                [nzDisabled]="isNotConnected"
+                [ngModel]="inputIsShown"
+                [nzCheckedChildren]="checkedTemplate"
+                [nzUnCheckedChildren]="unCheckedTemplate"
+                (ngModelChange)="droneService.showInput()"
+              >
+                <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+                <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+              </nz-switch>
+            </div>
+            <div class="switch-container">
+              Afficher logs
               <nz-switch
                 class="log-switch"
-                [nzDisabled]="!missionIsStarted"
+                [nzDisabled]="isNotConnected"
                 [ngModel]="logIsShown"
                 [nzCheckedChildren]="checkedTemplate"
                 [nzUnCheckedChildren]="unCheckedTemplate"

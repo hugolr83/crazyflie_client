@@ -4,13 +4,50 @@
     display: block;
     padding: 5px;
     z-index: 10;
+    .icon {
+        display: inline-block;
+        margin-right: 4px;
+        color: #2652a4;
+    }
 }
 
 .data {
     padding-right: 0;
 }
 
-.position li {
-    text-align: center;
-    margin: 0 0 0 50px 0;
+.position-container {
+    width: 100%;
+    display: flex;
+    .title-container {
+        width: 26%;
+        .title {
+            width: 100%;
+            margin-right: 19px;
+        }
+    }
+
+    .positions {
+        width: 74%;
+        display: flex;
+        .position {
+            width: 33%;
+            text-align: center;
+        }
+    }
+}
+
+.batterie-container {
+    width: 100%;
+    display: flex;
+    .batterie-data {
+        margin-left: 5px;
+    }
+    .percentage-bar {
+        margin-left: 5px;
+        margin-right: 20px;
+    }
+    .batterie-alert {
+        margin-left: 5px;
+        color: red;
+    }
 }

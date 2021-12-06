@@ -4,11 +4,7 @@ import { DroneOrientation } from '@backend/api-client/model/droneOrientation';
 import { Observable, of } from 'rxjs';
 import { CommunicationService } from '../communication/communication.service';
 
-/*
-Service that manages global state of application.
-*/
-
-export type DroneRegistry = { [key in DroneType]: { [id: number]: Drone } };
+export type DroneRegistry = { [key in DroneType]: { [id: string]: Drone } };
 
 // Set of ids
 export type Drones = { [key in DroneType]: Set<number> };
@@ -32,10 +28,6 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    isLogsHidden: boolean = true;
-    // boolean to display drones orientation and position before starting a mission
-    isPosOriHidden: boolean = false;
-
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();
     }
@@ -47,10 +39,8 @@ export class AppService {
     registerDronePulse(): void {
         this.communicationService.listenDronePulse().subscribe((drones: Drone[]) => {
             drones.forEach((drone: Drone) => {
-                // Drone pulse state info
                 this.droneRegistry[drone.type][drone.id] = drone;
 
-                // Connected drones
                 if (!this.connectedDrones[drone.type].has(drone.id)) {
                     this.connectedDrones[drone.type].add(drone.id);
                 }

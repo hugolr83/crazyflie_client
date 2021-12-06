@@ -30,8 +30,8 @@ import { AppComponent } from './app/components/app/app.component';
 import { DashboardComponent } from './app/components/dashboard/dashboard.component';
 import { DroneContainerComponent } from './app/components/dashboard/drone-container/drone-container.component';
 import { DronePulseComponent } from './app/components/dashboard/drone-container/drone/drone-pulse/drone-pulse.component';
+import { PercentageBarComponent } from './app/components/dashboard/drone-container/drone/drone-pulse/percentage-bar/percentage-bar.component';
 import { DroneComponent } from './app/components/dashboard/drone-container/drone/drone.component';
-import { PercentageBarComponent } from './app/components/dashboard/drone-container/drone/percentage-bar/percentage-bar.component';
 import { LogComponent } from './app/components/dashboard/log/log.component';
 import { MapContainerComponent } from './app/components/dashboard/map-container/map-container.component';
 import { MapComponent } from './app/components/dashboard/map-container/map/map.component';
@@ -87,4 +87,4 @@ registerLocaleData(en);
     providers: [{ provide: NZ_I18N, useValue: en_US }, HttpClientModule],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

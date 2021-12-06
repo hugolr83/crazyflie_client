@@ -49,13 +49,10 @@ export class HistoryComponent implements OnInit {
                 id: mission.id,
                 startingDate: this.logService.formatTimestamp(mission.starting_time).date,
                 startingTime: this.logService.formatTimestamp(mission.starting_time).time,
-                elapsedTime: this.historyService.getElapsedTime(
-                    mission.starting_time,
-                    (mission.ending_time = '2021-12-01T17:25:00'),
-                ),
+                elapsedTime: this.historyService.getElapsedTime(mission.starting_time, mission.ending_time as string),
                 numberRobots: 2,
                 droneType: mission.drone_type,
-                distance: 10,
+                distance: mission.total_distance.toFixed(2),
                 expandLog: false,
                 expandMap: false,
             };
@@ -72,17 +69,13 @@ export class HistoryComponent implements OnInit {
 
     sortNumber = (a: MissionData, b: MissionData): number => a.id - b.id;
 
+    sortDistance = (a: MissionData, b: MissionData): number => parseFloat(a.distance) - parseFloat(b.distance);
+
     sortCreated = (a: MissionData, b: MissionData): number =>
-        +new Date(a.startingDate + 'T' + a.startingTime) - +new Date(b.startingDate + 'T' + b.startingTime);
+        +new Date(a.startingDate + ' ' + a.startingTime) - +new Date(b.startingDate + ' ' + b.startingTime);
 
     sortElapsedTime = (a: MissionData, b: MissionData): number => {
-        if (
-            a.elapsedTime === this.historyService.errorElapsedTime ||
-            b.elapsedTime === this.historyService.errorElapsedTime
-        )
-            return 1;
-
-        return parseInt(a.elapsedTime.replace(':', ''), 10) - parseInt(b.elapsedTime.replace('c', ''), 10);
+        return parseInt(a.elapsedTime.split(':').join(''), 10) - parseInt(b.elapsedTime.split(':').join(''), 10);
     };
 
     filterType = [
