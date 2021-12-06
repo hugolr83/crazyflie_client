@@ -17,8 +17,8 @@ describe('AppService', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: CommonApiService, usevalue: { commonS } },
-                { provide: CommunicationService, usevalue: { communicationS } },
+                { provide: CommonApiService, usevalue: commonS },
+                { provide: CommunicationService, usevalue: communicationS },
             ],
         });
 
