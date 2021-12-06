@@ -4,34 +4,38 @@
       <div class="drone-type">
         <nz-switch
           class="drone"
-          [ngModel]="true"
+          [ngModel]="!isSimulationSelected"
           nzCheckedChildren="Crazyflie"
           nzUnCheckedChildren="Simulation"
           (ngModelChange)="toggleDroneType()"
         ></nz-switch>
       </div>
     </li>
-    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Mission" nzIcon="login">
+    <li nz-submenu [nzOpen]="!isNotConnected" nzTitle="Mission" nzIcon="login">
       <ul>
         <li>
           <button
             class="button start"
-            [disabled]="isSpinning || missionIsStarted"
+            [disabled]="stateIsNotReady || !stateIsReady || isMissionStarted"
             (click)="missionService.startMission()"
           >
             Lancer la mission
           </button>
         </li>
         <li>
-          <button class="button stop" [disabled]="!missionIsStarted" (click)="missionService.endMission()">
+          <button
+            class="button stop"
+            [disabled]="!isMissionStarted || isReturnToBaseDisabled"
+            (click)="missionService.endMission()"
+          >
             Terminer la mission
           </button>
         </li>
-        <li nz-submenu [nzOpen]="missionIsStarted" nzTitle="Directives" nzIcon="laptop">
+        <li nz-submenu [nzOpen]="isMissionStarted" nzTitle="Directives" nzIcon="laptop">
           <ul>
             <button
               class="button base"
-              [disabled]="!missionIsStarted || returnToBaseActivated"
+              [disabled]="!isMissionStarted || isReturnToBaseDisabled"
               (click)="missionService.returnToBase()"
             >
               Retour à la base
@@ -45,23 +49,38 @@
         <i class="folder" nz-icon nzType="folder-open" nzTheme="outline"></i>Historique
       </button>
     </li>
-    <li nz-submenu [nzOpen]="!isSpinning" nzTitle="Paramètres" nzIcon="setting">
+    <li nz-submenu [nzOpen]="!isNotConnected" nzTitle="Paramètres" nzIcon="setting">
       <ul>
         <li>
           <button
-            class="button update"
-            [disabled]="missionIsStarted || isSpinning || isSimulation"
-            (click)="missionService.update()"
+            *ngIf="!isSimulationSelected"
+            class="button p2p"
+            [disabled]="isNotConnected || p2pIsActivated"
+            (click)="droneService.activateP2P()"
           >
-            Mise à jour
+            P2P
           </button>
+        </li>
+        <li>
+          <button class="logs" disabled>Configuration</button>
+          <nz-switch
+            class="log-switch"
+            [ngModel]="inputIsShown"
+            [nzDisabled]="isNotConnected"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
+            (ngModelChange)="droneService.showInput()"
+          >
+            <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+          </nz-switch>
         </li>
         <li>
           <button class="logs" disabled>Afficher logs</button>
           <nz-switch
             class="log-switch"
-            [nzDisabled]="!missionIsStarted"
             [ngModel]="logIsShown"
+            [nzDisabled]="isNotConnected"
             [nzCheckedChildren]="checkedTemplate"
             [nzUnCheckedChildren]="unCheckedTemplate"
             (ngModelChange)="showLogs()"

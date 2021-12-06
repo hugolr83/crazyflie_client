@@ -17,20 +17,19 @@
 .container div {
     margin: 10px;
     justify-content: center;
-    align-items: center;
 }
 
 .log {
     display: flex;
     align-items: center;
-    flex: 310px;
     background-color: transparent;
+    width: 100%;
 }
 
 .drones {
     display: flex;
     align-items: center;
-    flex: 400px;
+    width: 100%;
 }
 
 .map {
@@ -38,7 +37,8 @@
     flex: 500px;
     padding: 15px;
 }
-.map-drone-container {
+
+.dashboard-container {
     position: relative;
     width: 100%;
     display: block;
