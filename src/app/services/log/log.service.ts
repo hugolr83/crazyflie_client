@@ -57,7 +57,7 @@ export class LogService {
     }
 
     startGettingLogs(): void {
-        timer(1, 500)
+        timer(1, 1000)
             .pipe(
                 tap(() => this.updateLogs()),
                 takeUntil(this.stopPolling),
@@ -83,15 +83,12 @@ export class LogService {
         }
 
         const lastLogId: number = this.logs[len - 1].id;
+
         this.droneService.getLogs(lastLogId + 1).subscribe((logs: Log[]) => {
             if (!logs) return;
             logs.forEach((log: Log) => {
                 this.logs.unshift(log);
             });
         });
-
-        if ((this.droneService.stateIsReady || this.droneService.stateIsNotReady) && this.loggingIsStopped) {
-            this.stopPolling.next();
-        }
     }
 }

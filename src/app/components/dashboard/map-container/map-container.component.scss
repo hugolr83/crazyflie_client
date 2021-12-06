@@ -5,6 +5,35 @@
     justify-items: center;
 }
 
+.paths {
+    cursor: pointer;
+    border: 1px transparent;
+    background-color: #f8f8f8;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 6px;
+    height: 40px;
+    width: 70%;
+    text-align: center;
+}
+
+.path-switch {
+    width: 30%;
+    height: 100%;
+    padding-bottom: 1px;
+}
+
+.path-switch {
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
+}
+
 @media (max-width: 700px) {
     .layout {
         grid-template-columns: repeat(1, 1fr);

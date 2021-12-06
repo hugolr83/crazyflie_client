@@ -34,7 +34,10 @@
 
 .map {
     display: flex;
+    flex: 500px;
+    padding: 15px;
 }
+
 .dashboard-container {
     position: relative;
     width: 100%;

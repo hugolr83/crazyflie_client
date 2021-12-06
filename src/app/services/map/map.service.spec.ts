@@ -14,6 +14,7 @@ describe('MapService', () => {
     canvas.height = HEIGHT;
 
     let appService: jasmine.SpyObj<AppService>;
+    let CommonApiService;
     let contextSpy: CanvasRenderingContext2D;
     let mockDroneRegistry: DroneRegistry = {
         ARGOS: {
@@ -40,12 +41,16 @@ describe('MapService', () => {
         contextSpy = { ...jasmine.createSpyObj('CanvasRenderingContext2D', ['fillStyle, fillRect']), canvas: canvas };
 
         TestBed.configureTestingModule({
-            providers: [{ provide: AppService, useValue: appService }],
+            providers: [
+                MapService,
+                { provide: AppService, useValue: appService },
+                { provide: AppService, useValue: appService },
+            ],
             imports: [HttpClientTestingModule],
         });
         service = TestBed.inject(MapService);
-        service.setContext(contextSpy);
-        service.droneToContext['drone1'] = contextSpy;
+        service.setObstacleContext(contextSpy);
+        service.obstacleContext = contextSpy;
     });
 
     it('should be created', () => {

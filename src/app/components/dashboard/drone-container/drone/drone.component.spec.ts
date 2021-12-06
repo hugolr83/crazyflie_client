@@ -21,7 +21,8 @@ describe('DroneComponent', () => {
         crService = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
         appService = jasmine.createSpyObj('AppService', ['']);
         commonService = jasmine.createSpyObj('CommonApiService', ['']);
-        missionService = jasmine.createSpyObj('MissionService', ['']);
+        missionService = jasmine.createSpyObj('MissionService', ['startMission']);
+
         crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
 
         await TestBed.configureTestingModule({
@@ -29,9 +30,9 @@ describe('DroneComponent', () => {
             declarations: [DroneComponent],
             providers: [
                 { provide: DroneComponent, usevalue: {} },
+                { provide: CommonApiService, usevalue: commonService },
                 { provide: CrazyflieApiService, usevalue: crService },
                 { provide: AppService, usevalue: appService },
-                { provide: CommonApiService, usevalue: commonService },
                 { provide: MissionService, usevalue: missionService },
             ],
         }).compileComponents();
@@ -62,13 +63,6 @@ describe('DroneComponent', () => {
     it('isMissionStarted should be false if there is no mission started', () => {
         const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
         expect(droneComponent.isMissionStarted).toEqual(false);
-        expect(spy).toHaveBeenCalled();
-    });
-
-    it('isMissionStarted should be true if a mission is started', () => {
-        droneComponent.missionService.startMission();
-        const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
-        expect(droneComponent.isMissionStarted).toEqual(true);
         expect(spy).toHaveBeenCalled();
     });
 

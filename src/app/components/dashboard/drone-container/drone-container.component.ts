@@ -13,4 +13,8 @@ export class DroneContainerComponent {
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
     ) {}
+
+    get connectedDrones(): number[] {
+        return Object.keys(this.appService.connectedDrones[this.appService.droneType]).map(Number);
+    }
 }
