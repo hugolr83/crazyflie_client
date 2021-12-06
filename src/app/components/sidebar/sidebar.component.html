@@ -53,15 +53,16 @@
       <ul>
         <li>
           <button
-            class="button update"
-            [disabled]="isMissionStarted || isNotConnected || isSimulationSelected"
-            (click)="missionService.update()"
+            *ngIf="!isSimulationSelected"
+            class="button p2p"
+            [disabled]="isNotConnected || p2pIsActivated"
+            (click)="droneService.activateP2P()"
           >
-            Mise à jour robots
+            P2P
           </button>
         </li>
         <li>
-          <button class="logs" disabled>Config robots</button>
+          <button class="logs" disabled>Configuration</button>
           <nz-switch
             class="log-switch"
             [ngModel]="inputIsShown"

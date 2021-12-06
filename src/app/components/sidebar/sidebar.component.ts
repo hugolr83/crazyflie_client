@@ -121,6 +121,10 @@ export class SidebarComponent {
         return this.droneService.stateIsNotReady;
     }
 
+    get p2pIsActivated(): boolean {
+        return this.droneService.p2pIsActivated;
+    }
+
     get stateIsReady(): boolean {
         return this.droneService.stateIsReady;
     }

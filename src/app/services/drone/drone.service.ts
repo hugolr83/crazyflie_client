@@ -11,6 +11,7 @@ export type Func = (id: number) => Observable<any[]>;
 })
 export class DroneService {
     inputIsShown: boolean;
+    p2pIsActivated: boolean;
 
     constructor(
         public commonApiService: CommonApiService,
@@ -18,6 +19,7 @@ export class DroneService {
         public appService: AppService,
     ) {
         this.inputIsShown = false;
+        this.p2pIsActivated = false;
     }
 
     startMission(): void {
@@ -51,6 +53,11 @@ export class DroneService {
 
     showInput(): void {
         this.inputIsShown = !this.inputIsShown;
+    }
+
+    activateP2P(): void {
+        this.p2pIsActivated = true;
+        console.log('P2P');
     }
 
     private callApi(func: Func): void {

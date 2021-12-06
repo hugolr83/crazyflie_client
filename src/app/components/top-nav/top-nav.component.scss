@@ -146,6 +146,18 @@ nz-header {
     }
 }
 
+.p2p-switch {
+    margin-left: 12px;
+
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
+}
+
 ::ng-deep .anticon,
 .anticon svg {
     display: inline-block;

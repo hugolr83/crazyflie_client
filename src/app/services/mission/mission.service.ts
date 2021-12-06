@@ -41,10 +41,6 @@ export class MissionService {
         this.droneService.returnToBase();
     }
 
-    update(): void {
-        console.log('update');
-    }
-
     get isNotConnected(): boolean {
         return this.droneService.isNotConnected;
     }

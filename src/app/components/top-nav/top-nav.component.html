@@ -48,8 +48,13 @@
       </li>
       <li nz-submenu nzTitle="Paramètres" nzIcon="cloud-download">
         <ul>
-          <li nz-menu-item [nzDisabled]="isMissionStarted || isSimulationSelected" (click)="missionService.update()">
-            Mise à jour robots
+          <li
+            *ngIf="!isSimulationSelected"
+            nz-menu-item
+            [nzDisabled]="isNotConnected || p2pIsActivated"
+            (click)="droneService.activateP2P()"
+          >
+            P2P
           </li>
           <li>
             <div class="switch-container">
