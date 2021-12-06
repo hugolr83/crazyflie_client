@@ -40,6 +40,7 @@ export class MissionService {
         this.logService.loggingIsStopped = true;
         this.isReturnToBaseDisabled = true;
         this.droneService.endMission();
+        this.logService.stopPolling.next();
     }
 
     returnToBase(): void {
