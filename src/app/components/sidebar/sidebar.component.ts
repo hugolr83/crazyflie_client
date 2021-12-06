@@ -101,23 +101,27 @@ export class SidebarComponent {
         return this.logService.logIsShown;
     }
 
+    get inputIsShown(): boolean {
+        return this.droneService.inputIsShown;
+    }
+
     get isMissionStarted(): boolean {
         return this.missionService.isMissionStarted;
     }
 
-    get returnToBaseActivated(): boolean {
-        return this.missionService.returnToBaseActivated;
+    get isReturnToBaseDisabled(): boolean {
+        return this.missionService.isReturnToBaseDisabled;
     }
 
     get isNotConnected(): boolean {
         return this.droneService.isNotConnected;
     }
 
-    get isStateNotReady(): boolean {
-        return this.droneService.isStateNotReady;
+    get stateIsNotReady(): boolean {
+        return this.droneService.stateIsNotReady;
     }
 
-    get isStateReady(): boolean {
-        return this.droneService.isStateReady;
+    get stateIsReady(): boolean {
+        return this.droneService.stateIsReady;
     }
 }

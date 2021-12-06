@@ -123,7 +123,19 @@ nz-header {
 }
 
 .log-switch {
-    margin-left: 5px;
+    margin-left: 62px;
+
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
+}
+
+.config-switch {
+    margin-left: 12px;
 
     ::ng-deep .ant-switch {
         background-color: #d20010;
@@ -201,10 +213,13 @@ nz-header {
     }
 }
 
-.log-container {
+.switch-container {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    width: 200px;
+    height: 28px;
+    margin-left: 12px;
 }
 
 .help {

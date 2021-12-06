@@ -44,8 +44,12 @@ export class TopNavComponent {
         return this.missionService.isMissionStarted;
     }
 
-    get returnToBaseActivated(): boolean {
-        return this.missionService.returnToBaseActivated;
+    get isReturnToBaseDisabled(): boolean {
+        return this.missionService.isReturnToBaseDisabled;
+    }
+
+    get inputIsShown(): boolean {
+        return this.droneService.inputIsShown;
     }
 
     get isNotConnected(): boolean {

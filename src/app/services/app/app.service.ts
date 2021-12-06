@@ -27,11 +27,8 @@ export class AppService {
 
     activeMission?: Mission = undefined;
 
-    isInputShown: boolean;
-
     constructor(public communicationService: CommunicationService, public commonApiService: CommonApiService) {
         this.registerDronePulse();
-        this.isInputShown = false;
     }
 
     setDroneType(type: DroneType): void {

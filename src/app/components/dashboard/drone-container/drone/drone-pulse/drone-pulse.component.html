@@ -47,13 +47,13 @@
   <li>
     <div class="batterie-container">
       <p><i class="icon" nz-icon nzType="thunderbolt" nzTheme="outline"></i>Batterie :</p>
-      <div class="batterie-data" *ngIf="!isStateNotReady">
+      <div class="batterie-data" *ngIf="!batteryIsZero">
         <span class="data"
           >{{ drone.battery.charge_percentage }}<i nz-icon nzType="percentage" nzTheme="outline"></i>
         </span>
         <app-percentage-bar class="percentage-bar" [percentage]="drone.battery.charge_percentage"></app-percentage-bar>
       </div>
-      <div class="batterie-alert" *ngIf="isBatteryDead && missionService.isMissionStarted">
+      <div class="batterie-alert" *ngIf="batteryIsLow">
         <p>Batteries faibles <i nz-icon nzType="warning" nzTheme="outline"></i></p>
       </div>
     </div>
@@ -63,7 +63,7 @@
       <div class="title-container">
         <p class="title"><i class="icon" nz-icon nzType="environment" nzTheme="outline"></i>Position :</p>
       </div>
-      <div class="positions" *ngIf="!isStateNotReady">
+      <div class="positions" *ngIf="!stateIsNotReady">
         <p class="position">x = {{ drone.position.x | number: '1.0-3' }}</p>
         <p class="position">y = {{ drone.position.y | number: '1.0-3' }}</p>
         <p class="position">z = {{ drone.position.z | number: '1.0-3' }}</p>
@@ -73,7 +73,7 @@
   <li>
     <p>
       <i class="icon" nz-icon nzType="compass" nzTheme="outline"></i>Orientation :
-      <span class="data" *ngIf="!isStateNotReady">{{ drone.orientation.yaw }}</span>
+      <span class="data" *ngIf="!stateIsNotReady">{{ drone.orientation.yaw }}</span>
     </p>
   </li>
 </div>

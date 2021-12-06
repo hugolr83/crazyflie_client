@@ -10,11 +10,15 @@ export type Func = (id: number) => Observable<any[]>;
     providedIn: 'root',
 })
 export class DroneService {
+    inputIsShown: boolean;
+
     constructor(
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-    ) {}
+    ) {
+        this.inputIsShown = false;
+    }
 
     startMission(): void {
         this.commonApiService.createMission(this.appService.droneType).subscribe((mission: Mission) => {
@@ -46,7 +50,7 @@ export class DroneService {
     }
 
     showInput(): void {
-        this.appService.isInputShown = !this.appService.isInputShown;
+        this.inputIsShown = !this.inputIsShown;
     }
 
     private callApi(func: Func): void {
@@ -64,7 +68,7 @@ export class DroneService {
         return this.appService.droneType;
     }
 
-    get isStateNotReady(): boolean {
+    get stateIsNotReady(): boolean {
         if (!this.isNotConnected)
             return Object.values(this.appService.droneRegistry[this.droneType]).every(
                 (drone) => drone.state === DroneState.NotReady,
@@ -72,7 +76,7 @@ export class DroneService {
         else return true;
     }
 
-    get isStateReady(): boolean {
+    get stateIsReady(): boolean {
         if (!this.isNotConnected)
             return Object.values(this.appService.droneRegistry[this.droneType]).every(
                 (drone) => drone.state === DroneState.Ready,

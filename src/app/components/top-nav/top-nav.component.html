@@ -36,7 +36,7 @@
         <ul>
           <li
             nz-menu-item
-            [nzDisabled]="!isMissionStarted || returnToBaseActivated"
+            [nzDisabled]="!isMissionStarted || isReturnToBaseDisabled"
             (click)="missionService.returnToBase()"
           >
             Retour à la base
@@ -51,13 +51,26 @@
           <li nz-menu-item [nzDisabled]="isMissionStarted || isSimulationSelected" (click)="missionService.update()">
             Mise à jour robots
           </li>
-          <li nz-menu-item [nzDisabled]="isNotConnected" (click)="droneService.showInput()">Configuration robots</li>
           <li>
-            <div class="log-container">
-              Logs
+            <div class="switch-container">
+              Configuration robots
+              <nz-switch
+                class="config-switch"
+                [nzDisabled]="isNotConnected"
+                [ngModel]="inputIsShown"
+                [nzCheckedChildren]="checkedTemplate"
+                [nzUnCheckedChildren]="unCheckedTemplate"
+                (ngModelChange)="droneService.showInput()"
+              >
+                <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+                <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+              </nz-switch>
+            </div>
+            <div class="switch-container">
+              Afficher logs
               <nz-switch
                 class="log-switch"
-                [nzDisabled]="!isMissionStarted"
+                [nzDisabled]="isNotConnected"
                 [ngModel]="logIsShown"
                 [nzCheckedChildren]="checkedTemplate"
                 [nzUnCheckedChildren]="unCheckedTemplate"

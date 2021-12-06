@@ -16,7 +16,7 @@
         <li>
           <button
             class="button start"
-            [disabled]="isStateNotReady || !isStateReady || isMissionStarted"
+            [disabled]="stateIsNotReady || !stateIsReady || isMissionStarted"
             (click)="missionService.startMission()"
           >
             Lancer la mission
@@ -25,7 +25,7 @@
         <li>
           <button
             class="button stop"
-            [disabled]="!isMissionStarted || returnToBaseActivated"
+            [disabled]="!isMissionStarted || isReturnToBaseDisabled"
             (click)="missionService.endMission()"
           >
             Terminer la mission
@@ -35,7 +35,7 @@
           <ul>
             <button
               class="button base"
-              [disabled]="!isMissionStarted || returnToBaseActivated"
+              [disabled]="!isMissionStarted || isReturnToBaseDisabled"
               (click)="missionService.returnToBase()"
             >
               Retour à la base
@@ -61,16 +61,25 @@
           </button>
         </li>
         <li>
-          <button [disabled]="isNotConnected" class="button update" (click)="droneService.showInput()">
-            Configuration robots
-          </button>
+          <button class="logs" disabled>Config robots</button>
+          <nz-switch
+            class="log-switch"
+            [ngModel]="inputIsShown"
+            [nzDisabled]="isNotConnected"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
+            (ngModelChange)="droneService.showInput()"
+          >
+            <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+          </nz-switch>
         </li>
         <li>
           <button class="logs" disabled>Afficher logs</button>
           <nz-switch
             class="log-switch"
-            [nzDisabled]="!isMissionStarted"
             [ngModel]="logIsShown"
+            [nzDisabled]="isNotConnected"
             [nzCheckedChildren]="checkedTemplate"
             [nzUnCheckedChildren]="unCheckedTemplate"
             (ngModelChange)="showLogs()"

@@ -45,7 +45,11 @@ export class DroneComponent {
         return this.appService.droneRegistry[this.droneType][this.droneID];
     }
 
-    get isStateNotReady(): boolean {
-        return this.droneService.isStateNotReady;
+    get stateIsNotReady(): boolean {
+        return this.droneService.stateIsNotReady;
+    }
+
+    get inputIsShown(): boolean {
+        return this.droneService.inputIsShown;
     }
 }

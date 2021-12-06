@@ -9,34 +9,35 @@ import { LogService } from '../log/log.service';
 })
 export class MissionService {
     isMissionStarted: boolean;
-    returnToBaseActivated: boolean;
+    isReturnToBaseDisabled: boolean;
     isSimulationSelected: boolean;
 
     constructor(public logService: LogService, public droneService: DroneService, public appService: AppService) {
-        this.returnToBaseActivated = false;
+        this.isReturnToBaseDisabled = false;
         this.logService.logIsShown = false;
         this.isSimulationSelected = false;
         this.isMissionStarted = false;
     }
 
     startMission(): void {
-        this.appService.isInputShown = false;
+        this.droneService.inputIsShown = false;
         this.isMissionStarted = true;
-        this.returnToBaseActivated = false;
+        this.isReturnToBaseDisabled = false;
+        this.logService.loggingIsStopped = false;
+        this.logService.startGettingLogs();
         this.droneService.startMission();
     }
 
     endMission(): void {
         this.isMissionStarted = false;
-        this.returnToBaseActivated = true;
-        this.logService.logIsShown = false;
+        this.logService.loggingIsStopped = true;
+        this.isReturnToBaseDisabled = true;
         this.droneService.endMission();
     }
 
     returnToBase(): void {
-        this.returnToBaseActivated = true;
+        this.isReturnToBaseDisabled = true;
         this.isMissionStarted = false;
-        this.logService.logIsShown = false;
         this.droneService.returnToBase();
     }
 

@@ -9,15 +9,24 @@ export class PercentageBarComponent implements OnChanges {
     @Input() public percentage!: number;
     arrayColor = [] as any;
     pinColor = '#efefed';
-    color: string = '#3DCC93';
+    greenColor: string = '#00b32d';
+    yellowColor: string = '#e79600';
+    redColor: string = '#ff0000';
+    color: string;
 
-    constructor() {}
+    constructor() {
+        this.color = this.greenColor;
+    }
 
     ngOnChanges() {
         this.renderArrayColor();
     }
 
     renderArrayColor() {
+        if (this.percentage <= 30 && this.percentage >= 0) this.color = this.redColor;
+        else if (this.percentage <= 60 && this.percentage > 30) this.color = this.yellowColor;
+        else this.color = this.greenColor;
+
         this.arrayColor = [];
         const totalPin = 5;
         const part = 100 / totalPin;
