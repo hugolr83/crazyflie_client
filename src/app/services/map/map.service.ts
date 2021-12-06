@@ -40,7 +40,6 @@ export class MapService {
         for (const pathCtx of Object.values(this.droneToPathContext)) {
             pathCtx.clearRect(0, 0, pathCtx.canvas.width, pathCtx.canvas.height);
         }
-        console.log('clearing map', this.obstacleContext, this.droneToPathContext);
         // clear obstacles
         this.obstacleContext.clearRect(0, 0, this.obstacleContext.canvas.width, this.obstacleContext.canvas.height);
     }
@@ -112,8 +111,6 @@ export class MapService {
     }
 
     public drawMap(drone: DroneMap): void {
-        if (!drone) return;
-
         this.drawPosition(drone);
         this.drawObstacles(drone);
         this.drawDronePath(drone);
