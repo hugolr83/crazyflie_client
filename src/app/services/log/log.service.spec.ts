@@ -13,7 +13,7 @@ describe('LogService', () => {
         date: '2021-12-5',
         time: '09:19:24',
         date_time: '[2021-12-5]        14:19:24        ',
-    }
+    };
     let droneService: jasmine.SpyObj<DroneService>;
     let appService: jasmine.SpyObj<AppService>;
     let appServiceStub: AppService;

@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, CrazyflieApiService, DroneType } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { DroneComponent } from './drone.component';
 
@@ -16,12 +17,14 @@ describe('DroneComponent', () => {
     let appService: jasmine.SpyObj<AppService>;
     let crService: jasmine.SpyObj<CrazyflieApiService>;
     let missionService: jasmine.SpyObj<MissionService>;
+    let droneService: jasmine.SpyObj<DroneService>;
 
     beforeEach(async () => {
         crService = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
         appService = jasmine.createSpyObj('AppService', ['']);
         commonService = jasmine.createSpyObj('CommonApiService', ['']);
         missionService = jasmine.createSpyObj('MissionService', ['']);
+        droneService = jasmine.createSpyObj('DroneService', ['']);
         crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
 
         await TestBed.configureTestingModule({
@@ -33,6 +36,7 @@ describe('DroneComponent', () => {
                 { provide: AppService, usevalue: appService },
                 { provide: CommonApiService, usevalue: commonService },
                 { provide: MissionService, usevalue: missionService },
+                { provide: DroneService, usevalue: droneService },
             ],
         }).compileComponents();
     });
@@ -46,12 +50,6 @@ describe('DroneComponent', () => {
     it('should create', () => {
         expect(droneComponent).toBeTruthy();
     });
-
-    // it('identify drone should call crazyflie service identifyCrazyflie', () => {
-    //     const uuid = mockDrone.uuid;
-    //     droneComponent.identifyDrone(uuid);
-    //     expect(crService.identifyCrazyflie).toHaveBeenCalled();
-    // });
 
     it('identify drone should not call crazyflie service if uuid is empty', () => {
         let id: number = 0;
@@ -84,17 +82,5 @@ describe('DroneComponent', () => {
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Argos);
         expect(spy).toHaveBeenCalled();
-    });
-
-    it('showPos should show inputs for position and orientation', () => {
-        droneComponent.appService.isPosOriHidden = false;
-        droneComponent.showPos();
-        expect(droneComponent.appService.isPosOriHidden).toEqual(true);
-    });
-
-    it('showPos should hide inputs for position and orientation', () => {
-        droneComponent.appService.isPosOriHidden = true;
-        droneComponent.showPos();
-        expect(droneComponent.appService.isPosOriHidden).toEqual(false);
     });
 });

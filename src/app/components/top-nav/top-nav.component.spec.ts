@@ -59,16 +59,16 @@ describe('TopNavComponent', () => {
     });
 
     it('should return true if we are in simulation', () => {
-        missionServiceStub.isSimulation = true;
-        const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
-        expect(component.isSimulation).toEqual(true);
+        missionServiceStub.isSimulationSelected = true;
+        const spy = spyOnProperty(component, 'isSimulationSelected').and.callThrough();
+        expect(component.isSimulationSelected).toEqual(true);
         expect(spy).toHaveBeenCalled();
     });
 
     it('should return false if we use crazyflie drones', () => {
-        missionServiceStub.isSimulation = false;
-        const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
-        expect(component.isSimulation).toEqual(false);
+        missionServiceStub.isSimulationSelected = false;
+        const spy = spyOnProperty(component, 'isSimulationSelected').and.callThrough();
+        expect(component.isSimulationSelected).toEqual(false);
         expect(spy).toHaveBeenCalled();
     });
 
@@ -87,30 +87,30 @@ describe('TopNavComponent', () => {
     });
 
     it('should return false if there is currently no mission', () => {
-        missionServiceStub.missionIsStarted = false;
-        const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
-        expect(component.missionIsStarted).toEqual(false);
+        missionServiceStub.isMissionStarted = false;
+        const spy = spyOnProperty(component, 'isMissionStarted').and.callThrough();
+        expect(component.isMissionStarted).toEqual(false);
         expect(spy).toHaveBeenCalled();
     });
 
     it('should return true if a mission is started', () => {
-        missionServiceStub.missionIsStarted = true;
-        const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
-        expect(component.missionIsStarted).toEqual(true);
+        missionServiceStub.isMissionStarted = true;
+        const spy = spyOnProperty(component, 'isMissionStarted').and.callThrough();
+        expect(component.isMissionStarted).toEqual(true);
         expect(spy).toHaveBeenCalled();
     });
 
     it('should return true if drones are returning to base', () => {
-        missionServiceStub.returnToBaseActivated = true;
-        const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
-        expect(component.returnToBaseActivated).toEqual(true);
+        missionServiceStub.isReturnToBaseDisabled = true;
+        const spy = spyOnProperty(component, 'isReturnToBaseDisabled').and.callThrough();
+        expect(component.isReturnToBaseDisabled).toEqual(true);
         expect(spy).toHaveBeenCalled();
     });
 
     it('should return false if drone are not returning to base', () => {
-        missionServiceStub.returnToBaseActivated = false;
-        const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
-        expect(component.returnToBaseActivated).toEqual(false);
+        missionServiceStub.isMissionStarted = false;
+        const spy = spyOnProperty(component, 'isReturnToBaseDisabled').and.callThrough();
+        expect(component.isReturnToBaseDisabled).toEqual(false);
         expect(spy).toHaveBeenCalled();
     });
 });

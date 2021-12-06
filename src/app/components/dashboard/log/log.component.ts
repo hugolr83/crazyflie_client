@@ -13,7 +13,7 @@ export class LogComponent implements OnDestroy {
         public appService: AppService,
         public communicationService: CommonApiService,
         public logService: LogService,
-    ) { }
+    ) {}
 
     get logs(): Log[] {
         return this.logService.logs;

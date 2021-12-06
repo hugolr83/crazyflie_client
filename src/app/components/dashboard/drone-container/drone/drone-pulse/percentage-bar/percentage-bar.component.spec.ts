@@ -23,7 +23,7 @@ describe('PercentageBarComponent', () => {
 
     it('ngOnInit should call renderArrayColor', () => {
         spyOn(component, 'renderArrayColor').and.callThrough();
-        component.ngOnInit();
+        component.ngOnChanges();
         expect(component.renderArrayColor).toHaveBeenCalled();
     });
 });

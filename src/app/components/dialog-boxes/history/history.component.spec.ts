@@ -49,7 +49,7 @@ describe('HistoryComponent', () => {
             elapsedTime: '',
             numberRobots: 0,
             droneType: '',
-            distance: 0,
+            distance: '0',
             expandLog: false,
             expandMap: false,
         };
@@ -61,7 +61,7 @@ describe('HistoryComponent', () => {
             elapsedTime: '',
             numberRobots: 0,
             droneType: '',
-            distance: 0,
+            distance: '0',
             expandLog: false,
             expandMap: false,
         };
