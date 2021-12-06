@@ -42,7 +42,6 @@ describe('SidebarComponent', () => {
                 { provide: HttpClientTestingModule },
             ],
         }).compileComponents();
-
     });
 
     beforeEach(() => {
