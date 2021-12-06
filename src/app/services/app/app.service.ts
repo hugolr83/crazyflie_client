@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CommonApiService, Drone, DroneType, DroneVec3, Mission, Orientation } from '@backend/api-client';
+import { CommonApiService, Drone, DroneOrientation, DroneType, DroneVec3, Mission } from '@backend/api-client';
 import { Observable, of } from 'rxjs';
 import { CommunicationService } from '../communication/communication.service';
 
@@ -15,10 +15,12 @@ export type DroneControl = {
     [key in DroneType]: {
         [id: string]: {
             position: DroneVec3;
-            orientation: Orientation;
+            orientation: DroneOrientation;
         };
     };
 };
+
+const DRONE_COLORS = ['#2652a4', '#d20010'];
 
 @Injectable({
     providedIn: 'root',
@@ -49,7 +51,7 @@ export class AppService {
 
                 // Connected drones
                 if (!this.connectedDrones[drone.type][drone.id]) {
-                    this.connectedDrones[drone.type][drone.id] = { fillStyle: this.generateRandomColor() };
+                    this.connectedDrones[drone.type][drone.id] = { fillStyle: this.getColor(drone.id) };
                 }
             });
         });
@@ -62,7 +64,7 @@ export class AppService {
         return of(this.activeMission);
     }
 
-    private generateRandomColor(): string {
-        return '#' + Math.floor(Math.random() * 2 ** 24).toString(16);
+    private getColor(id: number): string {
+        return DRONE_COLORS[id % DRONE_COLORS.length];
     }
 }

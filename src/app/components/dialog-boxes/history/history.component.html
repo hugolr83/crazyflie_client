@@ -41,7 +41,7 @@
         <td nzAlign="center">{{ data.numberRobots }}</td>
         <td nzAlign="center">{{ data.droneType }}</td>
         <td nzAlign="center">{{ data.distance }}</td>
-        <td [(nzExpand)]="data.expandMap" nzAlign="center"></td>
+        <td [(nzExpand)]="data.expandMap" (nzExpandChange)="onMapExpand($event, data.id)" nzAlign="center"></td>
         <td class="nlogs" [(nzExpand)]="data.expandLog" nzAlign="center">({{ data.logs?.length }} logs)</td>
       </tr>
       <tr [nzExpand]="data.expandLog" nzAlign="center">
@@ -56,9 +56,8 @@
       </tr>
       <tr [nzExpand]="data.expandMap" nzAlign="center">
         <tbody>
-          <p class="title"><i nz-icon nzType="global" nzTheme="outline"></i>Carte</p>
           <div class="map">
-            <img draggable="false" src="assets\images\ge_full_logo.png" alt="logo" />
+            <img [src]="data.mapSrc" />
           </div>
         </tbody>
       </tr>

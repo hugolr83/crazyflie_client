@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DroneService } from '../drone/drone.service';
 import { LogService } from '../log/log.service';
+import { MapService } from '../map/map.service';
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +11,7 @@ export class MissionService {
     returnToBaseActivated: boolean;
     isSimulation: boolean;
 
-    constructor(public logService: LogService, public droneService: DroneService) {
+    constructor(public logService: LogService, public droneService: DroneService, public mapService: MapService) {
         this.missionIsStarted = false;
         this.returnToBaseActivated = false;
         this.logService.logIsShown = false;
@@ -21,6 +22,7 @@ export class MissionService {
         this.missionIsStarted = true;
         this.returnToBaseActivated = false;
         this.droneService.startMission();
+        this.mapService.clearMap();
     }
 
     endMission(): void {

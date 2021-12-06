@@ -14,7 +14,7 @@ export class DroneContainerComponent {
         public appService: AppService,
     ) {}
 
-    get connectedDrones(): string[] {
-        return Array.from(Object.keys(this.appService.connectedDrones[this.appService.droneType]));
+    get connectedDrones(): number[] {
+        return Object.keys(this.appService.connectedDrones[this.appService.droneType]).map(Number);
     }
 }

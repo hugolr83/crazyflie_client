@@ -6,6 +6,7 @@ import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { HistoryService } from 'src/app/services/history/history.service';
 import { LogService } from 'src/app/services/log/log.service';
+import { MapService } from 'src/app/services/map/map.service';
 import { MissionData } from 'src/app/tools/interfaces';
 
 @Component({
@@ -24,6 +25,7 @@ export class HistoryComponent implements OnInit {
         public historyService: HistoryService,
         public droneService: DroneService,
         public logService: LogService,
+        public mapService: MapService,
     ) {
         this.isLoading = true;
     }
@@ -58,6 +60,7 @@ export class HistoryComponent implements OnInit {
                 distance: 10,
                 expandLog: false,
                 expandMap: false,
+                mapSrc: '',
             };
 
             this.communicationService.getLogs(mission.id).subscribe((logs: Log[]) => {
@@ -92,4 +95,18 @@ export class HistoryComponent implements OnInit {
 
     filterTypeFn = (list: string[], item: MissionData): boolean =>
         list.some((name) => item.droneType.indexOf(name) !== -1);
+
+    onMapExpand(expanded: boolean, missionId: number): void {
+        if (!expanded) return;
+        const currentMission = this.missionsData.find((mission) => mission.id === missionId);
+        if (!currentMission) return;
+
+        this.communicationService.getMap(currentMission.id).subscribe((map) => {
+            currentMission.mapSrc = map.map;
+        });
+    }
+
+    connectedDrones(droneType: DroneType): number[] {
+        return Object.keys(this.appService.connectedDrones[droneType]).map(Number);
+    }
 }

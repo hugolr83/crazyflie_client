@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Drone, DroneState } from '@backend/api-client';
+import { CommonApiService, DroneRange, DroneState, DroneType, DroneVec3 } from '@backend/api-client';
 import { AppService } from '../app/app.service';
 
+export const DEFAULT_CANVAS_WIDTH = 400;
+export const DEFAULT_CANVAS_HEIGHT = 400;
 const WIDHT_ARENA = 4;
 const HEIGHT_ARENA = 4;
 const MAX_RANGE_SCANNER = 2000;
-const ARGOS_ARENA_MAX_INTERVAL = 2;
-const ARGOS_ARENA_MIN_INTERVAL = -2;
+const ARENA_MAX_INTERVAL = WIDHT_ARENA / 2;
+const ARENA_MIN_INTERVAL = -WIDHT_ARENA / 2;
+
+export type DroneMap = { id: number; position: DroneVec3; fillStyle: string; range: DroneRange; state: DroneState };
 
 @Injectable({
     providedIn: 'root',
@@ -15,89 +19,139 @@ export class MapService {
     droneToPosContext: { [key: string]: CanvasRenderingContext2D } = {};
     droneToPathContext: { [key: string]: CanvasRenderingContext2D } = {};
     obstacleContext!: CanvasRenderingContext2D;
+    historicalObstacleContext!: CanvasRenderingContext2D;
     droneFillStyle!: string;
     showPaths: boolean = true;
-    wallFillStyle = 'blue';
+    wallFillStyle = '#7d8a81';
     inMemoryCanvases: { [type: string]: ImageData[] } = {};
 
-    constructor(private appServive: AppService) {
+    constructor(public appServive: AppService, public commonApiService: CommonApiService) {
         this.droneToPosContext = {};
         this.droneToPathContext = {};
     }
 
-    togglePaths(value: boolean): void {
+    public clearMap(): void {
+        // clear positions
+        for (const posCtx of Object.values(this.droneToPosContext)) {
+            posCtx.clearRect(0, 0, posCtx.canvas.width, posCtx.canvas.height);
+        }
+
+        // clear paths
+        for (const pathCtx of Object.values(this.droneToPathContext)) {
+            pathCtx.clearRect(0, 0, pathCtx.canvas.width, pathCtx.canvas.height);
+        }
+
+        // clear obstacles
+        this.obstacleContext.clearRect(0, 0, this.obstacleContext.canvas.width, this.obstacleContext.canvas.height);
+    }
+
+    public mapToImage(missionId: number, droneType: DroneType): string {
+        this.loadMap(missionId, droneType);
+
+        const mergedCanvas = document.createElement('canvas');
+        const mergedCtx = mergedCanvas.getContext('2d');
+
+        mergedCanvas.width = DEFAULT_CANVAS_WIDTH;
+        mergedCanvas.height = DEFAULT_CANVAS_HEIGHT;
+
+        if (!mergedCtx) return '';
+
+        for (const ctx of Object.values(this.droneToPosContext)) {
+            mergedCtx.drawImage(ctx.canvas, 0, 0);
+        }
+
+        for (const ctx of Object.values(this.droneToPathContext)) {
+            mergedCtx.drawImage(ctx.canvas, 0, 0);
+        }
+
+        mergedCtx.drawImage(this.historicalObstacleContext.canvas, 0, 0);
+
+        return mergedCanvas.toDataURL();
+    }
+
+    public loadMap(missionId: number, droneType: DroneType): void {
+        this.commonApiService.getDronesMetadata(missionId).subscribe((droneData) => {
+            for (const [droneID, datas] of Object.entries(droneData)) {
+                const drone = this.appServive.droneRegistry[droneType][parseInt(droneID)];
+                const fillStyle = this.appServive.connectedDrones[droneType][parseInt(droneID)].fillStyle;
+                for (const data of datas) {
+                    const droneMap: DroneMap = {
+                        id: drone.id,
+                        fillStyle,
+                        position: data.position,
+                        range: data.range,
+                        state: drone.state,
+                    };
+                    this.drawMap(droneMap);
+                }
+            }
+        });
+    }
+
+    public togglePaths(value: boolean): void {
         this.showPaths = value;
         for (const ctx of Object.values(this.droneToPathContext)) {
             ctx.canvas.hidden = !value;
         }
     }
 
-    setPositionContext(context: CanvasRenderingContext2D | null, uuid: string): void {
+    public setPositionContext(context: CanvasRenderingContext2D | null, uuid: number): void {
         if (!context) return;
         this.droneToPosContext[uuid] = context;
     }
 
-    setPathContext(context: CanvasRenderingContext2D | null, uuid: string): void {
+    public setPathContext(context: CanvasRenderingContext2D | null, uuid: number): void {
         if (!context) return;
         this.droneToPathContext[uuid] = context;
     }
 
-    setObstacleContext(context: CanvasRenderingContext2D | null): void {
+    public setObstacleContext(context: CanvasRenderingContext2D | null): void {
         if (!context) return;
         this.obstacleContext = context;
+        this.historicalObstacleContext = context;
     }
 
-    computePosition(drone: Drone, ctx: CanvasRenderingContext2D): { shiftx: number; shifty: number } {
+    public drawMap(drone: DroneMap): void {
+        if (!drone) return;
+
+        this.drawPosition(drone);
+        this.drawObstacles(drone);
+        this.drawDronePath(drone);
+    }
+
+    private computePosition(drone: DroneMap, ctx: CanvasRenderingContext2D): { shiftx: number; shifty: number } {
         const x = drone.position.x;
         const y = drone.position.y;
-        // ARGOS x and y are switched
-        const shiftx = this.shift(y, ARGOS_ARENA_MIN_INTERVAL, ARGOS_ARENA_MAX_INTERVAL, 0, ctx.canvas.width);
-        const shifty = this.shift(x, ARGOS_ARENA_MIN_INTERVAL, ARGOS_ARENA_MAX_INTERVAL, 0, ctx.canvas.height);
+
+        const shiftx = this.shift(y, ARENA_MIN_INTERVAL, ARENA_MAX_INTERVAL, 0, ctx.canvas.width);
+        const shifty = this.shift(x, ARENA_MIN_INTERVAL, ARENA_MAX_INTERVAL, 0, ctx.canvas.height);
 
         return { shiftx, shifty };
     }
 
-    drawMap(drone: Drone, fillStyle: string): void {
-        if (!drone) return;
-        if (drone.state !== DroneState.Exploring) return;
-
-        this.drawPosition(drone, fillStyle);
-        this.drawObstacles(drone);
-        this.drawDronePath(drone, fillStyle);
-    }
-
-    private drawPosition(drone: Drone, fillStyle: string): void {
+    private drawPosition(drone: DroneMap): void {
         const ctx = this.droneToPosContext[drone.id];
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.drawCursor(ctx, shiftx, shifty, fillStyle);
+        this.drawCursor(ctx, shiftx, shifty, drone.fillStyle);
     }
 
-    private drawDronePath(drone: Drone, fillStyle: string): void {
+    private drawDronePath(drone: DroneMap): void {
         const ctx = this.droneToPathContext[drone.id];
+
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 
-        this.drawPath(ctx, shiftx, shifty, fillStyle);
+        this.drawPath(ctx, shiftx, shifty, drone.fillStyle);
     }
 
     private drawPath(ctx: CanvasRenderingContext2D, x: number, y: number, fillStyle: string): void {
         ctx.fillStyle = fillStyle;
         ctx.fillRect(x, y, 3, 3);
     }
-    private drawCursor(ctx: CanvasRenderingContext2D, x: number, y: number, fillStyle: string): void {
-        // const image = new Image();
-        // image.src = 'assets/svg/red_cursor.svg';
-        // image.onload = () => {
-        //     ctx.save();
-        //     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
-        //     ctx.scale(0.05, 0.06);
-        //     ctx.drawImage(image, x, y);
-        //     ctx.restore();
-        // };
-        // image.crossOrigin = 'Anonymous';
 
+    private drawCursor(ctx: CanvasRenderingContext2D, x: number, y: number, fillStyle: string): void {
         ctx.fillStyle = fillStyle;
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -114,30 +168,36 @@ export class MapService {
         return c + (old * newr) / oldr;
     }
 
-    private drawObstacles(drone: Drone): void {
-        const ctx = this.obstacleContext;
+    private drawObstacles(drone: DroneMap): void {
+        const ctx = this.historicalObstacleContext;
         ctx.fillStyle = this.wallFillStyle;
 
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 
         if (drone.range.back > 0) {
             const backy = shifty + this.shift(drone.range.back, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
-            ctx.fillRect(shiftx, backy, 5, 5);
+            this.drawCircle(ctx, shiftx, backy);
         }
 
         if (drone.range.front > 0) {
             const fronty = shifty - this.shift(drone.range.front, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
-            ctx.fillRect(shiftx, fronty, 5, 5);
+            this.drawCircle(ctx, shiftx, fronty);
         }
 
         if (drone.range.left > 0) {
             const leftx = shiftx - this.shift(drone.range.left, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
-            ctx.fillRect(leftx, shifty, 5, 5);
+            this.drawCircle(ctx, leftx, shifty);
         }
 
         if (drone.range.right > 0) {
             const rightx = shiftx + this.shift(drone.range.right, 0, MAX_RANGE_SCANNER, 0, ctx.canvas.height / 2);
-            ctx.fillRect(rightx, shifty, 5, 5);
+            this.drawCircle(ctx, rightx, shifty);
         }
+    }
+
+    private drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, 2 * Math.PI);
+        ctx.fill();
     }
 }

@@ -13,12 +13,12 @@
 
   <div class="layout">
     <!-- position canvas for every drone -->
-    <div *ngFor="let uuid of connectedDrones" style="position: absolute">
-      <app-map [droneUUID]="uuid" [name]="uuid + 'position'" type="position" zindex="2"></app-map>
+    <div *ngFor="let id of connectedDrones" style="position: absolute">
+      <app-map [droneID]="id" [name]="id + 'position'" type="position" zindex="2"></app-map>
     </div>
     <!-- path canvas for every drone -->
-    <div *ngFor="let uuid of connectedDrones" style="position: absolute">
-      <app-map [droneUUID]="uuid" [name]="uuid + 'path'" type="path" zindex="1"></app-map>
+    <div *ngFor="let id of connectedDrones" style="position: absolute">
+      <app-map [droneID]="id" [name]="id + 'path'" type="path" zindex="1"></app-map>
     </div>
     <!-- obstacle canvas for all drones -->
     <div style="position: absolute">

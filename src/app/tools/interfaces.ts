@@ -1,4 +1,4 @@
-import { Log } from '@backend/api-client';
+import { DroneType, Log } from '@backend/api-client';
 
 export interface MissionData {
     id: number;
@@ -6,11 +6,12 @@ export interface MissionData {
     startingTime: string;
     elapsedTime: string;
     numberRobots: number;
-    droneType: string;
+    droneType: DroneType;
     distance: number;
     logs?: Log[];
     expandLog: boolean;
     expandMap: boolean;
+    mapSrc: string;
 }
 
 export interface MissionTimestamp {
