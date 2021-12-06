@@ -1,3 +1,5 @@
+import { Overlay } from '@angular/cdk/overlay';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -16,21 +18,15 @@ describe('SidebarComponent', () => {
     let missionService: jasmine.SpyObj<MissionService>;
     let modalService: jasmine.SpyObj<NzModalService>;
     let viewContainerRef: jasmine.SpyObj<ViewContainerRef>;
-
-    let logServiceStub: LogService;
-    let appServiceStub: AppService;
-    let missionServiceStub: MissionService;
+    let overlaySpy: jasmine.SpyObj<Overlay>;
 
     beforeEach(async () => {
         appService = jasmine.createSpyObj('AppService', ['']);
-        logService = jasmine.createSpyObj('LogService', ['']);
-        missionService = jasmine.createSpyObj('MissionService', ['']);
+        logService = jasmine.createSpyObj('LogService', [''], ['logIsShown']);
+        missionService = jasmine.createSpyObj('MissionService', [''], ['isSimulation', 'missionIsStarted']);
         modalService = jasmine.createSpyObj('NzModalService', ['']);
         viewContainerRef = jasmine.createSpyObj('ViewContainerRef', ['']);
-
-        logServiceStub = TestBed.inject(LogService);
-        appServiceStub = TestBed.inject(AppService);
-        missionServiceStub = TestBed.inject(MissionService);
+        overlaySpy = jasmine.createSpyObj('Overlay', ['']);
 
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
@@ -41,8 +37,12 @@ describe('SidebarComponent', () => {
                 { provide: MissionService, usevalue: missionService },
                 { provide: NzModalService, usevalue: modalService },
                 { provide: ViewContainerRef, usevalue: viewContainerRef },
+                { provide: Overlay, usevalue: overlaySpy },
+                { provide: HttpClient },
+                { provide: HttpClientTestingModule },
             ],
         }).compileComponents();
+
     });
 
     beforeEach(() => {
@@ -51,87 +51,85 @@ describe('SidebarComponent', () => {
         fixture.detectChanges();
     });
 
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    // });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
-    // it('should show logs', () => {
-    //     logServiceStub.logIsShown = false;
-    //     component.showLogs();
-    //     expect(logServiceStub.logIsShown).toBeTrue();
-    // });
+    it('showLogs should trigger logIsShown false to true', () => {
+        const logServiceStub = TestBed.inject(LogService);
+        logServiceStub.logIsShown = false;
+        component.showLogs();
+        expect(logServiceStub.logIsShown).toEqual(true);
+    });
 
-    // it('should hide logs', () => {
-    //     logServiceStub.logIsShown = true;
-    //     component.showLogs();
-    //     expect(logServiceStub.logIsShown).toBeFalse();
-    // });
+    it('showLogs should trigger isLogsHidden true to false', () => {
+        const logServiceStub = TestBed.inject(LogService);
+        logServiceStub.logIsShown = true;
+        component.showLogs();
+        expect(logServiceStub.logIsShown).toEqual(false);
+    });
 
-    // it('toggleDroneType should set drone type to argos', () => {
-    //     appServiceStub.droneType = DroneType.Crazyflie;
-    //     expect(appService.droneType).toBe(DroneType.Argos);
-    //     expect(component.isSimulation).toEqual(true);
-    // });
+    it('should return true if we are in simulation', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.isSimulation = true;
+        const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
+        expect(component.isSimulation).toEqual(true);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('toggleDroneType should set drone type to crazyflie', () => {
-    //     appServiceStub.droneType = DroneType.Argos;
-    //     expect(appService.droneType).toBe(DroneType.Crazyflie);
-    //     expect(component.isSimulation).toEqual(false);
-    // });
+    it('should return false if we use crazyflie drones', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.isSimulation = false;
+        const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
+        expect(component.isSimulation).toEqual(false);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return true if we are in simulation', () => {
-    //     appService.droneType = DroneType.Crazyflie;
-    //     const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
-    //     expect(component.isSimulation).toEqual(true);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return true if we can see logs', () => {
+        const logServiceStub = TestBed.inject(LogService);
+        logServiceStub.logIsShown = true;
+        const spy = spyOnProperty(component, 'logIsShown').and.callThrough();
+        expect(component.logIsShown).toEqual(true);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return false if we use crazyflie drones', () => {
-    //     appService.droneType != DroneType.Crazyflie;
-    //     const spy = spyOnProperty(component, 'isSimulation').and.callThrough();
-    //     expect(component.isSimulation).toEqual(false);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return false if we do not see logs', () => {
+        const logServiceStub = TestBed.inject(LogService);
+        logServiceStub.logIsShown = false;
+        const spy = spyOnProperty(component, 'logIsShown').and.callThrough();
+        expect(component.logIsShown).toEqual(false);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return true if we can see logs', () => {
-    //     logServiceStub.logIsShown = true;
-    //     const spy = spyOnProperty(component, 'logIsShown').and.callThrough();
-    //     expect(component.logIsShown).toEqual(true);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return false if there is currently no mission', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.missionIsStarted = false;
+        const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
+        expect(component.missionIsStarted).toEqual(false);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return false if we do not see logs', () => {
-    //     logServiceStub.logIsShown = false;
-    //     const spy = spyOnProperty(component, 'logIsShown').and.callThrough();
-    //     expect(component.logIsShown).toEqual(false);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return true if a mission is started', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.missionIsStarted = true;
+        const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
+        expect(component.missionIsStarted).toEqual(true);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return false if there is currently no mission', () => {
-    //     missionServiceStub.missionIsStarted = false;
-    //     const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
-    //     expect(component.missionIsStarted).toEqual(false);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return true if drones are returning to base', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.returnToBaseActivated = true;
+        const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
+        expect(component.returnToBaseActivated).toEqual(true);
+        expect(spy).toHaveBeenCalled();
+    });
 
-    // it('should return true if a mission is started', () => {
-    //     missionServiceStub.missionIsStarted = true;
-    //     const spy = spyOnProperty(component, 'missionIsStarted').and.callThrough();
-    //     expect(component.missionIsStarted).toEqual(true);
-    //     expect(spy).toHaveBeenCalled();
-    // });
-
-    // it('should return true if drones are returning to base', () => {
-    //     missionServiceStub.returnToBaseActivated = true;
-    //     const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
-    //     expect(component.returnToBaseActivated).toEqual(true);
-    //     expect(spy).toHaveBeenCalled();
-    // });
-
-    // it('should return false if drone are not returning to base', () => {
-    //     missionServiceStub.returnToBaseActivated = false;
-    //     const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
-    //     expect(component.returnToBaseActivated).toEqual(false);
-    //     expect(spy).toHaveBeenCalled();
-    // });
+    it('should return false if drone are not returning to base', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.returnToBaseActivated = false;
+        const spy = spyOnProperty(component, 'returnToBaseActivated').and.callThrough();
+        expect(component.returnToBaseActivated).toEqual(false);
+        expect(spy).toHaveBeenCalled();
+    });
 });
