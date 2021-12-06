@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { CommonApiService, CrazyflieApiService, Drone, DroneType, DroneVec3, Orientation } from '@backend/api-client';
+import {
+    CommonApiService,
+    CrazyflieApiService,
+    Drone,
+    DroneOrientation,
+    DroneType,
+    DroneVec3,
+} from '@backend/api-client';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
@@ -15,7 +22,7 @@ export class DroneComponent {
     DroneType = DroneType;
     size!: NzButtonSize;
     position: DroneVec3;
-    orientation: Orientation;
+    orientation: DroneOrientation;
 
     constructor(
         public commonApiService: CommonApiService,
