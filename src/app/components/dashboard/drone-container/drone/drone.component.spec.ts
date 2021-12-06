@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, CrazyflieApiService, DroneType } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { DroneComponent } from './drone.component';
 
@@ -16,6 +17,7 @@ describe('DroneComponent', () => {
     let appService: jasmine.SpyObj<AppService>;
     let crService: jasmine.SpyObj<CrazyflieApiService>;
     let missionService: jasmine.SpyObj<MissionService>;
+    let droneService: jasmine.SpyObj<DroneService>;
 
     beforeEach(async () => {
         crService = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
@@ -34,6 +36,7 @@ describe('DroneComponent', () => {
                 { provide: CrazyflieApiService, usevalue: crService },
                 { provide: AppService, usevalue: appService },
                 { provide: MissionService, usevalue: missionService },
+                { provide: DroneService, usevalue: droneService },
             ],
         }).compileComponents();
     });
@@ -48,17 +51,11 @@ describe('DroneComponent', () => {
         expect(droneComponent).toBeTruthy();
     });
 
-    // it('identify drone should call crazyflie service identifyCrazyflie', () => {
-    //     const uuid = mockDrone.uuid;
-    //     droneComponent.identifyDrone(uuid);
-    //     expect(crService.identifyCrazyflie).toHaveBeenCalled();
-    // });
-
-    // it('identify drone should not call crazyflie service if uuid is empty', () => {
-    //     let uuid = '';
-    //     droneComponent.identifyDrone(uuid);
-    //     expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
-    // });
+    it('identify drone should not call crazyflie service if uuid is empty', () => {
+        let id: number = 0;
+        droneComponent.identifyDrone(id);
+        expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
+    });
 
     it('isMissionStarted should be false if there is no mission started', () => {
         const spy = spyOnProperty(droneComponent, 'isMissionStarted').and.callThrough();
@@ -73,7 +70,7 @@ describe('DroneComponent', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('getDroneType should return Argos if we are in simulation', () => {
+    it('DroneType should return Argos if we are in simulation', () => {
         droneComponent.appService.droneType = DroneType.Argos;
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Argos);
