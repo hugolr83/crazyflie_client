@@ -2,6 +2,7 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { DroneType } from '@backend/api-client';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { HelpComponent } from '../dialog-boxes/help/help.component';
@@ -18,9 +19,14 @@ export class SidebarComponent {
         public appService: AppService,
         public logService: LogService,
         public missionService: MissionService,
+        public droneService: DroneService,
         private modal: NzModalService,
         private viewContainerRef: ViewContainerRef,
     ) {}
+
+    get droneType(): DroneType {
+        return this.appService.droneType;
+    }
 
     showHistory(): void {
         const modal: NzModalRef = this.modal.create({
@@ -60,7 +66,7 @@ export class SidebarComponent {
         const modal: NzModalRef = this.modal.create({
             nzClosable: false,
             nzTitle: 'Aide',
-            nzWidth: 1000,
+            nzWidth: 1100,
             nzContent: HelpComponent,
             nzFooter: [
                 {
@@ -80,30 +86,46 @@ export class SidebarComponent {
     toggleDroneType(): void {
         if (this.appService.droneType === DroneType.Crazyflie) {
             this.appService.setDroneType(DroneType.Argos);
-            this.missionService.isSimulation = true;
+            this.missionService.isSimulationSelected = true;
         } else {
             this.appService.setDroneType(DroneType.Crazyflie);
-            this.missionService.isSimulation = false;
+            this.missionService.isSimulationSelected = false;
         }
     }
 
-    get isSimulation(): boolean {
-        return this.missionService.isSimulation;
-    }
-
-    get isSpinning(): boolean {
-        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+    get isSimulationSelected(): boolean {
+        return this.missionService.isSimulationSelected;
     }
 
     get logIsShown(): boolean {
         return this.logService.logIsShown;
     }
 
-    get missionIsStarted(): boolean {
-        return this.missionService.missionIsStarted;
+    get inputIsShown(): boolean {
+        return this.droneService.inputIsShown;
     }
 
-    get returnToBaseActivated(): boolean {
-        return this.missionService.returnToBaseActivated;
+    get isMissionStarted(): boolean {
+        return this.missionService.isMissionStarted;
+    }
+
+    get isReturnToBaseDisabled(): boolean {
+        return this.missionService.isReturnToBaseDisabled;
+    }
+
+    get isNotConnected(): boolean {
+        return this.droneService.isNotConnected;
+    }
+
+    get stateIsNotReady(): boolean {
+        return this.droneService.stateIsNotReady;
+    }
+
+    get p2pIsActivated(): boolean {
+        return this.droneService.p2pIsActivated;
+    }
+
+    get stateIsReady(): boolean {
+        return this.droneService.stateIsReady;
     }
 }

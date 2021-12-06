@@ -1,14 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    CommonApiService,
-    CrazyflieApiService,
-    Drone,
-    DroneType,
-    DroneVec3,
-    Log,
-    Mission,
-    Orientation,
-} from '@backend/api-client';
+import { CommonApiService, CrazyflieApiService, Drone, DroneState, DroneType, Log, Mission } from '@backend/api-client';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
@@ -19,11 +10,17 @@ export type Func = (id: number) => Observable<any[]>;
     providedIn: 'root',
 })
 export class DroneService {
+    inputIsShown: boolean;
+    p2pIsActivated: boolean;
+
     constructor(
         public commonApiService: CommonApiService,
         public crazyflieApiService: CrazyflieApiService,
         public appService: AppService,
-    ) {}
+    ) {
+        this.inputIsShown = false;
+        this.p2pIsActivated = false;
+    }
 
     startMission(): void {
         this.commonApiService.createMission(this.appService.droneType).subscribe((mission: Mission) => {
@@ -54,10 +51,43 @@ export class DroneService {
         );
     }
 
+    showInput(): void {
+        this.inputIsShown = !this.inputIsShown;
+    }
+
+    activateP2P(): void {
+        this.p2pIsActivated = true;
+        console.log('P2P');
+    }
+
     private callApi(func: Func): void {
         this.appService.getActiveMission().subscribe((activeMission: Mission) => {
             this.appService.activeMission = activeMission;
             func(this.appService.activeMission.id).subscribe((drones: Drone[]) => {});
         });
+    }
+
+    get isNotConnected(): boolean {
+        return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
+    }
+
+    get droneType(): DroneType {
+        return this.appService.droneType;
+    }
+
+    get stateIsNotReady(): boolean {
+        if (!this.isNotConnected)
+            return Object.values(this.appService.droneRegistry[this.droneType]).every(
+                (drone) => drone.state === DroneState.NotReady,
+            );
+        else return true;
+    }
+
+    get stateIsReady(): boolean {
+        if (!this.isNotConnected)
+            return Object.values(this.appService.droneRegistry[this.droneType]).every(
+                (drone) => drone.state === DroneState.Ready,
+            );
+        else return false;
     }
 }

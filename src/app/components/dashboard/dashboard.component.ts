@@ -10,7 +10,7 @@ import { LogService } from 'src/app/services/log/log.service';
 export class DashboardComponent {
     constructor(public appService: AppService, public logService: LogService) {}
 
-    get isSpinning(): boolean {
+    get isNotConnected(): boolean {
         return Object.keys(this.appService.droneRegistry[this.appService.droneType]).length === 0;
     }
 }

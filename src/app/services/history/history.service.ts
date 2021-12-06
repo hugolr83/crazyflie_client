@@ -9,7 +9,6 @@ import { LogService } from '../log/log.service';
 })
 export class HistoryService {
     missionLogs: Log[] = [];
-    errorElapsedTime: string = 'Invalide';
 
     constructor(
         public communicationService: CommonApiService,
@@ -22,8 +21,6 @@ export class HistoryService {
         let startDate = new Date(startingTime).valueOf();
         let endDate = new Date(endTime).valueOf();
         let elapsedTime = endDate - startDate;
-
-        if (elapsedTime < 0) return this.errorElapsedTime;
 
         return this.logService.msToTime(elapsedTime);
     }

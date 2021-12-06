@@ -34,7 +34,7 @@ export class DroneComponent {
     }
 
     get isMissionStarted(): boolean {
-        return this.missionService.missionIsStarted;
+        return this.missionService.isMissionStarted;
     }
 
     get droneType(): DroneType {
@@ -45,7 +45,11 @@ export class DroneComponent {
         return this.appService.droneRegistry[this.droneType][this.droneID];
     }
 
-    showPos(): void {
-        this.appService.isPosOriHidden = !this.appService.isPosOriHidden;
+    get stateIsNotReady(): boolean {
+        return this.droneService.stateIsNotReady;
+    }
+
+    get inputIsShown(): boolean {
+        return this.droneService.inputIsShown;
     }
 }

@@ -7,7 +7,7 @@ export interface MissionData {
     elapsedTime: string;
     numberRobots: number;
     droneType: string;
-    distance: number;
+    distance: string;
     logs?: Log[];
     expandLog: boolean;
     expandMap: boolean;
