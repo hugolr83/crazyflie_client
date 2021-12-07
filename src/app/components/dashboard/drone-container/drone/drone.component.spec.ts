@@ -1,9 +1,7 @@
 /* tslint:disable:no-unused-variable */
-import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, CrazyflieApiService, DroneType } from '@backend/api-client';
-import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
@@ -21,9 +19,7 @@ describe('DroneComponent', () => {
 
     beforeEach(async () => {
         const csSpy = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
-        const appSpy = jasmine.createSpyObj('AppService', [''], {
-            connectedDrones: { ARGOS: { 0: { fillStyle: 'blue' } }, CRAZYFLIE: { 0: { fillStyle: 'blue' } } },
-        });
+        const appSpy = jasmine.createSpyObj('AppService', ['']);
         const commSpy = jasmine.createSpyObj('CommonApiService', ['']);
         const missSpy = jasmine.createSpyObj('MissionService', ['startMission']);
 
@@ -47,6 +43,9 @@ describe('DroneComponent', () => {
 
         missionService = TestBed.inject(MissionService) as jasmine.SpyObj<MissionService>;
         appService = TestBed.inject(AppService) as jasmine.SpyObj<AppService>;
+
+        appService.connectedDrones = { ARGOS: { 0: { fillStyle: 'blue' } }, CRAZYFLIE: { 0: { fillStyle: 'blue' } } };
+
         commonService = TestBed.inject(CommonApiService) as jasmine.SpyObj<CommonApiService>;
 
         crService = TestBed.inject(CrazyflieApiService) as jasmine.SpyObj<CrazyflieApiService>;
@@ -54,7 +53,9 @@ describe('DroneComponent', () => {
         droneService = TestBed.inject(DroneService) as jasmine.SpyObj<DroneService>;
 
         droneComponent = fixture.componentInstance;
+
         droneComponent.droneID = 0;
+
         fixture.detectChanges();
     });
 
@@ -63,8 +64,8 @@ describe('DroneComponent', () => {
     });
 
     it('identify drone should not call crazyflie service if id is empty', () => {
-        let id: number = 0;
-        crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
+        let id = undefined as any;
+        spyOn(crService, 'identifyCrazyflie');
 
         droneComponent.identifyDrone(id);
 
