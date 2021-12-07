@@ -85,7 +85,13 @@
         </li>
         <div class="button-container">
           <li class="button">
-            <button nz-button [disabled]="isMissionStarted || stateIsNotReady" nzType="primary" nzShape="round">
+            <button
+              nz-button
+              [disabled]="isMissionStarted || stateIsNotReady"
+              nzType="primary"
+              nzShape="round"
+              (click)="onSetInitialConfig()"
+            >
               <p><i nz-icon nzType="check-circle" nzTheme="outline"></i>Valider</p>
             </button>
           </li>

@@ -2,6 +2,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonApiService, CrazyflieApiService, DroneType } from '@backend/api-client';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
@@ -20,7 +21,7 @@ describe('DroneComponent', () => {
     beforeEach(async () => {
         const csSpy = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
         const appSpy = jasmine.createSpyObj('AppService', ['']);
-        const commSpy = jasmine.createSpyObj('CommonApiService', ['']);
+        const commSpy = jasmine.createSpyObj('CommonApiService', ['setDronePosition']);
         const missSpy = jasmine.createSpyObj('MissionService', ['startMission']);
 
         const drSpy = jasmine.createSpyObj('DroneService', ['']);
@@ -70,6 +71,16 @@ describe('DroneComponent', () => {
         droneComponent.identifyDrone(id);
 
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
+    });
+
+    it('onSetInitialConfig should call backend', () => {
+        let id = undefined as any;
+        spyOn(commonService, 'setDronePosition');
+        commonService.setDronePosition.and.returnValue(of());
+
+        droneComponent.onSetInitialConfig();
+
+        expect(commonService.setDronePosition).toHaveBeenCalled();
     });
 
     it('isMissionStarted should be false if there is no mission started', () => {
