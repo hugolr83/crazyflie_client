@@ -20,30 +20,41 @@ describe('DroneComponent', () => {
     let droneService: jasmine.SpyObj<DroneService>;
 
     beforeEach(async () => {
-        crService = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
-        appService = jasmine.createSpyObj('AppService', ['']);
-        commonService = jasmine.createSpyObj('CommonApiService', ['']);
-        missionService = jasmine.createSpyObj('MissionService', ['startMission']);
+        const csSpy = jasmine.createSpyObj('CrazyflieApiService', ['identifyCrazyflie']);
+        const appSpy = jasmine.createSpyObj('AppService', [''], {
+            connectedDrones: { ARGOS: { 0: { fillStyle: 'blue' } }, CRAZYFLIE: { 0: { fillStyle: 'blue' } } },
+        });
+        const commSpy = jasmine.createSpyObj('CommonApiService', ['']);
+        const missSpy = jasmine.createSpyObj('MissionService', ['startMission']);
 
-        crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
+        const drSpy = jasmine.createSpyObj('DroneService', ['']);
 
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             declarations: [DroneComponent],
             providers: [
-                { provide: DroneComponent, usevalue: {} },
-                { provide: CommonApiService, usevalue: commonService },
-                { provide: CrazyflieApiService, usevalue: crService },
-                { provide: AppService, usevalue: appService },
-                { provide: MissionService, usevalue: missionService },
-                { provide: DroneService, usevalue: droneService },
+                { provide: CommonApiService, usevalue: commSpy },
+                { provide: CrazyflieApiService, usevalue: csSpy },
+                { provide: AppService, usevalue: appSpy },
+                { provide: MissionService, usevalue: missSpy },
+                { provide: DroneService, usevalue: drSpy },
             ],
         }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(DroneComponent);
+
+        missionService = TestBed.inject(MissionService) as jasmine.SpyObj<MissionService>;
+        appService = TestBed.inject(AppService) as jasmine.SpyObj<AppService>;
+        commonService = TestBed.inject(CommonApiService) as jasmine.SpyObj<CommonApiService>;
+
+        crService = TestBed.inject(CrazyflieApiService) as jasmine.SpyObj<CrazyflieApiService>;
+
+        droneService = TestBed.inject(DroneService) as jasmine.SpyObj<DroneService>;
+
         droneComponent = fixture.componentInstance;
+        droneComponent.droneID = 0;
         fixture.detectChanges();
     });
 
@@ -53,7 +64,10 @@ describe('DroneComponent', () => {
 
     it('identify drone should not call crazyflie service if id is empty', () => {
         let id: number = 0;
+        crService.identifyCrazyflie.and.returnValue(of(new HttpResponse()));
+
         droneComponent.identifyDrone(id);
+
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
     });
 
