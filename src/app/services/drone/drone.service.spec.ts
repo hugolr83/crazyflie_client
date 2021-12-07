@@ -66,11 +66,6 @@ describe('DroneService', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('should set p2pIsActivated to true', () => {
-        service.activateP2P();
-        expect(service.p2pIsActivated).toEqual(true);
-    });
-
     it('showInputs should trigger inputIsShown to false', () => {
         service.inputIsShown = true;
         service.showInput();

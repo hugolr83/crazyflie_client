@@ -54,8 +54,8 @@ export class TopNavComponent {
         return this.droneService.inputIsShown;
     }
 
-    get p2pIsActivated(): boolean {
-        return this.droneService.p2pIsActivated;
+    get p2pIsEnabled(): boolean {
+        return this.missionService.p2pIsEnabled;
     }
 
     get isNotConnected(): boolean {

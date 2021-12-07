@@ -59,8 +59,8 @@
           <li
             *ngIf="!isSimulationSelected"
             nz-menu-item
-            [nzDisabled]="isNotConnected || p2pIsActivated"
-            (click)="droneService.activateP2P()"
+            [nzDisabled]="isNotConnected || p2pIsEnabled || stateIsReady"
+            (click)="missionService.activateP2P()"
           >
             Activer P2P
           </li>

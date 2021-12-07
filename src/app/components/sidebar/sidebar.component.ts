@@ -123,19 +123,19 @@ export class SidebarComponent {
         return this.droneService.stateIsNotReady;
     }
 
-    get p2pIsActivated(): boolean {
-        return this.droneService.p2pIsActivated;
+    get p2pIsEnabled(): boolean {
+        return this.missionService.p2pIsEnabled;
     }
 
     get stateIsReady(): boolean {
         return this.droneService.stateIsReady;
     }
 
-    togglePaths(value: boolean): void {
-        this.mapService.togglePaths(value);
-    }
-
     get pathIsShow(): boolean {
         return this.mapService.showPaths;
+    }
+
+    togglePaths(value: boolean): void {
+        this.mapService.togglePaths(value);
     }
 }

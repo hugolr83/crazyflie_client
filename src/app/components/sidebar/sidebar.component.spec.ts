@@ -144,19 +144,19 @@ describe('SidebarComponent', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('p2p should trigger p2pIsActivated to false', () => {
-        const droneServiceStub = TestBed.inject(DroneService);
-        droneServiceStub.p2pIsActivated = false;
-        const spy = spyOnProperty(component, 'p2pIsActivated').and.callThrough();
-        expect(component.p2pIsActivated).toEqual(false);
+    it('p2p should trigger p2pIsEnabled to false', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.p2pIsEnabled = false;
+        const spy = spyOnProperty(component, 'p2pIsEnabled').and.callThrough();
+        expect(component.p2pIsEnabled).toEqual(false);
         expect(spy).toHaveBeenCalled();
     });
 
-    it('p2p should trigger p2pIsActivated to true', () => {
-        const droneServiceStub = TestBed.inject(DroneService);
-        droneServiceStub.p2pIsActivated = true;
-        const spy = spyOnProperty(component, 'p2pIsActivated').and.callThrough();
-        expect(component.p2pIsActivated).toEqual(true);
+    it('p2p should trigger p2pIsEnabled to true', () => {
+        const missionServiceStub = TestBed.inject(MissionService);
+        missionServiceStub.p2pIsEnabled = true;
+        const spy = spyOnProperty(component, 'p2pIsEnabled').and.callThrough();
+        expect(component.p2pIsEnabled).toEqual(true);
         expect(spy).toHaveBeenCalled();
     });
 

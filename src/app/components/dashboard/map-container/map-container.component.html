@@ -1,5 +1,9 @@
 <div class="box">
-  <div class="title"><i class="fas fa-map"></i>Carte</div>
+  <div class="title">
+    <i class="fas fa-map"></i>Carte
+    <div class="id" *ngIf="missionService.isMissionStarted">(Mission {{ currentMissionID }})</div>
+  </div>
+
   <div class="map-container">
     <!-- position canvas for every drone -->
     <div *ngFor="let id of connectedDrones" style="position: absolute">

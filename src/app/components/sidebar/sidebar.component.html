@@ -53,10 +53,10 @@
       <ul>
         <li>
           <button
-            *ngIf="!isSimulationSelected"
+            *ngIf="isSimulationSelected"
             class="button p2p"
-            [disabled]="isNotConnected || p2pIsActivated"
-            (click)="droneService.activateP2P()"
+            [disabled]="isNotConnected || p2pIsEnabled || stateIsReady"
+            (click)="missionService.activateP2P()"
           >
             Activer P2P
           </button>
