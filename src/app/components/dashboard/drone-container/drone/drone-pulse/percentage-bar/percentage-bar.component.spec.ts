@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PercentageBarComponent } from './percentage-bar.component';
 
 describe('PercentageBarComponent', () => {
@@ -20,5 +19,11 @@ describe('PercentageBarComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('ngOnInit should call renderArrayColor', () => {
+        spyOn(component, 'renderArrayColor').and.callThrough();
+        component.ngOnChanges();
+        expect(component.renderArrayColor).toHaveBeenCalled();
     });
 });

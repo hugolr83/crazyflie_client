@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
@@ -81,6 +82,7 @@ registerLocaleData(en);
         NzInputNumberModule,
         NzSliderModule,
         NzGridModule,
+        OverlayModule,
     ],
     providers: [{ provide: NZ_I18N, useValue: en_US }, HttpClientModule],
     bootstrap: [AppComponent],

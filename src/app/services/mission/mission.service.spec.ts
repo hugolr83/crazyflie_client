@@ -37,6 +37,7 @@ describe('MissionService', () => {
                 { provide: MapService, usevalue: mapSpy },
             ],
         });
+
         service = TestBed.inject(MissionService);
         mapService = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
         logService = TestBed.inject(LogService) as jasmine.SpyObj<LogService>;
@@ -46,5 +47,49 @@ describe('MissionService', () => {
 
     it('should be created', () => {
         expect(service).toBeTruthy();
+    });
+
+    it('should start mission', () => {
+        const spyLogs = spyOn(logService, 'startGettingLogs').and.callThrough();
+        const spyDrones = spyOn(droneService, 'startMission').and.callThrough();
+        spyOn<any>(mapService, 'clearMap');
+
+        service.startMission();
+
+        expect(droneService.inputIsShown).toEqual(false);
+        expect(service.isMissionStarted).toEqual(true);
+        expect(service.isReturnToBaseDisabled).toEqual(false);
+        expect(logService.loggingIsStopped).toEqual(false);
+        expect(spyLogs).toHaveBeenCalled();
+        expect(spyDrones).toHaveBeenCalled();
+    });
+
+    /*
+    startMission(): void {
+        this.droneService.inputIsShown = false;
+        this.isMissionStarted = true;
+        this.isReturnToBaseDisabled = false;
+        this.logService.loggingIsStopped = false;
+        this.logService.startGettingLogs();
+        this.droneService.startMission();
+        this.mapService.clearMap();
+    }
+    */
+
+    it('should end mission', () => {
+        const spyDrones = spyOn(droneService, 'endMission').and.callThrough();
+        service.endMission();
+        expect(service.isMissionStarted).toEqual(false);
+        expect(service.isReturnToBaseDisabled).toEqual(true);
+        expect(logService.loggingIsStopped).toEqual(true);
+        expect(spyDrones).toHaveBeenCalled();
+    });
+
+    it('should return to base', () => {
+        const spyDrones = spyOn(droneService, 'returnToBase').and.callThrough();
+        service.returnToBase();
+        expect(service.isMissionStarted).toEqual(false);
+        expect(service.isReturnToBaseDisabled).toEqual(true);
+        expect(spyDrones).toHaveBeenCalled();
     });
 });
