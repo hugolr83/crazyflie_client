@@ -4,6 +4,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
+import { MapService } from 'src/app/services/map/map.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { HelpComponent } from '../dialog-boxes/help/help.component';
 import { HistoryComponent } from '../dialog-boxes/history/history.component';
@@ -22,6 +23,7 @@ export class SidebarComponent {
         public droneService: DroneService,
         private modal: NzModalService,
         private viewContainerRef: ViewContainerRef,
+        private mapService: MapService,
     ) {}
 
     get droneType(): DroneType {
@@ -121,11 +123,19 @@ export class SidebarComponent {
         return this.droneService.stateIsNotReady;
     }
 
-    get p2pIsActivated(): boolean {
-        return this.droneService.p2pIsActivated;
+    get p2pIsEnabled(): boolean {
+        return this.missionService.p2pIsEnabled;
     }
 
     get stateIsReady(): boolean {
         return this.droneService.stateIsReady;
+    }
+
+    get pathIsShow(): boolean {
+        return this.mapService.showPaths;
+    }
+
+    togglePaths(value: boolean): void {
+        this.mapService.togglePaths(value);
     }
 }

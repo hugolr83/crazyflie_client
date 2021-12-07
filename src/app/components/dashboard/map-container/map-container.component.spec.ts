@@ -50,20 +50,4 @@ describe('MapContainerComponent', () => {
 
         expect(mapService.loadMap).toHaveBeenCalled();
     });
-
-    it('togglepath should call service', () => {
-        spyOn<any>(mapService, 'togglePaths');
-
-        component.togglePaths(true);
-
-        expect(mapService.togglePaths).toHaveBeenCalledWith(true);
-    });
-
-    it('togglepath should call service with false', () => {
-        spyOn<any>(mapService, 'togglePaths');
-
-        component.togglePaths(false);
-
-        expect(mapService.togglePaths).toHaveBeenCalledWith(false);
-    });
 });

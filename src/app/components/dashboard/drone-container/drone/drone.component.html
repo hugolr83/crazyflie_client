@@ -3,7 +3,12 @@
   <div class="content">
     <ul>
       <li>
-        <p><i class="icon" nz-icon nzType="tag" nzTheme="outline"></i>Couleur trajet :</p>
+        <div class="color-container">
+          <p><i class="icon" nz-icon nzType="tag" nzTheme="outline"></i>Couleur trajet :</p>
+          <div style="display: flex" class="drone">
+            <span class="dot" [style.background-color]="droneFillStyle"></span>
+          </div>
+        </div>
       </li>
       <app-drone-pulse [drone]="drone"></app-drone-pulse>
       <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">
@@ -13,46 +18,34 @@
       </li>
       <div class="input-container" *ngIf="inputIsShown">
         <li>
-          <p class="title"><i class="icon" nz-icon nzType="environment" nzTheme="outline"></i>Position :</p>
-        </li>
-        <li>
           <div class="position-container">
-            <p class="input-pos">
-              x :
-              <nz-input-number
-                [(ngModel)]="position.x"
-                [nzMin]="-2"
-                [nzMax]="2"
-                [nzStep]="0.001"
-                [disabled]="isMissionStarted || stateIsNotReady"
-                nzSize="small"
-                style="width: 68px"
-              ></nz-input-number>
-            </p>
-            <p class="input-pos">
-              y :
-              <nz-input-number
-                [(ngModel)]="position.y"
-                [nzMin]="-2"
-                [nzMax]="2"
-                [nzStep]="0.001"
-                [disabled]="isMissionStarted || stateIsNotReady"
-                nzSize="small"
-                style="width: 68px"
-              ></nz-input-number>
-            </p>
-            <p class="input-pos">
-              z :
-              <nz-input-number
-                [(ngModel)]="position.z"
-                [nzMin]="-2"
-                [nzMax]="2"
-                [nzStep]="0.001"
-                [disabled]="isMissionStarted || stateIsNotReady"
-                nzSize="small"
-                style="width: 68px"
-              ></nz-input-number>
-            </p>
+            <div class="title-pos"><i class="icon" nz-icon nzType="environment" nzTheme="outline"></i>Position :</div>
+            <div class="xy-container">
+              <p class="input-pos">
+                x :
+                <nz-input-number
+                  [(ngModel)]="position.x"
+                  [nzMin]="-2"
+                  [nzMax]="2"
+                  [nzStep]="0.001"
+                  [disabled]="isMissionStarted || stateIsNotReady"
+                  nzSize="small"
+                  style="width: 68px"
+                ></nz-input-number>
+              </p>
+              <p class="input-pos">
+                y :
+                <nz-input-number
+                  [(ngModel)]="position.y"
+                  [nzMin]="-2"
+                  [nzMax]="2"
+                  [nzStep]="0.001"
+                  [disabled]="isMissionStarted || stateIsNotReady"
+                  nzSize="small"
+                  style="width: 68px"
+                ></nz-input-number>
+              </p>
+            </div>
           </div>
         </li>
         <li>

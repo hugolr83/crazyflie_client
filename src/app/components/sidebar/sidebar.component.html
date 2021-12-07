@@ -55,16 +55,16 @@
           <button
             *ngIf="!isSimulationSelected"
             class="button p2p"
-            [disabled]="isNotConnected || p2pIsActivated"
-            (click)="droneService.activateP2P()"
+            [disabled]="isNotConnected || p2pIsEnabled || stateIsReady"
+            (click)="missionService.activateP2P()"
           >
-            P2P
+            Activer P2P
           </button>
         </li>
         <li>
-          <button class="logs" disabled>Configuration</button>
+          <button class="placeholder" disabled>Configuration</button>
           <nz-switch
-            class="log-switch"
+            class="switch"
             [ngModel]="inputIsShown"
             [nzDisabled]="isNotConnected"
             [nzCheckedChildren]="checkedTemplate"
@@ -76,14 +76,28 @@
           </nz-switch>
         </li>
         <li>
-          <button class="logs" disabled>Afficher logs</button>
+          <button class="placeholder" disabled>Afficher logs</button>
           <nz-switch
-            class="log-switch"
+            class="switch"
             [ngModel]="logIsShown"
             [nzDisabled]="isNotConnected"
             [nzCheckedChildren]="checkedTemplate"
             [nzUnCheckedChildren]="unCheckedTemplate"
             (ngModelChange)="showLogs()"
+          >
+            <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+          </nz-switch>
+        </li>
+        <li>
+          <button class="placeholder" disabled>Afficher trajet</button>
+          <nz-switch
+            class="switch"
+            [ngModel]="pathIsShow"
+            [nzDisabled]="isNotConnected"
+            (ngModelChange)="togglePaths($event)"
+            [nzCheckedChildren]="checkedTemplate"
+            [nzUnCheckedChildren]="unCheckedTemplate"
           >
             <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
             <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>

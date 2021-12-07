@@ -26,7 +26,7 @@ describe('MapService', () => {
         const commSpy = jasmine.createSpyObj('CommonApiService', ['getDronesMetadata']);
         contextSpy = jasmine.createSpyObj(
             'CanvasRenderingContext2D',
-            ['clearRect', 'beginPath', 'moveTo', 'lineTo', 'fill', 'closePath', 'fillRect'],
+            ['clearRect', 'beginPath', 'moveTo', 'lineTo', 'fill', 'closePath', 'fillRect', 'arc'],
             {
                 canvas: canvas,
             },

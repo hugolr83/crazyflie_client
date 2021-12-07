@@ -55,9 +55,9 @@ export class MapService {
 
         if (!mergedCtx) return '';
 
-        for (const ctx of Object.values(this.droneToPosContext)) {
+        /*for (const ctx of Object.values(this.droneToPosContext)) {
             mergedCtx.drawImage(ctx.canvas, 0, 0);
-        }
+        }*/
 
         for (const ctx of Object.values(this.droneToPathContext)) {
             mergedCtx.drawImage(ctx.canvas, 0, 0);
@@ -126,7 +126,7 @@ export class MapService {
         return { shiftx, shifty };
     }
 
-    private drawPosition(drone: DroneMap): void {
+    drawPosition(drone: DroneMap): void {
         const ctx = this.droneToPosContext[drone.id];
         const { shiftx, shifty } = this.computePosition(drone, ctx);
 

@@ -44,21 +44,30 @@
 
 .position-container {
     width: 100%;
+    display: flex;
+}
+
+.title-pos {
+    width: 30%;
+}
+
+.xy-container {
+    width: 70%;
     position: relative;
     display: flex;
     justify-content: center;
     height: 40px;
     .input-pos {
-        margin-right: 13px;
+        margin-right: 30px;
     }
 }
 
 .dot {
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
     border-radius: 50%;
     display: inline-block;
-    margin-right: 5px;
+    margin: 4px 0 0 5px;
 }
 
 @media screen and (max-width: 1400px) {
@@ -128,4 +137,9 @@
         display: flex;
         justify-content: center;
     }
+}
+
+.color-container {
+    display: flex;
+    width: 100%;
 }

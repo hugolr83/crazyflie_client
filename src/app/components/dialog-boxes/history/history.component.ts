@@ -47,24 +47,29 @@ export class HistoryComponent implements OnInit {
         const missionsData: MissionData[] = [];
 
         for (let mission of missions) {
-            let data: MissionData = {
-                id: mission.id,
-                startingDate: this.logService.formatTimestamp(mission.starting_time).date,
-                startingTime: this.logService.formatTimestamp(mission.starting_time).time,
-                elapsedTime: this.historyService.getElapsedTime(mission.starting_time, mission.ending_time as string),
-                numberRobots: 2,
-                droneType: mission.drone_type,
-                distance: mission.total_distance.toFixed(2),
-                expandLog: false,
-                expandMap: false,
-                mapSrc: '',
-            };
+            if (mission.ending_time !== null) {
+                let data: MissionData = {
+                    id: mission.id,
+                    startingDate: this.logService.formatTimestamp(mission.starting_time).date,
+                    startingTime: this.logService.formatTimestamp(mission.starting_time).time,
+                    elapsedTime: this.historyService.getElapsedTime(
+                        mission.starting_time,
+                        mission.ending_time as string,
+                    ),
+                    numberRobots: 2,
+                    droneType: mission.drone_type,
+                    distance: mission.total_distance.toFixed(2),
+                    expandLog: false,
+                    expandMap: false,
+                    mapSrc: '',
+                };
 
-            this.communicationService.getLogs(mission.id).subscribe((logs: Log[]) => {
-                data.logs = logs;
-            });
+                this.communicationService.getLogs(mission.id).subscribe((logs: Log[]) => {
+                    data.logs = logs;
+                });
 
-            missionsData.push(data);
+                missionsData.push(data);
+            }
         }
         this.isLoading = false;
         return missionsData;

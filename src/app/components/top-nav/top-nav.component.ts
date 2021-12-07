@@ -3,6 +3,7 @@ import { DroneType } from '@backend/api-client';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
+import { MapService } from 'src/app/services/map/map.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
@@ -20,6 +21,7 @@ export class TopNavComponent {
         public logService: LogService,
         public sidebarComponent: SidebarComponent,
         public droneService: DroneService,
+        public mapService: MapService,
     ) {}
 
     showLogs(): void {
@@ -52,8 +54,8 @@ export class TopNavComponent {
         return this.droneService.inputIsShown;
     }
 
-    get p2pIsActivated(): boolean {
-        return this.droneService.p2pIsActivated;
+    get p2pIsEnabled(): boolean {
+        return this.missionService.p2pIsEnabled;
     }
 
     get isNotConnected(): boolean {
@@ -62,5 +64,21 @@ export class TopNavComponent {
 
     get isSimulationSelected(): boolean {
         return this.missionService.isSimulationSelected;
+    }
+
+    get stateIsReady(): boolean {
+        return this.droneService.stateIsReady;
+    }
+
+    get stateIsNotReady(): boolean {
+        return this.droneService.stateIsNotReady;
+    }
+
+    togglePaths(value: boolean): void {
+        this.mapService.togglePaths(value);
+    }
+
+    get pathIsShow(): boolean {
+        return this.mapService.showPaths;
     }
 }

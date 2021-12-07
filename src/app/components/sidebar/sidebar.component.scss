@@ -101,15 +101,6 @@ nz-sider {
     color: #2652a4;
 }
 
-.log-switch {
-    ::ng-deep .ant-switch {
-        background-color: #d20010;
-    }
-
-    ::ng-deep .ant-switch-checked {
-        background-color: #1ca93f;
-    }
-}
 .folder {
     padding-right: 10px;
 }
@@ -184,7 +175,7 @@ button[disabled] {
     box-shadow: 0 0 5px #1d79fe !important;
 }
 
-.logs:disabled {
+.placeholder:disabled {
     cursor: pointer;
     border: 1px transparent;
     background-color: #f8f8f8;
@@ -197,10 +188,17 @@ button[disabled] {
     text-align: center;
 }
 
-.log-switch {
+.switch {
     width: 30%;
     height: 100%;
     padding-bottom: 1px;
+    ::ng-deep .ant-switch {
+        background-color: #d20010;
+    }
+
+    ::ng-deep .ant-switch-checked {
+        background-color: #1ca93f;
+    }
 }
 
 .button-history {

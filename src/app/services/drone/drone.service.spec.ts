@@ -54,14 +54,6 @@ describe('DroneService', () => {
         expect(service).toBeTruthy();
     });
 
-    // it('should startMission', () => {
-    //     commonApiService.createMission.and.returnValue(of());
-
-    //     service.startMission();
-
-    //     expect(service['callApi']).toHaveBeenCalled;
-    // });
-
     it('should end mission', () => {
         const spy = spyOn(service, 'endMission').and.callThrough();
         service.endMission();
@@ -72,11 +64,6 @@ describe('DroneService', () => {
         const spy = spyOn(service, 'returnToBase').and.callThrough();
         service.returnToBase();
         expect(spy).toHaveBeenCalled();
-    });
-
-    it('should set p2pIsActivated to true', () => {
-        service.activateP2P();
-        expect(service.p2pIsActivated).toEqual(true);
     });
 
     it('showInputs should trigger inputIsShown to false', () => {

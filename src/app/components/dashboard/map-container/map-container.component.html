@@ -1,17 +1,10 @@
-<div>
-  <button class="paths">Afficher trajet</button>
-  <nz-switch
-    class="path-switch"
-    [ngModel]="pathIsShow"
-    (ngModelChange)="togglePaths($event)"
-    [nzCheckedChildren]="checkedTemplate"
-    [nzUnCheckedChildren]="unCheckedTemplate"
-  >
-    <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
-    <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
-  </nz-switch>
+<div class="box">
+  <div class="title">
+    <i class="fas fa-map"></i>Carte
+    <div class="id" *ngIf="missionService.isMissionStarted">(Mission {{ currentMissionID }})</div>
+  </div>
 
-  <div class="layout">
+  <div class="map-container">
     <!-- position canvas for every drone -->
     <div *ngFor="let id of connectedDrones" style="position: absolute">
       <app-map [droneID]="id" [name]="id + 'position'" type="position" zindex="2"></app-map>

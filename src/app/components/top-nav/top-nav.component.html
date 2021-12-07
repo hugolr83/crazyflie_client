@@ -24,10 +24,18 @@
       </li>
       <li nz-submenu nzTitle="Mission" nzIcon="login">
         <ul>
-          <li nz-menu-item [nzDisabled]="isNotConnected || isMissionStarted" (click)="missionService.startMission()">
+          <li
+            nz-menu-item
+            [nzDisabled]="stateIsNotReady || !stateIsReady || isMissionStarted"
+            (click)="missionService.startMission()"
+          >
             Lancer la mission
           </li>
-          <li nz-menu-item [nzDisabled]="!isMissionStarted" (click)="missionService.endMission()">
+          <li
+            nz-menu-item
+            [nzDisabled]="!isMissionStarted || isReturnToBaseDisabled"
+            (click)="missionService.endMission()"
+          >
             Terminer la mission
           </li>
         </ul>
@@ -51,14 +59,14 @@
           <li
             *ngIf="!isSimulationSelected"
             nz-menu-item
-            [nzDisabled]="isNotConnected || p2pIsActivated"
-            (click)="droneService.activateP2P()"
+            [nzDisabled]="isNotConnected || p2pIsEnabled || stateIsReady"
+            (click)="missionService.activateP2P()"
           >
-            P2P
+            Activer P2P
           </li>
           <li>
             <div class="switch-container">
-              Configuration robots
+              Afficher configuration
               <nz-switch
                 class="config-switch"
                 [nzDisabled]="isNotConnected"
@@ -71,6 +79,8 @@
                 <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
               </nz-switch>
             </div>
+          </li>
+          <li>
             <div class="switch-container">
               Afficher logs
               <nz-switch
@@ -80,6 +90,22 @@
                 [nzCheckedChildren]="checkedTemplate"
                 [nzUnCheckedChildren]="unCheckedTemplate"
                 (ngModelChange)="showLogs()"
+              >
+                <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+                <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+              </nz-switch>
+            </div>
+          </li>
+          <li>
+            <div class="switch-container">
+              Afficher trajet
+              <nz-switch
+                class="path-switch"
+                [nzDisabled]="isNotConnected"
+                [ngModel]="pathIsShow"
+                (ngModelChange)="togglePaths($event)"
+                [nzCheckedChildren]="checkedTemplate"
+                [nzUnCheckedChildren]="unCheckedTemplate"
               >
                 <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
                 <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
