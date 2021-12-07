@@ -21,13 +21,11 @@ export class MapComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const ctx = (document.getElementById(this.name) as HTMLCanvasElement).getContext('2d');
-        console.log('ng after view init', this.type);
         switch (this.type) {
             case 'position':
                 this.mapService.setPositionContext(ctx, this.droneID);
                 break;
             case 'obstacle':
-                console.log('excute taht shit');
                 this.mapService.setObstacleContext(ctx);
                 break;
 

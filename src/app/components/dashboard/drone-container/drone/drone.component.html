@@ -3,7 +3,12 @@
   <div class="content">
     <ul>
       <li>
-        <p><i class="icon" nz-icon nzType="tag" nzTheme="outline"></i>Couleur trajet :</p>
+        <div class="color-container">
+          <p><i class="icon" nz-icon nzType="tag" nzTheme="outline"></i>Couleur trajet :</p>
+          <div style="display: flex" class="drone">
+            <span class="dot" [style.background-color]="droneFillStyle"></span>
+          </div>
+        </div>
       </li>
       <app-drone-pulse [drone]="drone"></app-drone-pulse>
       <li class="button" *ngIf="appService.droneType === DroneType.Crazyflie">

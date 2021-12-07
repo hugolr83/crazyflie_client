@@ -50,7 +50,6 @@ describe('MissionService', () => {
     });
 
     it('should start mission', () => {
-        const spyLogs = spyOn(logService, 'startGettingLogs').and.callThrough();
         const spyDrones = spyOn(droneService, 'startMission').and.callThrough();
         spyOn<any>(mapService, 'clearMap');
 
@@ -59,29 +58,14 @@ describe('MissionService', () => {
         expect(droneService.inputIsShown).toEqual(false);
         expect(service.isMissionStarted).toEqual(true);
         expect(service.isReturnToBaseDisabled).toEqual(false);
-        expect(logService.loggingIsStopped).toEqual(false);
-        expect(spyLogs).toHaveBeenCalled();
         expect(spyDrones).toHaveBeenCalled();
     });
-
-    /*
-    startMission(): void {
-        this.droneService.inputIsShown = false;
-        this.isMissionStarted = true;
-        this.isReturnToBaseDisabled = false;
-        this.logService.loggingIsStopped = false;
-        this.logService.startGettingLogs();
-        this.droneService.startMission();
-        this.mapService.clearMap();
-    }
-    */
 
     it('should end mission', () => {
         const spyDrones = spyOn(droneService, 'endMission').and.callThrough();
         service.endMission();
         expect(service.isMissionStarted).toEqual(false);
         expect(service.isReturnToBaseDisabled).toEqual(true);
-        expect(logService.loggingIsStopped).toEqual(true);
         expect(spyDrones).toHaveBeenCalled();
     });
 

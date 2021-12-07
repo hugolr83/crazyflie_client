@@ -37,7 +37,6 @@ describe('MapComponent', () => {
         expect(component).toBeTruthy();
     });
     it('ngAfterViewInit should set correct canvas context', () => {
-        console.log('this test');
         component.type = 'obstacle';
         spyOn<any>(mapService, 'setObstacleContext');
 
@@ -48,7 +47,6 @@ describe('MapComponent', () => {
     });
 
     it('ngAfterViewInit should set correct canvas context', () => {
-        console.log('this test');
         component.type = 'path';
         spyOn<any>(mapService, 'setPathContext');
 
@@ -59,7 +57,6 @@ describe('MapComponent', () => {
     });
 
     it('ngAfterViewInit should set correct canvas context', () => {
-        console.log('this test');
         component.type = 'position';
         spyOn<any>(mapService, 'setPositionContext');
 

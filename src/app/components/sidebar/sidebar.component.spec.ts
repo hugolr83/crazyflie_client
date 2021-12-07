@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
+import { MapService } from 'src/app/services/map/map.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { SidebarComponent } from './sidebar.component';
 
@@ -14,6 +15,7 @@ describe('SidebarComponent', () => {
     let component: SidebarComponent;
     let fixture: ComponentFixture<SidebarComponent>;
 
+    let mapService: jasmine.SpyObj<MapService>;
     let appService: jasmine.SpyObj<AppService>;
     let logService: jasmine.SpyObj<LogService>;
     let missionService: jasmine.SpyObj<MissionService>;
@@ -30,6 +32,7 @@ describe('SidebarComponent', () => {
         viewContainerRef = jasmine.createSpyObj('ViewContainerRef', ['']);
         overlaySpy = jasmine.createSpyObj('Overlay', ['']);
         droneService = jasmine.createSpyObj('DroneService', ['']);
+        const spy = jasmine.createSpyObj('MapService', ['loadMap', 'togglePaths', 'drawMap']);
 
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
@@ -44,12 +47,15 @@ describe('SidebarComponent', () => {
                 { provide: Overlay, usevalue: overlaySpy },
                 { provide: HttpClient },
                 { provide: HttpClientTestingModule },
+                { provide: MapService, usevalue: spy },
             ],
         }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(SidebarComponent);
+        mapService = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
+
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -138,14 +144,6 @@ describe('SidebarComponent', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    // it('should trigger isNotConnected false to true', () => {
-    //     const droneServiceStub = TestBed.inject(DroneService);
-    //     droneServiceStub.
-    //     Object.defineProperty(droneService, 'isNotConnected', { value: true, writable: true });
-    //     droneService.isNotConnected = true;
-    //     expect(droneServiceStub.inputIsShown).toEqual(true);
-    // });
-
     it('p2p should trigger p2pIsActivated to false', () => {
         const droneServiceStub = TestBed.inject(DroneService);
         droneServiceStub.p2pIsActivated = false;
@@ -160,5 +158,21 @@ describe('SidebarComponent', () => {
         const spy = spyOnProperty(component, 'p2pIsActivated').and.callThrough();
         expect(component.p2pIsActivated).toEqual(true);
         expect(spy).toHaveBeenCalled();
+    });
+
+    it('togglepath should call service with false', () => {
+        spyOn<any>(mapService, 'togglePaths');
+
+        component.togglePaths(false);
+
+        expect(mapService.togglePaths).toHaveBeenCalledWith(false);
+    });
+
+    it('togglepath should call service', () => {
+        spyOn<any>(mapService, 'togglePaths');
+
+        component.togglePaths(true);
+
+        expect(mapService.togglePaths).toHaveBeenCalledWith(true);
     });
 });

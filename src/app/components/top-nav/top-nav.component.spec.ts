@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app.module';
 import { AppService } from 'src/app/services/app/app.service';
 import { LogService } from 'src/app/services/log/log.service';
+import { MapService } from 'src/app/services/map/map.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TopNavComponent } from './top-nav.component';
@@ -17,9 +18,12 @@ describe('TopNavComponent', () => {
     let appServiceStub: AppService;
     let logServiceStub: LogService;
     let missionServiceStub: MissionService;
+    let mapService: jasmine.SpyObj<MapService>;
 
     beforeEach(async () => {
         appService = jasmine.createSpyObj('AppService', ['setDroneType']);
+        const spy = jasmine.createSpyObj('MapService', ['loadMap', 'togglePaths', 'drawMap']);
+
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule, AppModule],
             declarations: [TopNavComponent],
@@ -28,12 +32,15 @@ describe('TopNavComponent', () => {
                 { provide: MissionService, usevalue: missionService },
                 { provide: LogService, usevalue: logService },
                 { provide: SidebarComponent, usevalue: sidebarComponent },
+                { provide: MapService, usevalue: spy },
             ],
         }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TopNavComponent);
+        mapService = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
+
         component = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -112,5 +119,21 @@ describe('TopNavComponent', () => {
         const spy = spyOnProperty(component, 'isReturnToBaseDisabled').and.callThrough();
         expect(component.isReturnToBaseDisabled).toEqual(false);
         expect(spy).toHaveBeenCalled();
+    });
+
+    it('togglepath should call service with false', () => {
+        spyOn<any>(mapService, 'togglePaths');
+
+        component.togglePaths(false);
+
+        expect(mapService.togglePaths).toHaveBeenCalledWith(false);
+    });
+
+    it('togglepath should call service', () => {
+        spyOn<any>(mapService, 'togglePaths');
+
+        component.togglePaths(true);
+
+        expect(mapService.togglePaths).toHaveBeenCalledWith(true);
     });
 });

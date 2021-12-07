@@ -51,7 +51,7 @@ describe('DroneComponent', () => {
         expect(droneComponent).toBeTruthy();
     });
 
-    it('identify drone should not call crazyflie service if uuid is empty', () => {
+    it('identify drone should not call crazyflie service if id is empty', () => {
         let id: number = 0;
         droneComponent.identifyDrone(id);
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('DroneComponent', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('getDroneType should return Crazyflie if we are using Crazyflie drones', () => {
+    it('DroneType should return Crazyflie if we are using Crazyflie drones', () => {
         droneComponent.appService.droneType = DroneType.Crazyflie;
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Crazyflie);

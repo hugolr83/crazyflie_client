@@ -18,7 +18,7 @@ export class DronePulseComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.drone.state === DroneState.NotReady && this.missionService.isMissionStarted)
-            this.missionService.endMission();
+            this.missionService.returnToBase();
     }
 
     get stateIsNotReady(): boolean {
@@ -26,7 +26,7 @@ export class DronePulseComponent implements OnChanges {
     }
 
     get batteryIsLow(): boolean {
-        return this.drone.battery.charge_percentage < 30 && this.drone.battery.charge_percentage > 1;
+        return this.drone.battery.charge_percentage <= 30 && this.drone.battery.charge_percentage > 0;
     }
     get batteryIsZero(): boolean {
         return this.drone.battery.charge_percentage === 0;

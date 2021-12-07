@@ -71,7 +71,6 @@ export class DroneService {
 
     activateP2P(): void {
         this.p2pIsActivated = true;
-        console.log('P2P');
     }
 
     private callApi(func: Func): void {

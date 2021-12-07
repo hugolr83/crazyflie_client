@@ -10,6 +10,7 @@ import { MapService } from 'src/app/services/map/map.service';
 })
 export class MapContainerComponent implements OnDestroy, OnInit {
     timeout!: any;
+
     constructor(public appService: AppService, public mapService: MapService) {
         this.timeout = setInterval(() => {
             for (const drone of Object.values(this.appService.droneRegistry[this.appService.droneType])) {
@@ -29,14 +30,6 @@ export class MapContainerComponent implements OnDestroy, OnInit {
         if (this.appService.activeMission) {
             this.mapService.loadMap(this.appService.activeMission.id, this.appService.activeMission.drone_type);
         }
-    }
-
-    togglePaths(value: boolean): void {
-        this.mapService.togglePaths(value);
-    }
-
-    get pathIsShow(): boolean {
-        return this.mapService.showPaths;
     }
 
     get connectedDrones(): number[] {
