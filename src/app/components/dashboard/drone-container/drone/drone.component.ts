@@ -40,6 +40,15 @@ export class DroneComponent {
         this.crazyflieApiService.identifyCrazyflie(id).subscribe((_) => {});
     }
 
+    onSetInitialConfig(): void {
+        this.commonApiService
+            .setDronePosition(this.droneID, {
+                position: this.position,
+                orientation: this.orientation,
+            })
+            .subscribe((_) => {});
+    }
+
     get isMissionStarted(): boolean {
         return this.missionService.isMissionStarted;
     }
