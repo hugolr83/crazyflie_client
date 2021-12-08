@@ -9,7 +9,7 @@ import {
     DroneState,
     DroneType,
     Mission,
-    MissionState,
+    MissionState
 } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from '../app/app.service';
@@ -70,28 +70,11 @@ describe('DroneService', () => {
             CRAZYFLIE: {},
         };
 
-        const mockMission: Mission = {
-            drone_type: DroneType.Argos,
-            id: 0,
-            starting_time: '',
-            ending_time: '',
-            total_distance: 10,
-            state: MissionState.Created,
-        };
+        
     });
 
     it('should be created', () => {
         expect(service).toBeTruthy();
-    });
-
-    it('should start mission and call api', () => {
-        // test subscribe
-        spyOn<any>(commonApiService, 'createMission').and.returnValue(of());
-        // spyOn<any>(service, 'callApi');
-
-        service.startMission();
-
-        // expect(service['callApi']).toHaveBeenCalled();
     });
 
     it('should end mission should save map and call api', () => {
@@ -214,5 +197,53 @@ describe('DroneService', () => {
         service.saveMap();
 
         expect(commonApiService.createMap).toHaveBeenCalled();
+    });
+
+    it('startMission should start mission', () => {
+        const mockMission: Mission = {
+            drone_type: DroneType.Argos,
+            id: 0,
+            starting_time: '',
+            ending_time: '',
+            total_distance: 10,
+            state: MissionState.Created,
+        };
+        spyOn<any>(commonApiService, 'createMission').and.returnValue(of(mockMission));
+
+        service.startMission();
+
+        expect(commonApiService.createMission).toHaveBeenCalled();
+    });
+
+    it('getLogs should get logs', () => {
+        const mockMission: Mission = {
+            drone_type: DroneType.Argos,
+            id: 0,
+            starting_time: '',
+            ending_time: '',
+            total_distance: 10,
+            state: MissionState.Created,
+        };
+        spyOn<any>(appService, 'getActiveMission').and.returnValue(of(mockMission));
+        spyOn<any>(commonApiService, 'getLogs').and.returnValue(of([{}]));
+
+
+        service.getLogs().subscribe((logs) => {
+            expect(appService.getActiveMission).toHaveBeenCalled();
+            expect(commonApiService.getLogs).toHaveBeenCalled();
+            expect(logs).not.toBeNull();
+        }); 
+    });
+
+    it('getLogs should get logs', () => {
+        spyOn<any>(appService, 'getActiveMission').and.returnValue(of(undefined));
+        spyOn<any>(commonApiService, 'getLogs').and.returnValue(of([{}]));
+
+
+        service.getLogs().subscribe((logs) => {
+            expect(appService.getActiveMission).toHaveBeenCalled();
+            expect(commonApiService.getLogs).not.toHaveBeenCalled();
+            expect(logs).not.toBeNull();
+        }); 
     });
 });

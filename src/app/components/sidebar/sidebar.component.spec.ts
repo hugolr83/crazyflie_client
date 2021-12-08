@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DroneType } from '@backend/api-client';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from 'src/app/services/app/app.service';
 import { DroneService } from 'src/app/services/drone/drone.service';
@@ -25,26 +26,26 @@ describe('SidebarComponent', () => {
     let overlaySpy: jasmine.SpyObj<Overlay>;
 
     beforeEach(async () => {
-        appService = jasmine.createSpyObj('AppService', ['']);
-        logService = jasmine.createSpyObj('LogService', [''], ['logIsShown']);
-        missionService = jasmine.createSpyObj('MissionService', ['']);
-        modalService = jasmine.createSpyObj('NzModalService', ['']);
-        viewContainerRef = jasmine.createSpyObj('ViewContainerRef', ['']);
-        overlaySpy = jasmine.createSpyObj('Overlay', ['']);
-        droneService = jasmine.createSpyObj('DroneService', ['']);
+        const appServiceS = jasmine.createSpyObj('AppService', ['']);
+        const logServiceS = jasmine.createSpyObj('LogService', [''], ['logIsShown']);
+        const missionServiceS = jasmine.createSpyObj('MissionService', ['']);
+        const modalServiceS = jasmine.createSpyObj('NzModalService', ['']);
+        const viewContainerRefSpy = jasmine.createSpyObj('ViewContainerRef', ['']);
+        const overlaySpyS = jasmine.createSpyObj('Overlay', ['']);
+        const droneServiceS = jasmine.createSpyObj('DroneService', ['']);
         const spy = jasmine.createSpyObj('MapService', ['loadMap', 'togglePaths', 'drawMap']);
 
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             declarations: [SidebarComponent],
             providers: [
-                { provide: AppService, usevalue: appService },
-                { provide: LogService, usevalue: logService },
-                { provide: MissionService, usevalue: missionService },
-                { provide: NzModalService, usevalue: modalService },
-                { provide: DroneService, usevalue: droneService },
-                { provide: ViewContainerRef, usevalue: viewContainerRef },
-                { provide: Overlay, usevalue: overlaySpy },
+                { provide: AppService, usevalue: appServiceS },
+                { provide: LogService, usevalue: logServiceS },
+                { provide: MissionService, usevalue: missionServiceS },
+                { provide: NzModalService, usevalue: modalServiceS },
+                { provide: DroneService, usevalue: droneServiceS },
+                { provide: ViewContainerRef, usevalue: viewContainerRefSpy },
+                { provide: Overlay, usevalue: overlaySpyS },
                 { provide: HttpClient },
                 { provide: HttpClientTestingModule },
                 { provide: MapService, usevalue: spy },
@@ -55,6 +56,14 @@ describe('SidebarComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SidebarComponent);
         mapService = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
+        appService = TestBed.inject(AppService) as jasmine.SpyObj<AppService>;
+        droneService = TestBed.inject(DroneService) as jasmine.SpyObj<DroneService>;
+        logService = TestBed.inject(LogService) as jasmine.SpyObj<LogService>;
+        missionService = TestBed.inject(MissionService) as jasmine.SpyObj<MissionService>;
+        modalService = TestBed.inject(NzModalService) as jasmine.SpyObj<NzModalService>;
+        overlaySpy = TestBed.inject(Overlay) as jasmine.SpyObj<Overlay>;
+        viewContainerRef =  TestBed.inject(ViewContainerRef) as jasmine.SpyObj<ViewContainerRef>;
+
 
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -175,4 +184,71 @@ describe('SidebarComponent', () => {
 
         expect(mapService.togglePaths).toHaveBeenCalledWith(true);
     });
+
+    it('toggleDroneType should call service', () => {
+        appService.droneType = DroneType.Crazyflie;
+        spyOn<any>(appService, 'setDroneType');
+
+        component.toggleDroneType();
+
+        expect(appService.setDroneType).toHaveBeenCalledWith(DroneType.Argos);
+    });
+
+    it('toggleDroneType should call service', () => {
+        appService.droneType = DroneType.Argos;
+        spyOn<any>(appService, 'setDroneType');
+
+        component.toggleDroneType();
+
+        expect(appService.setDroneType).toHaveBeenCalledWith(DroneType.Crazyflie);
+    });
+
+    it('showLogs should toggle value', () => {
+        logService.logIsShown = true;
+
+        component.showLogs();
+
+        expect(logService.logIsShown).toBeFalse();
+    });
+
+    it('stateIsReady should toggle value', () => {
+        const expectedValue = droneService.stateIsReady;
+
+        const value = component.stateIsReady;
+
+        expect(expectedValue).toBe(value);
+    });
+
+    it('showHelp should show help', () => {
+        spyOn<any>(modalService, 'create');
+
+        component.showHelp();
+
+        expect(modalService.create).toHaveBeenCalled();
+    });
+
+    it('showInformation should show info', () => {
+        spyOn<any>(modalService, 'create');
+
+        component.showInformation();
+
+        expect(modalService.create).toHaveBeenCalled();
+    });
+
+    it('showHistory should show history', () => {
+        spyOn<any>(modalService, 'create');
+
+        component.showHistory();
+
+        expect(modalService.create).toHaveBeenCalled();
+    });
+
+    it('droneType should get type of drone', () => {
+        const expectedValue = appService.droneType;
+
+        const value = component.droneType;
+
+        expect(expectedValue).toBe(value);
+    });
+    
 });
