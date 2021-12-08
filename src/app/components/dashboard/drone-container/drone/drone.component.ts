@@ -41,10 +41,16 @@ export class DroneComponent {
     }
 
     onSetInitialConfig(): void {
+        let x: number = this.position.x;
+        let y: number = this.position.y;
+        let z: number = this.position.z;
+
+        let yaw: number = this.orientation.yaw;
+
         this.commonApiService
             .setDronePosition(this.droneID, {
-                position: this.position,
-                orientation: this.orientation,
+                position: { x: x, y: y, z: z },
+                orientation: { yaw: yaw },
             })
             .subscribe((_) => {});
     }
