@@ -30,16 +30,17 @@ describe('LogComponent', () => {
     };
 
     beforeEach(async () => {
-        droneService = jasmine.createSpyObj('DroneService', ['getLogs']);
-        appService = jasmine.createSpyObj('AppService', ['getActiveMission']);
+        const droneServiceSpy = jasmine.createSpyObj('DroneService', ['getLogs']);
+        const appServiceSpy = jasmine.createSpyObj('AppService', ['getActiveMission']);
         communicationService = jasmine.createSpyObj('CommonApiService', ['getMissions']);
 
+        
         await TestBed.configureTestingModule({
             declarations: [LogComponent],
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: DroneService, usevalue: droneService },
-                { provide: AppService, usevalue: appService },
+                { provide: DroneService, usevalue: droneServiceSpy },
+                { provide: AppService, usevalue: appServiceSpy },
                 { provide: CommonApiService, usevalue: communicationService },
             ],
         }).compileComponents();
@@ -48,37 +49,49 @@ describe('LogComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(LogComponent);
         component = fixture.componentInstance;
+        droneService = TestBed.inject(DroneService) as jasmine.SpyObj<DroneService>;
+        appService = TestBed.inject(AppService) as jasmine.SpyObj<AppService>;
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
     it('updateLogs should getLogs if logs are empty', () => {
         component.logs = [];
-        droneService.getLogs.and.returnValue(of(logs));
+        spyOn<any>(droneService, 'getLogs').and.returnValues(of(logs));
 
         component.updateLogs();
 
-        expect(droneService.getLogs).not.toHaveBeenCalled();
+        expect(droneService.getLogs).toHaveBeenCalled();
     });
 
     it('updateLogs should getLogs if mission id is not active mission', () => {
         component.logs = [{ id: 0, mission_id: 0, timestamp: '4535345', message: 'Test' }];
         appService.activeMission = activeMission1;
-        droneService.getLogs.and.returnValue(of(logs));
+        spyOn<any>(droneService, 'getLogs').and.returnValues(of(logs));
 
         component.updateLogs();
 
-        expect(droneService.getLogs).not.toHaveBeenCalled();
+        expect(droneService.getLogs).toHaveBeenCalled();
     });
 
-    it('updateLogs should not getLogs if mission id is not active mission', () => {
+    it('updateLogs should getLogs if mission id is active mission', () => {
         component.logs = [{ id: 12, mission_id: 0, timestamp: '4535345', message: 'Test' }];
-        appService.activeMission = activeMission1;
-        droneService.getLogs.and.returnValue(of(logs));
+        appService.activeMission = activeMission0;
+        spyOn<any>(droneService, 'getLogs').and.returnValues(of(logs));
 
         component.updateLogs();
-        expect(droneService.getLogs).not.toHaveBeenCalled();
+        expect(droneService.getLogs).toHaveBeenCalled();
+    });
+
+    it('updateLogs should not getLogs if mission id is active mission but getlogs returns undefined', () => {
+        component.logs = [{ id: 12, mission_id: 0, timestamp: '4535345', message: 'Test' }];
+        appService.activeMission = activeMission0;
+        spyOn<any>(droneService, 'getLogs').and.returnValues(of(undefined));
+
+        component.updateLogs();
+        expect(droneService.getLogs).toHaveBeenCalled();
     });
 });
