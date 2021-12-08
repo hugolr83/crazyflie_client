@@ -9,7 +9,7 @@ import {
     DroneState,
     DroneType,
     Mission,
-    MissionState
+    MissionState,
 } from '@backend/api-client';
 import { of } from 'rxjs';
 import { AppService } from '../app/app.service';
@@ -69,8 +69,6 @@ describe('DroneService', () => {
             },
             CRAZYFLIE: {},
         };
-
-        
     });
 
     it('should be created', () => {
@@ -227,23 +225,21 @@ describe('DroneService', () => {
         spyOn<any>(appService, 'getActiveMission').and.returnValue(of(mockMission));
         spyOn<any>(commonApiService, 'getLogs').and.returnValue(of([{}]));
 
-
         service.getLogs().subscribe((logs) => {
             expect(appService.getActiveMission).toHaveBeenCalled();
             expect(commonApiService.getLogs).toHaveBeenCalled();
             expect(logs).not.toBeNull();
-        }); 
+        });
     });
 
     it('getLogs should get logs', () => {
         spyOn<any>(appService, 'getActiveMission').and.returnValue(of(undefined));
         spyOn<any>(commonApiService, 'getLogs').and.returnValue(of([{}]));
 
-
         service.getLogs().subscribe((logs) => {
             expect(appService.getActiveMission).toHaveBeenCalled();
             expect(commonApiService.getLogs).not.toHaveBeenCalled();
             expect(logs).not.toBeNull();
-        }); 
+        });
     });
 });

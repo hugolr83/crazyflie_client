@@ -62,8 +62,7 @@ describe('SidebarComponent', () => {
         missionService = TestBed.inject(MissionService) as jasmine.SpyObj<MissionService>;
         modalService = TestBed.inject(NzModalService) as jasmine.SpyObj<NzModalService>;
         overlaySpy = TestBed.inject(Overlay) as jasmine.SpyObj<Overlay>;
-        viewContainerRef =  TestBed.inject(ViewContainerRef) as jasmine.SpyObj<ViewContainerRef>;
-
+        viewContainerRef = TestBed.inject(ViewContainerRef) as jasmine.SpyObj<ViewContainerRef>;
 
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -250,5 +249,4 @@ describe('SidebarComponent', () => {
 
         expect(expectedValue).toBe(value);
     });
-    
 });

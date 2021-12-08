@@ -34,7 +34,6 @@ describe('LogComponent', () => {
         const appServiceSpy = jasmine.createSpyObj('AppService', ['getActiveMission']);
         communicationService = jasmine.createSpyObj('CommonApiService', ['getMissions']);
 
-        
         await TestBed.configureTestingModule({
             declarations: [LogComponent],
             imports: [HttpClientTestingModule],

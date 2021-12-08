@@ -13,7 +13,7 @@ describe('Service: communication', () => {
             providers: [],
         });
         jasmine.clock().install();
-        
+
         communicationService = TestBed.inject(CommunicationService);
     });
 
@@ -29,8 +29,8 @@ describe('Service: communication', () => {
         let drones: any[] = [];
 
         communicationService.listenDronePulse().subscribe((dronesP) => {
-            drones=dronesP;
-        })
+            drones = dronesP;
+        });
 
         jasmine.clock().tick(1001);
 

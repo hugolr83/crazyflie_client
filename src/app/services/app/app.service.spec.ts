@@ -25,7 +25,7 @@ describe('AppService', () => {
 
         service = TestBed.inject(AppService);
         commonApiService = TestBed.inject(CommonApiService) as jasmine.SpyObj<CommonApiService>;
-        communicationService =TestBed.inject(CommunicationService) as jasmine.SpyObj<CommunicationService>;
+        communicationService = TestBed.inject(CommunicationService) as jasmine.SpyObj<CommunicationService>;
     });
 
     it('should be created', () => {
@@ -45,8 +45,7 @@ describe('AppService', () => {
     });
 
     it('registerDronePulse should register pulse of drone', () => {
-
-        const drones = [{id: 1, type: DroneType.Crazyflie} as any];
+        const drones = [{ id: 1, type: DroneType.Crazyflie } as any];
         spyOn<any>(communicationService, 'listenDronePulse').and.returnValues(of(drones));
 
         service.registerDronePulse();
@@ -55,11 +54,10 @@ describe('AppService', () => {
     });
 
     it('getActiveMission should get active mission', () => {
-
         service.activeMission = {} as any;
 
         service.getActiveMission().subscribe((mission) => {
             expect(mission).not.toBeNull();
-        })
+        });
     });
 });

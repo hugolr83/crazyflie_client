@@ -178,8 +178,7 @@ describe('HistoryComponent', () => {
     });
 
     it('filterTypeFn should filter items', () => {
-        const value = component.filterTypeFn(['Crazy'], {droneType : 'Crazy'} as any);
+        const value = component.filterTypeFn(['Crazy'], { droneType: 'Crazy' } as any);
         expect(value).toBeTrue();
     });
-
 });
