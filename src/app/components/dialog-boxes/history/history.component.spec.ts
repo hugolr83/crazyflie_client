@@ -49,6 +49,8 @@ describe('HistoryComponent', () => {
         fixture = TestBed.createComponent(HistoryComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+
+        communicationService = TestBed.inject(CommonApiService) as jasmine.SpyObj<CommonApiService>;
     });
 
     it('should create', () => {
@@ -56,14 +58,24 @@ describe('HistoryComponent', () => {
     });
 
     it('ngOnInit should call getMissions', () => {
-        spyOn(component, 'getMissions').and.callThrough();
+        const missions: Mission[] = [
+            {
+                id: 0,
+                drone_type: DroneType.Argos,
+                state: MissionState.Created,
+                total_distance: 10,
+                starting_time: 'test',
+            },
+        ];
+        spyOn<any>(communicationService, 'getMissions').and.returnValue(of(missions));
+
         component.ngOnInit();
-        expect(component.isLoading).toBeTrue();
-        expect(component.getMissions).toHaveBeenCalled();
+        expect(component.isLoading).toBeFalse();
+        expect(communicationService.getMissions).toHaveBeenCalled();
     });
 
     it('buildMissionData create mission', () => {
-        communicationService.getLogs.and.returnValue(of());
+        spyOn<any>(communicationService, 'getLogs').and.returnValue(of([]));
         const missions: Mission[] = [
             {
                 id: 0,
@@ -84,7 +96,7 @@ describe('HistoryComponent', () => {
             mission_id: 0,
             map: 'srcstring',
         };
-        communicationService.getMap.and.returnValue(of<any>(map));
+        spyOn<any>(communicationService, 'getMap').and.returnValue(of<any>(map));
 
         const missions: MissionData[] = [
             {
@@ -104,6 +116,7 @@ describe('HistoryComponent', () => {
         component.missionsData = missions;
 
         component.onMapExpand(true, 0);
+        expect(communicationService.getMap).toHaveBeenCalled();
     });
 
     it('onMapExpand should not load map if currentMission does not exist', () => {
@@ -111,9 +124,10 @@ describe('HistoryComponent', () => {
             mission_id: 0,
             map: 'srcstring',
         };
-        communicationService.getMap.and.returnValue(of<any>(map));
+        spyOn<any>(communicationService, 'getMap').and.returnValue(of<any>(map));
 
         component.onMapExpand(true, 0);
+        expect(communicationService.getMap).not.toHaveBeenCalled();
     });
 
     it('onMapExpand should not load map if expand is false', () => {
@@ -121,9 +135,10 @@ describe('HistoryComponent', () => {
             mission_id: 0,
             map: 'srcstring',
         };
-        communicationService.getMap.and.returnValue(of<any>(map));
+        spyOn<any>(communicationService, 'getMap').and.returnValue(of<any>(map));
 
         component.onMapExpand(false, 0);
+        expect(communicationService.getMap).not.toHaveBeenCalled();
     });
 
     it('connectedDrones should return an empty array of drone ids', () => {
@@ -159,6 +174,14 @@ describe('HistoryComponent', () => {
             mapSrc: '',
         };
         component.sortNumber(mission1, mission2);
+        component.sortDistance(mission1, mission2);
+        component.sortCreated(mission1, mission2);
+        component.sortElapsedTime(mission1, mission2);
         expect(component.sortNumber(mission1, mission2)).toEqual(5);
+    });
+
+    it('filterTypeFn should filter items', () => {
+        const value = component.filterTypeFn(['Crazy'], { droneType: 'Crazy' } as any);
+        expect(value).toBeTrue();
     });
 });

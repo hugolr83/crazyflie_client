@@ -1,7 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DroneType } from '@backend/api-client';
 import { AppModule } from 'src/app.module';
 import { AppService } from 'src/app/services/app/app.service';
+import { DroneService } from 'src/app/services/drone/drone.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { MapService } from 'src/app/services/map/map.service';
 import { MissionService } from 'src/app/services/mission/mission.service';
@@ -19,6 +21,7 @@ describe('TopNavComponent', () => {
     let logServiceStub: LogService;
     let missionServiceStub: MissionService;
     let mapService: jasmine.SpyObj<MapService>;
+    let dorneServiceStub: DroneService;
 
     beforeEach(async () => {
         appService = jasmine.createSpyObj('AppService', ['setDroneType']);
@@ -47,6 +50,7 @@ describe('TopNavComponent', () => {
         appServiceStub = TestBed.inject(AppService);
         logServiceStub = TestBed.inject(LogService);
         missionServiceStub = TestBed.inject(MissionService);
+        dorneServiceStub = TestBed.inject(DroneService);
     });
 
     it('should create', () => {
@@ -135,5 +139,39 @@ describe('TopNavComponent', () => {
         component.togglePaths(true);
 
         expect(mapService.togglePaths).toHaveBeenCalledWith(true);
+    });
+
+    it('toggleDroneType should call service', () => {
+        appServiceStub.droneType = DroneType.Crazyflie;
+        spyOn<any>(appServiceStub, 'setDroneType');
+
+        component.toggleDroneType();
+
+        expect(appServiceStub.setDroneType).toHaveBeenCalledWith(DroneType.Argos);
+    });
+
+    it('toggleDroneType should call service', () => {
+        appServiceStub.droneType = DroneType.Argos;
+        spyOn<any>(appServiceStub, 'setDroneType');
+
+        component.toggleDroneType();
+
+        expect(appServiceStub.setDroneType).toHaveBeenCalledWith(DroneType.Crazyflie);
+    });
+
+    it('p2pIsEnabled should call service', () => {
+        const expectedValue = missionServiceStub.p2pIsEnabled;
+
+        const value = component.p2pIsEnabled;
+
+        expect(expectedValue).toBe(value);
+    });
+
+    it('stateIsReady should call service', () => {
+        const expectedValue = dorneServiceStub.stateIsReady;
+
+        const value = component.stateIsReady;
+
+        expect(expectedValue).toBe(value);
     });
 });

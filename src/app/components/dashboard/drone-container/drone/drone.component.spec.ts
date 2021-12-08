@@ -73,6 +73,15 @@ describe('DroneComponent', () => {
         expect(crService.identifyCrazyflie).not.toHaveBeenCalled();
     });
 
+    it('identify drone should call crazyflie service if id is a number', () => {
+        let id = 0;
+        spyOn(crService, 'identifyCrazyflie').and.returnValue(of());
+
+        droneComponent.identifyDrone(id);
+
+        expect(crService.identifyCrazyflie).toHaveBeenCalled();
+    });
+
     it('onSetInitialConfig should call backend', () => {
         let id = undefined as any;
         spyOn(commonService, 'setDronePosition');
@@ -101,5 +110,13 @@ describe('DroneComponent', () => {
         const spy = spyOnProperty(droneComponent, 'droneType').and.callThrough();
         expect(droneComponent.droneType).toEqual(DroneType.Argos);
         expect(spy).toHaveBeenCalled();
+    });
+
+    it('stateIsNotReady should get value', () => {
+        const expectedValue = droneService.stateIsNotReady;
+
+        const value = droneComponent.stateIsNotReady;
+
+        expect(expectedValue).toBe(value);
     });
 });

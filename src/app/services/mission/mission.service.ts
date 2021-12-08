@@ -55,7 +55,6 @@ export class MissionService {
     activateP2P(): void {
         if (!this.appService.activeMission) return;
         this.p2pIsEnabled = true;
-        console.log(this.appService.activeMission.id);
         this.crazyflieApiService.activateP2p(this.appService.activeMission.id).subscribe((_) => {});
     }
 

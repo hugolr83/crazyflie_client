@@ -26,4 +26,16 @@ describe('PercentageBarComponent', () => {
         component.ngOnChanges();
         expect(component.renderArrayColor).toHaveBeenCalled();
     });
+
+    it('renderArrayColor should set red color', () => {
+        component.percentage = 10;
+        component.renderArrayColor();
+        expect(component.color).toBe('#ff0000');
+    });
+
+    it('renderArrayColor should set yellow color', () => {
+        component.percentage = 40;
+        component.renderArrayColor();
+        expect(component.color).toBe('#e79600');
+    });
 });
