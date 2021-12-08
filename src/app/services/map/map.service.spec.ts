@@ -48,7 +48,7 @@ describe('MapService', () => {
         const mockDroneMetaData: DronePositionOrientationRange = {
             orientation: { yaw: 123 },
             position: { x: 3, y: 34, z: 0 },
-            range: { back: 0, right: 0, left: 0, up: 0, bottom: 9, front: 3 },
+            range: { back: 100, right: 100, left: 100, up: 100, bottom: 109, front: 10 },
         };
 
         commonApiService.getDronesMetadata.and.returnValue(of<any>({ '0': [mockDroneMetaData] }));
@@ -132,9 +132,9 @@ describe('MapService', () => {
     });
 
     it('setPathContext should no set context if null', () => {
-        service.setPositionContext(null, 0);
+        service.setPathContext(null, 0);
 
-        expect(service.droneToPathContext[0]).toBeUndefined();
+        expect(service.droneToPathContext[0]).not.toEqual(contextSpy);
     });
 
     it('setObstacleContext should set obstacle and historical context', () => {
@@ -163,8 +163,8 @@ describe('MapService', () => {
         const drone: DroneMap = {
             fillStyle: 'blue',
             id: 0,
-            position: { x: 0.65, y: 0.67, z: 0 },
-            range: { back: 100, right: 100, left: 340, up: 340, bottom: 100, front: 10 },
+            position: { x: 0.65, y: 0.67, z: 0.0 },
+            range: { back: 100, right: 100, left: 340, up: 340, bottom: 100, front: 100 },
             state: DroneState.Exploring,
         };
 

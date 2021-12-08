@@ -54,6 +54,12 @@ describe('DroneService', () => {
         expect(service).toBeTruthy();
     });
 
+    it('should start mission and call api', () => {
+        const spy = spyOn(service, 'startMission').and.callThrough();
+        service.startMission();
+        expect(spy).toHaveBeenCalled();
+    });
+
     it('should end mission', () => {
         const spy = spyOn(service, 'endMission').and.callThrough();
         service.endMission();

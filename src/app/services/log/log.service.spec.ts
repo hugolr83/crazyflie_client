@@ -48,8 +48,21 @@ describe('LogService', () => {
         expect(service.msToTime(msTime)).toEqual('14:10:00');
     });
 
+    it('should convert ms to time under 10', () => {
+        let msTime: number = 32888000;
+        service.msToTime(msTime);
+        expect(service.msToTime(msTime)).toEqual('09:08:08');
+    });
+
     it('should format time', () => {
         let date: Date = new Date('Sun, 05 Dec 2021 14:19:24');
+        let timestamp: string = date.toLocaleString();
+        const result = service.formatTimestamp(timestamp);
+        expect(result.date_time).toMatch(/[ ]/);
+    });
+
+    it('should format time under 10', () => {
+        let date: Date = new Date('Sun, 04 Dec 2021 08:05:02 UTC');
         let timestamp: string = date.toLocaleString();
         const result = service.formatTimestamp(timestamp);
         expect(result.date_time).toMatch(/[ ]/);
