@@ -25,7 +25,7 @@
         <li>
           <button
             class="button stop"
-            [disabled]="!isMissionStarted || isReturnToBaseDisabled"
+            [disabled]="!isMissionStarted"
             (click)="missionService.endMission()"
           >
             Terminer la mission
