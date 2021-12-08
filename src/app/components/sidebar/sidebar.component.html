@@ -23,11 +23,7 @@
           </button>
         </li>
         <li>
-          <button
-            class="button stop"
-            [disabled]="!isMissionStarted"
-            (click)="missionService.endMission()"
-          >
+          <button class="button stop" [disabled]="!isMissionStarted" (click)="missionService.endMission()">
             Terminer la mission
           </button>
         </li>
