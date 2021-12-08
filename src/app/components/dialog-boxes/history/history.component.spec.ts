@@ -116,6 +116,7 @@ describe('HistoryComponent', () => {
         component.missionsData = missions;
 
         component.onMapExpand(true, 0);
+        expect(communicationService.getMap).toHaveBeenCalled();
     });
 
     it('onMapExpand should not load map if currentMission does not exist', () => {
@@ -126,6 +127,7 @@ describe('HistoryComponent', () => {
         spyOn<any>(communicationService, 'getMap').and.returnValue(of<any>(map));
 
         component.onMapExpand(true, 0);
+        expect(communicationService.getMap).not.toHaveBeenCalled();
     });
 
     it('onMapExpand should not load map if expand is false', () => {
@@ -136,6 +138,7 @@ describe('HistoryComponent', () => {
         spyOn<any>(communicationService, 'getMap').and.returnValue(of<any>(map));
 
         component.onMapExpand(false, 0);
+        expect(communicationService.getMap).not.toHaveBeenCalled();
     });
 
     it('connectedDrones should return an empty array of drone ids', () => {
